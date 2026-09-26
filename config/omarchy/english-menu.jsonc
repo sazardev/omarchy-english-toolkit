@@ -1,0 +1,66 @@
+{
+  "english": {
+    "icon": "4",
+    "label": "English",
+    "aliases": [
+      "ingles",
+      "english",
+      "study-english",
+      "aprender"
+    ]
+  },
+  "english.anki": {
+    "icon": "d",
+    "label": "Anki (grammar deck)",
+    "description": "2,141 notes, B1 to C2",
+    "action": "uwsm-app -- xdg-terminal-exec --app-id=org.omarchy.terminal --title=\"Anki\" -e anki",
+    "when": "command -v anki"
+  },
+  "english.check": {
+    "icon": "",
+    "label": "Check a text (encheck)",
+    "description": "Grammar and spelling, fully offline",
+    "action": "uwsm-app -- xdg-terminal-exec --app-id=org.omarchy.terminal --title=\"encheck\" -e bash -c 'encheck; read -r -p \"press enter\" _'"
+  },
+  "english.daily": {
+    "icon": "",
+    "label": "Today's plan",
+    "description": "The five phases, in order, with what is due",
+    "action": "$HOME/.local/bin/omarchy-launch-english-daily",
+    "when": "test -x $HOME/.local/bin/english-daily"
+  },
+  "english.practice": {
+    "icon": "7",
+    "label": "Conversation practice",
+    "description": "Local model, never uses your native language",
+    "action": "uwsm-app -- xdg-terminal-exec --app-id=org.omarchy.terminal --title=\"English practice\" --dir=\"${ENGLISH_DIR:-$HOME/English}\" -e bash -c 'enpractice; read -r -p \"press enter\" _'"
+  },
+  "english.read": {
+    "icon": "a",
+    "label": "Read (Lute)",
+    "description": "Reader with one-click dictionary and TTS",
+    "action": "$HOME/.local/bin/omarchy-launch-english-lute",
+    "when": "command -v lute"
+  },
+  "english.status": {
+    "icon": "b",
+    "label": "Progress",
+    "description": "Done today, Anki due, recurring mistakes, streak",
+    "action": "uwsm-app -- xdg-terminal-exec --app-id=org.omarchy.terminal --title=\"English - progress\" --dir=\"${ENGLISH_DIR:-$HOME/English}\" -e bash -c 'english-daily status; english-daily errors; english-daily streak; read -r -p \"press enter\" _'",
+    "when": "test -x $HOME/.local/bin/english-daily"
+  },
+  "english.workflow": {
+    "icon": "",
+    "label": "The method (WORKFLOW.md)",
+    "description": "How to study, not what to click",
+    "action": "omarchy-launch-editor ${ENGLISH_DIR:-$HOME/English}/WORKFLOW.md",
+    "when": "test -f ${ENGLISH_DIR:-$HOME/English}/WORKFLOW.md"
+  },
+  "english.write": {
+    "icon": "f",
+    "label": "Write today",
+    "description": "150-200 words, checked with encheck afterwards",
+    "action": "$HOME/.local/bin/omarchy-launch-english-write",
+    "when": "test -x $HOME/.local/bin/english-daily"
+  }
+}

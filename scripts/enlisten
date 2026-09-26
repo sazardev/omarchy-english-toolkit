@@ -1,0 +1,84 @@
+#!/usr/bin/env bash
+# enlisten - fetch a video with English subtitles, ready for active listening.
+#
+#   enlisten "https://www.youtube.com/watch?v=..."
+#   enlisten "URL" --delay          print the mpv command with subtitle delay
+#   enlisten --list ~/English/listening
+#
+# The subtitle delay is the entire method: subtitles 0.4s late forces your
+# brain to produce the word itself instead of reading it.
+
+set -uo pipefail
+
+WORK="${ENGLISH_DIR:-$HOME/English}"
+OUTROOT="$WORK/listening"
+DELAY="${EN_DELAY:-0.4}"
+
+B=$'\033[1m'; D=$'\033[2m'; G=$'\033[1;32m'; Y=$'\033[1;33m'; C=$'\033[1;36m'; O=$'\033[0m'
+
+usage() { sed -n '2,10p' "$0"; }
+
+show_only=0
+args=()
+for a in "$@"; do
+  case "$a" in
+    --delay) show_only=1 ;;
+    -h|--help) usage; exit 0 ;;
+    *) args+=("$a") ;;
+  esac
+done
+
+if [[ ${#args[@]} -eq 0 ]]; then
+  usage
+  cat <<EOF
+
+  ${B}Sources with good English subtitles${O}
+    - TED talks: short, clear, accent variety
+    - BBC Learning English: graded by level
+    - Anything you have already seen in your own language
+    - YouTube with the CC button, set to English manually
+
+  ${B}The three passes${O}
+    1. no subtitles      - just listen
+    2. subtitles on time - confirm what you heard
+    3. subtitles ${DELAY}s LATE ${O}- the one that teaches${O}
+
+EOF
+  exit 0
+fi
+
+OUT="$OUTROOT/$(date +%F)"
+mkdir -p "$OUT"
+
+if [[ $show_only -eq 1 ]]; then
+  cat <<EOF
+  ${B}The three passes${O}
+    ${G}mpv --sub-file=X.srt X.mp4${O}                    1. no delay, twice
+    ${G}mpv --sub-file=X.srt --sub-delay=-0.2 X.mp4${O}    2. almost on time
+    ${G}mpv --sub-file=X.srt --sub-delay=-$DELAY X.mp4${O}   3. ${DELAY}s behind, the real work
+EOF
+  exit 0
+fi
+
+command -v yt-dlp >/dev/null 2>&1 || { echo "enlisten: yt-dlp not installed" >&2; exit 127; }
+
+echo "  ${C}fetching subtitles...${O}"
+yt-dlp \
+  --write-auto-sub --write-sub \
+  --sub-lang "en,en-orig" \
+  --sub-format "srt/vtt" \
+  --convert-subs srt \
+  --skip-download \
+  -o "$OUT/%(title).60B.%(ext)s" \
+  "${args[@]}" && {
+    echo
+    echo "  ${G}ready:${O} $OUT"
+    ls -1sh "$OUT" | sed 's/^/    /'
+    cat <<EOF
+
+  ${B}Play it three times${O}
+    ${G}mpv --sub-file="$OUT"/*.srt "$OUT"/*.mp4${O}
+
+  When the ${DELAY}s delay stops feeling hard, move to a harder video.
+EOF
+  } || { echo "  ${Y}no subtitles found for that video${O}" >&2; exit 1; }

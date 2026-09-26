@@ -123,7 +123,23 @@ verify_dictionary() {
 install_ltex() {
   log "LTeX+ $LTEX_VERSION (offline grammar engine)"
 
-  local arch tarball url
+  # The binary is a small shell wrapper; it can exist while the jars next to
+  # it failed to unpack, which only shows up when Java starts. So the check
+  # is a real run, not a file test.
+  ltex_healthy() {
+    [[ -x $LTEX_BIN ]] || return 1
+    local root="$DEST_LTEX/ltex-ls-plus-$LTEX_VERSION"
+    # the jars sit next to bin/, not inside it
+    compgen -G "$root/lib/*.jar" >/dev/null 2>&1 || return 1
+    "$DEST_LTEX/ltex-ls-plus-$LTEX_VERSION/bin/ltex-cli-plus" --help >/dev/null 2>&1
+  }
+
+  if ltex_healthy; then
+    ok "already installed and working at $LTEX_BIN"
+    return
+  fi
+
+  local arch tarball url bd
   case "$(uname -m)" in
     x86_64)  arch="x64" ;;
     aarch64) arch="aarch64" ;;
@@ -132,26 +148,35 @@ install_ltex() {
   tarball="ltex-ls-plus-$LTEX_VERSION-linux-$arch.tar.gz"
   url="https://github.com/ltex-plus/ltex-ls-plus/releases/latest/download/$tarball"
 
-  if [[ -x "$LTEX_BIN" ]]; then
-    ok "already installed at $LTEX_BIN"
-    return
+  # A partial unpack from a previous run would poison the new one.
+  rm -rf "$DEST_LTEX/ltex-ls-plus-$LTEX_VERSION" "$DEST_LTEX/ltex.tar.gz"
+  mkdir -p "$DEST_LTEX"
+
+  printf '    downloading %s\n' "$tarball"
+  curl -fL --progress-bar -o "$DEST_LTEX/ltex.tar.gz" "$url" ||
+    die "download failed: $url"
+
+  local avail
+  avail=$(df -Pk "$DEST_LTEX" | awk 'NR==2{print $4}')
+  if [[ ${avail:-0} -lt 1048576 ]]; then
+    die "not enough free space under $DEST_LTEX (need about 1 GB, have $((avail/1024)) MB)"
   fi
 
-  mkdir -p "$DEST_LTEX"
-  printf '    downloading %s\n' "$tarball"
-  if ! curl -fL --progress-bar -o "$DEST_LTEX/ltex.tar.gz" "$url"; then
-    die "download failed: $url"
+  if ! tar xzf "$DEST_LTEX/ltex.tar.gz" -C "$DEST_LTEX"; then
+    rm -f "$DEST_LTEX/ltex.tar.gz"
+    die "could not unpack $tarball. Free up disk space and run install.sh again."
   fi
-  tar xzf "$DEST_LTEX/ltex.tar.gz" -C "$DEST_LTEX"
   rm -f "$DEST_LTEX/ltex.tar.gz"
 
-  chmod +x "$DEST_LTEX/ltex-ls-plus-$LTEX_VERSION/bin/"* 2>/dev/null
-  # convenience aliases so both `ltex-ls` and `ltex` work
-  local bd="$DEST_LTEX/ltex-ls-plus-$LTEX_VERSION/bin"
-  [[ -e "$bd/ltex-ls"   ]] || ln -sf ltex-ls-plus "$bd/ltex-ls"
-  [[ -e "$bd/ltex"      ]] || ln -sf ltex-cli-plus "$bd/ltex"
+  bd="$DEST_LTEX/ltex-ls-plus-$LTEX_VERSION/bin"
+  chmod +x "$bd"/* 2>/dev/null
+  [[ -e "$bd/ltex-ls" ]] || ln -sf ltex-ls-plus "$bd/ltex-ls"
+  [[ -e "$bd/ltex"    ]] || ln -sf ltex-cli-plus "$bd/ltex"
 
-  [[ -x "$LTEX_BIN" ]] && ok "installed at $LTEX_BIN" || die "binary missing after extract"
+  if ! ltex_healthy; then
+    die "LTeX+ unpacked but does not start. Check the Java runtime with: java -version"
+  fi
+  ok "installed and verified at $LTEX_BIN"
 }
 
 # ============================================================ 3. config files
@@ -173,7 +198,7 @@ install_configs() {
 install_scripts() {
   log "Command line tools"
   mkdir -p "$BIN_DIR"
-  for s in encheck enpractice; do
+  for s in encheck enpractice enlog enlisten english-daily; do
     cp "$REPO_DIR/scripts/$s" "$BIN_DIR/$s"
     chmod +x "$BIN_DIR/$s"
     ok "$BIN_DIR/$s"
@@ -276,6 +301,51 @@ install_nvim() {
   ok "$dest"
 }
 
+# ============================================================ 7b. workspace
+install_workspace() {
+  log "Study workspace"
+  local W="${ENGLISH_DIR:-$HOME/English}"
+  mkdir -p "$W"/{journal,writing,listening,readings,vocabulary,errors,transcripts,templates} "$W/.state"
+
+  if [[ -f "$REPO_DIR/workspace/WORKFLOW.md" && ! -f "$W/WORKFLOW.md" ]]; then
+    cp "$REPO_DIR/workspace/WORKFLOW.md" "$W/WORKFLOW.md"
+  fi
+  if [[ -f "$REPO_DIR/workspace/README.md" && ! -f "$W/README.md" ]]; then
+    cp "$REPO_DIR/workspace/README.md" "$W/README.md"
+  fi
+  if [[ -d "$REPO_DIR/workspace/templates" ]]; then
+    cp -n "$REPO_DIR/workspace/templates/"*.md "$W/templates/" 2>/dev/null
+  fi
+  [[ -f "$W/.state/history.log" ]] || printf '# date\tphase\tdetail\n' > "$W/.state/history.log"
+  ok "$W"
+
+  log "Omarchy menu"
+  local extdir="$HOME/.config/omarchy/extensions"
+  if [[ -d $extdir ]]; then
+    local ext="$extdir/omarchy-menu.jsonc"
+    if [[ -f $ext ]] && grep -q '"english"' "$ext" 2>/dev/null; then
+      ok "English menu already present, leaving $ext untouched"
+    else
+      [[ -f $ext ]] && cp "$ext" "$ext.bak.$(date +%s)"
+      if python3 "$REPO_DIR/install/merge-omarchy-menu.py" \
+           "$ext" "$REPO_DIR/config/omarchy/english-menu.jsonc"; then
+        ok "English section merged into the menu"
+      else
+        warn "could not merge the menu section, backup kept at $ext.bak.*"
+      fi
+    fi
+    for l in english-daily english-lute english-write; do
+      if [[ -f "$REPO_DIR/scripts/omarchy-launch-$l" ]]; then
+        cp "$REPO_DIR/scripts/omarchy-launch-$l" "$BIN_DIR/"
+        chmod +x "$BIN_DIR/omarchy-launch-$l"
+      fi
+    done
+    ok "launchers installed"
+  else
+    warn "not an Omarchy install - skipping the menu integration"
+  fi
+}
+
 # ============================================================ 8. ollama
 install_ollama() {
   log "Local AI for conversation practice"
@@ -317,8 +387,12 @@ verify() {
   log "Verification"
 
   local fail=0
-  printf '    %-34s %s\n' "ltex (grammar CLI)" \
-    "$([[ -x $DEST_LTEX/ltex-ls-plus-$LTEX_VERSION/bin/ltex-cli-plus ]] && echo OK || { echo MISSING; fail=1; })"
+  if ltex_healthy; then
+    printf '    %-34s %s\n' "ltex (grammar CLI)" "OK"
+  else
+    printf '    %-34s %s\n' "ltex (grammar CLI)" "BROKEN - rerun install.sh"
+    fail=1
+  fi
   printf '    %-34s %s\n' "encheck" \
     "$([[ -x $BIN_DIR/encheck ]] && echo OK || { echo MISSING; fail=1; })"
   printf '    %-34s %s\n' "enpractice" \
@@ -411,6 +485,7 @@ main() {
   install_desktop_entries
   install_shell_rc
   install_nvim
+  install_workspace
   install_lute
   install_ollama
   verify

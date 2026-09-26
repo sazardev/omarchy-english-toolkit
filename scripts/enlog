@@ -1,0 +1,98 @@
+#!/usr/bin/env bash
+# enlog - log a recurring mistake so english-daily can rank it.
+#
+#   enlog "I look forward to see you" --rule "look forward to + gerund"
+#   enlog -f writing/2026-09-26.md     # the file to check (encheck is run for you)
+#   enlog -f out.txt                  # or an existing encheck report
+#   enlog -f -                         # from stdin
+#
+# The point is to find the three mistakes you make over and over. A
+# correction you do not write down is a correction you will repeat.
+
+set -uo pipefail
+
+WORK="${ENGLISH_DIR:-$HOME/English}"
+ERRDIR="$WORK/errors"
+mkdir -p "$ERRDIR"
+
+B=$'\033[1m'; D=$'\033[2m'; G=$'\033[1;32m'; C=$'\033[1;36m'; O=$'\033[0m'
+RULE=""; TEXT=""; FROM_STDIN=0; FROM_FILE=""
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --rule)   RULE="${2-}"; shift 2 ;;
+    -f|--file)
+      FROM_FILE="${2-}"; shift 2
+      [[ $FROM_FILE == "-" ]] && FROM_STDIN=1 || true
+      ;;
+    -h|--help) sed -n '2,12p' "$0"; exit 0 ;;
+    *) TEXT="$1"; shift ;;
+  esac
+done
+
+FILE="$ERRDIR/$(date +%F).md"
+
+if [[ ! -f $FILE ]]; then
+  cat > "$FILE" <<EOF
+# Mistakes - $(date +%F)
+
+<!-- One line per mistake. Keep them short. The ranking in
+     'english-daily errors' counts the '--rule' text, so use a
+     consistent phrase for the same problem every time. -->
+EOF
+fi
+
+added=0
+
+add_line() {
+  local wrong="$1" rule="$2" src="$3"
+  [[ -z ${wrong// /} ]] && return
+  {
+    printf -- '- `%s`\n' "$wrong"
+    printf '  <!-- rule: %s | src: %s -->\n' "${rule:-unspecified}" "$src"
+  } >> "$FILE"
+  added=$((added+1))
+}
+
+if [[ $FROM_STDIN -eq 1 ]]; then
+  while IFS= read -r line; do
+    add_line "$line" "$RULE" "stdin"
+  done
+elif [[ -n $FROM_FILE ]]; then
+  [[ -f $FROM_FILE ]] || { echo "enlog: no such file: $FROM_FILE" >&2; exit 1; }
+
+  # Accept either encheck output or the plain text to be checked. If the
+  # file has no file:line:col lines it is prose, so run encheck on it.
+  if ! grep -qE '^[^:]+:[0-9]+:[0-9]+' "$FROM_FILE" 2>/dev/null; then
+    encheck -q "$FROM_FILE" > "$FROM_FILE.encheck" 2>/dev/null
+    SRC_TEXT="$FROM_FILE"
+    FROM_FILE="$FROM_FILE.encheck"
+  else
+    SRC_TEXT="$FROM_FILE"
+  fi
+
+  # Pull the offending source line out of encheck output. Both formats work:
+  #   default : file:line:col: info: message
+  #   -q      : file:line:col  message
+  while IFS= read -r line; do
+    if [[ $line =~ ^([^:]+):([0-9]+):[0-9]+ ]]; then
+      wrong=$(sed -n "${BASH_REMATCH[2]}p" "$SRC_TEXT" 2>/dev/null |
+                sed 's/^[[:space:]]*//' | cut -c1-90)
+      [[ -n $wrong ]] &&
+        add_line "$wrong" "$RULE" "$(basename "$SRC_TEXT"):${BASH_REMATCH[2]}"
+    fi
+  done < "$FROM_FILE"
+elif [[ -n $TEXT ]]; then
+  add_line "$TEXT" "$RULE" "manual"
+else
+  sed -n '2,12p' "$0"
+  exit 2
+fi
+
+if [[ $added -gt 0 ]]; then
+  echo "  ${G}logged $added mistake(s)${O} -> $FILE"
+  echo "  ${D}rank them: english-daily errors${O}"
+else
+  echo "  nothing to log" >&2
+  exit 1
+fi

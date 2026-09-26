@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# omarchy:summary=Open the English study dashboard
+set -uo pipefail
+export PATH="$HOME/.local/bin:$PATH"
+uwsm-app -- xdg-terminal-exec --app-id=org.omarchy.terminal \
+  --title="English - today's plan" \
+  --dir="${ENGLISH_DIR:-$HOME/English}" \
+  -e bash -c 'english-daily; echo; read -r -p "press enter to close " _'

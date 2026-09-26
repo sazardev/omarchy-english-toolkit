@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# omarchy:summary=Write today's English and get it checked
+set -uo pipefail
+export PATH="$HOME/.local/bin:$PATH"
+W="${ENGLISH_DIR:-$HOME/English}"
+f="$W/writing/$(date +%F).md"
+[[ -f $f ]] || { mkdir -p "$W/writing"; printf '# %s\n\n' "$(date +%F)" > "$f"; }
+omarchy-launch-editor "$f"

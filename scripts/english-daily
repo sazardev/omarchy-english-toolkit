@@ -1,0 +1,396 @@
+#!/usr/bin/env bash
+# english-daily - the daily driver for the English study workflow.
+#
+#   english-daily              show today's plan
+#   english-daily anki         phase 1: Anki warm-up
+#   english-daily read         phase 2: Lute reading
+#   english-daily write [n]    phase 3: write n words and get them checked
+#   english-daily listen       phase 4: active listening
+#   english-daily review       phase 5: spaced repetition wrap-up
+#   english-daily status       progress overview
+#   english-daily errors       the recurring mistakes, ranked
+#   english-daily streak       consistency
+
+set -uo pipefail
+
+WORK="${ENGLISH_DIR:-$HOME/English}"
+STATE="$WORK/.state"
+LOG="$STATE/history.log"
+ANKI_DB="${ANKI_COLLECTION:-$HOME/.local/share/Anki2/User 1/collection.anki2}"
+
+B=$'\033[1m'; D=$'\033[2m'; G=$'\033[1;32m'; Y=$'\033[1;33m'
+R=$'\033[1;31m'; C=$'\033[1;36m'; P=$'\033[1;35m'; O=$'\033[0m'
+
+mkdir -p "$STATE"
+[[ -f $LOG ]] || printf '# date\tphase\tdetail\n' > "$LOG"
+
+# ---------------------------------------------------------------- anki reading
+anki_query() {
+  # $1 = SQL. Uses a temp copy so Anki can stay open.
+  local q="$1" out
+  out="$(mktemp --suffix=.anki2)"
+  cp "$ANKI_DB" "$out" 2>/dev/null || { rm -f "$out"; return 1; }
+  python3 - "$out" "$q" <<'PY' 2>/dev/null
+import sqlite3, sys
+c = sqlite3.connect(sys.argv[1])
+c.create_collation("unicase", lambda a, b: (a.lower() > b.lower()) - (a.lower() < b.lower()))
+try:
+    r = c.execute(sys.argv[2]).fetchall()
+    for row in r:
+        print("\t".join("" if v is None else str(v) for v in row))
+except Exception:
+    pass
+PY
+  rm -f "$out"
+}
+
+log_phase() { # $1 phase, $2 detail
+  printf '%s\t%s\t%s\n' "$(date +%F)" "$1" "$2" >> "$LOG"
+}
+
+phase_done() { # $1 phase
+  local today
+  today=$(date +%F)
+  awk -F'\t' -v d="$today" -v p="$1" '$1==d && $2==p {found=1} END{exit !found}' "$LOG"
+}
+
+# due counts
+due_counts() {
+  anki_query "SELECT
+    sum(CASE WHEN queue=1 THEN 1 ELSE 0 END),
+    sum(CASE WHEN queue=2 THEN 1 ELSE 0 END),
+    sum(CASE WHEN queue=0 AND type IN (0,1) THEN 1 ELSE 0 END)
+    FROM cards" | awk -F'\t' '{print $1+0, $2+0, $3+0}'
+}
+
+# ---------------------------------------------------------------------- phases
+phase_anki() {
+  cat <<EOF
+${B}${C}PHASE 1 - ANKI WARM-UP${O}  ${D}(5 min)${O}
+
+  Only the decks you are currently studying. Do not touch every deck.
+
+  Open Anki:
+EOF
+  command -v anki >/dev/null 2>&1 && echo "    ${G}anki${O}" || echo "    anki not found"
+  cat <<EOF
+
+  Rules that matter more than the count:
+    - New cards: at most 20. You will thank me later.
+    - Do the reviews BEFORE the new cards, never after.
+    - If you fail a card, that card is tomorrow's problem, not tonight's.
+EOF
+  read -r -p "  Press Enter once finished..." _
+  log_phase anki "done"
+  echo "  ${G}logged.${O}"
+}
+
+phase_read() {
+  local running
+  running=$(pgrep -f "lute" >/dev/null && echo yes || echo no)
+  cat <<EOF
+${B}${C}PHASE 2 - READING${O}  ${D}(20-30 min, the highest-value phase)${O}
+
+  This is where most of your progress comes from. The deck is the floor,
+  not the ceiling.
+EOF
+  if [[ $running == no ]]; then
+    echo "  starting Lute..."
+    nohup lute --local >"$STATE/lute.log" 2>&1 &
+    sleep 6
+  fi
+  cat <<EOF
+  Open:  ${G}http://localhost:5001${O}
+
+  How to read:
+    1. First run: set L1 = Spanish, L2 = English.
+    2. Read WITHOUT looking things up for 2 minutes. Guess from context.
+    3. Then look words up. Double click, no context switch.
+    4. If you understand < 90%, the book is too hard. Drop a level.
+    5. When you finish: Lute can export the words you looked up to Anki.
+
+  Drop the book in:
+    $WORK/readings/
+EOF
+  read -r -p "  Press Enter once finished..." _
+  log_phase read "done"
+  echo "  ${G}logged.${O}"
+}
+
+phase_write() {
+  local n="${1:-150}"
+  local today file
+  today=$(date +%F)
+  file="$WORK/writing/$today.md"
+
+  if [[ ! -f $file ]]; then
+    cat > "$file" <<EOF
+# $today
+
+<!-- $n words. English only. Neovim marks your errors as you type:
+     <leader>ld to see one, <leader>gl to jump to the next. -->
+
+EOF
+    command -v nvim >/dev/null 2>&1 && echo "  opening $file in Neovim..."
+    nvim "$file"
+  else
+    command -v nvim >/dev/null 2>&1 && nvim "$file"
+  fi
+
+  cat <<EOF
+
+  ${B}Now check it:${O}
+    ${G}encheck $file${O}
+    ${G}encheck -q $file${O}   ${D}compact, just line:col + message${O}
+
+  ${B}Do not just read the corrections.${O} Write each one down and
+  rewrite the sentence. A correction you only read is a correction you
+  will make again tomorrow.
+
+  Log the mistakes you keep making:
+    ${G}enlog "$file"${O}
+
+  Then get a second opinion from the local model:
+    ${G}enpractice "$(head -1 "$file" 2>/dev/null || echo 'your topic')"${O}
+
+  Extra credit, the style pass:
+    ${G}vale $file${O}
+EOF
+  read -r -p "  Press Enter once done..." _
+  log_phase write "$(wc -w < "$file" 2>/dev/null)w"
+  echo "  ${G}logged.${O}"
+}
+
+phase_listen() {
+  local url="${1:-}"
+  cat <<EOF
+${B}${C}PHASE 4 - ACTIVE LISTENING${O}  ${D}(15-20 min)${O}
+
+  The subtitle delay is the whole trick. Subtitles 0.4s LATE means your
+  brain still has to produce the word itself.
+EOF
+  if [[ -n $url ]]; then
+    local out="$WORK/listening/$(date +%F)"
+    mkdir -p "$out"
+    echo "  downloading..."
+    yt-dlp --write-auto-sub --write-sub --sub-lang en --sub-format vtt/srt \
+           --skip-download -o "$out/%(title)s.%(ext)s" "$url" && {
+      echo "  ${G}downloaded to $out${O}"
+      ls -1 "$out"
+    }
+    cat <<EOF
+
+  Now play it three times:
+    1. No subtitles at all. Just listen.
+    2. English subtitles, on time.
+    3. English subtitles DELAYED - this is the one that teaches:
+         mpv --sub-file=X.srt --sub-delay=0.4 X.mp4
+       When the delay stops feeling necessary, the listening is done.
+EOF
+  else
+    cat <<EOF
+  Get a video with English subtitles:
+
+    ${G}enlisten "https://www.youtube.com/watch?v=..."${O}
+
+  Or use one of these sources:
+    - YouTube: any English video with CC
+    - TED talks
+    - BBC Learning English
+    - A film or series you have already seen, so the meaning is free
+
+  Never use Spanish or auto-translated subtitles. They are worse than none.
+EOF
+  fi
+  read -r -p "  Press Enter once done..." _
+  log_phase listen "done"
+  echo "  ${G}logged.${O}"
+}
+
+phase_review() {
+  local counts
+  counts=$(due_counts)
+  cat <<EOF
+${B}${C}PHASE 5 - SPACED REPETITION${O}  ${D}(10 min)${O}
+
+  Cards due now: ${Y}learning ${O}$(cut -d' ' -f1 <<<"$counts"), ${Y}review ${O}$(cut -d' ' -f2 <<<"$counts"), ${Y}new ${O}$(cut -d' ' -f3 <<<"$counts")
+
+  This is the phase people skip, and it is the only one that makes the
+  other four stick. Skipping it turns the other four into a hobby.
+
+  Do NOT add new cards today. Only clear what is due.
+EOF
+  command -v anki >/dev/null 2>&1 && echo "  ${G}anki${O}"
+  cat <<EOF
+
+  Add to the deck, in this order:
+    1. Words you looked up in Lute today
+    2. The corrections from your writing that you got wrong
+    3. Nothing else. Resist the urge.
+EOF
+  read -r -p "  Press Enter once done..." _
+  log_phase review "done"
+  echo "  ${G}logged.${O}"
+}
+
+# --------------------------------------------------------------------- reports
+phase_status() {
+  local counts today done_total
+  counts=$(due_counts)
+  today=$(date +%F)
+  done_total=$(awk -F'\t' -v d="$today" '$1==d' "$LOG" | wc -l)
+
+  echo
+  echo "${B}Today - $today${O}"
+  echo "${D}------------------------------------------------------------${O}"
+  for p in anki read write listen review; do
+    local label
+    case $p in
+      anki)   label="Anki warm-up" ;;
+      read)   label="Reading" ;;
+      write)  label="Writing" ;;
+      listen) label="Listening" ;;
+      review) label="Review" ;;
+    esac
+    if phase_done "$p"; then
+      printf "  ${G}[x]${O} %-16s %s\n" "$label" "${D}done${O}"
+    else
+      printf "  ${D}[ ]${O} %-16s\n" "$label"
+    fi
+  done
+
+  echo
+  if [[ -f $ANKI_DB ]]; then
+    echo "${B}Anki${O}  ${D}$ANKI_DB${O}"
+    echo "  learning due: $(cut -d' ' -f1 <<<"$counts")"
+    echo "  review due:   $(cut -d' ' -f2 <<<"$counts")"
+    echo "  new:          $(cut -d' ' -f3 <<<"$counts")"
+  else
+    echo "${B}Anki${O}  ${Y}collection not found${O}"
+    echo "  ${D}looked for $ANKI_DB${O}"
+    echo "  ${D}set ANKI_COLLECTION=/path/to/collection.anki2 if it moved${O}"
+  fi
+
+  echo
+  echo "${B}Workspace${O}  ${D}$WORK${O}"
+  printf "  writing:   %s files\n" "$(find "$WORK/writing" -name '*.md' 2>/dev/null | wc -l)"
+  printf "  errors:    %s logged\n" "$(find "$WORK/errors" -name '*.md' 2>/dev/null | wc -l)"
+  printf "  readings:  %s books\n" "$(find "$WORK/readings" -type f 2>/dev/null | wc -l)"
+  printf "  journal:   %s entries\n" "$(find "$WORK/journal" -name '*.md' 2>/dev/null | wc -l)"
+  echo
+}
+
+phase_errors() {
+  echo
+  echo "${B}Recurring mistakes${O}  ${D}ranking by how often you logged them${O}"
+  echo "${D}------------------------------------------------------------${O}"
+  if [[ ! -d "$WORK/errors" ]] || [[ -z $(ls -A "$WORK/errors" 2>/dev/null) ]]; then
+    echo "  Nothing logged yet."
+    echo
+    echo "  Log a mistake whenever encheck flags one:"
+    echo "    ${G}enlog 'I look forward to see you' --rule 'look forward to + gerund'${O}"
+    return
+  fi
+  grep -rho '<!-- rule: [^>]*-->' "$WORK/errors"/*.md 2>/dev/null |
+    sed -e 's/<!-- rule: //' -e 's/ *-->$//' -e 's/ *| src:.*$//' |
+    grep -v '^unspecified$' |
+    sort | uniq -c | sort -rn | head -15 |
+    awk '{ c=$1; $1=""; sub(/^ /,""); printf "  %3sx  %s\n", c, $0 }'
+  echo
+  echo "  The top one is your next card. Not the top fifteen, the top one."
+  echo
+}
+
+phase_streak() {
+  echo
+  echo "${B}Consistency${O}"
+  echo "${D}------------------------------------------------------------${O}"
+  local days phases
+  days=$(awk -F'\t' 'NR>1{print $1}' "$LOG" | sort -u | wc -l)
+  phases=$(awk -F'\t' 'NR>1' "$LOG" | wc -l)
+
+  # current streak
+  local streak=0 d
+  d=$(date +%F)
+  while [[ -n $(awk -F'\t' -v day="$d" '$1==day' "$LOG") ]]; do
+    streak=$((streak+1))
+    d=$(date -d "$d - 1 day" +%F 2>/dev/null) || break
+  done
+
+  echo "  days studied:      $days"
+  echo "  phases completed:  $phases"
+  echo "  current streak:    $streak days"
+  echo
+  if [[ $streak -eq 0 ]]; then
+    echo "  ${R}Zero.${O} The tools are installed and the deck is built."
+    echo "  Nothing in this workspace improves until you review one card."
+  elif [[ $streak -lt 7 ]]; then
+    echo "  ${Y}Keep going.${O} The first week is the one that decides."
+  else
+    echo "  ${G}This is working.${O}"
+  fi
+  echo
+}
+
+phase_plan() {
+  local counts
+  counts=$(due_counts)
+  cat <<EOF
+
+${B}${C}  english-daily${O}  ${D}$(date +%F)${O}
+
+${D}------------------------------------------------------------${O}
+  The order is not arbitrary:
+
+    ${B}1. anki${O}    5 min      clear what is due, then at most 20 new
+    ${B}2. read${O}    20-30 min   Lute, dictionary one click away  ${P}<- highest ROI${O}
+    ${B}3. write${O}   10-15 min   150-200 words, checked afterwards
+    ${B}4. listen${O}  15-20 min   subtitles delayed 0.4s
+    ${B}5. review${O}  10 min      add only today's real failures
+
+${D}------------------------------------------------------------${O}
+  if [[ -f $ANKI_DB ]]; then
+    echo "  Due right now:  ${Y}$(cut -d' ' -f1 <<<"$counts")${O} learning, ${Y}$(cut -d' ' -f2 <<<"$counts")${O} review, ${Y}$(cut -d' ' -f3 <<<"$counts")${O} new"
+  else
+    echo "  ${Y}Anki collection not found${O} - set ANKI_COLLECTION to see due counts"
+  fi
+
+  The loop that makes it work:
+
+    reading     -> you meet real words
+    writing     -> you find your real mistakes
+    review      -> only those mistakes become permanent
+
+  Reading and writing are where you improve.
+  Anki is only what stops you forgetting.
+
+${D}------------------------------------------------------------${O}
+  ${B}english-daily anki${O}     start phase 1
+  ${B}english-daily read${O}     start phase 2
+  ${B}english-daily write${O}    start phase 3
+  ${B}english-daily listen${O}   start phase 4
+  ${B}english-daily review${O}   start phase 5
+  ${B}english-daily status${O}   where you stand
+  ${B}english-daily errors${O}   your recurring mistakes, ranked
+  ${B}english-daily streak${O}   consistency
+
+  Workspace: ${G}$WORK${O}
+  Journal:   ${G}echo "I learned..." >> $WORK/journal/$(date +%F).md${O}
+
+${D}------------------------------------------------------------${O}
+EOF
+}
+
+# ------------------------------------------------------------------------ main
+case "${1:-}" in
+  anki)   phase_anki ;;
+  read|reading)   phase_read ;;
+  write)  phase_write "${2:-150}" ;;
+  listen) phase_listen "${2:-}" ;;
+  review) phase_review ;;
+  status) phase_status ;;
+  errors) phase_errors ;;
+  streak) phase_streak ;;
+  ""|plan|help|--help|-h) phase_plan ;;
+  *) echo "unknown phase: $1" >&2; echo "try: english-daily" >&2; exit 2 ;;
+esac

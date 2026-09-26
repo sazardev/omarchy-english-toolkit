@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# omarchy:summary=Read with Lute (dictionary and TTS built in)
+set -uo pipefail
+export PATH="$HOME/.local/bin:$PATH"
+pgrep -f lute >/dev/null || { nohup lute --local >/dev/null 2>&1 & sleep 6; }
+omarchy-launch-browser http://localhost:5001
