@@ -143,6 +143,35 @@ Anki, FSRS, LTeX or Neovim, and a reject list of classic learner typos
 lute --local        # then open http://localhost:5001
 ```
 
+From another machine on your Tailscale network:
+
+```bash
+lute-remote         # start and publish to your tailnet over HTTPS
+lute-remote --status
+lute-remote --stop
+```
+
+Lute has **no `--host` flag**. It either binds `127.0.0.1` (`--local`) or
+`0.0.0.0` (no flag), so you cannot bind it to one interface. Running it on
+`0.0.0.0` would expose it to whatever wifi you are on, and since Lute has
+no authentication, anyone on that network could read and edit your
+material.
+
+`lute-remote` therefore keeps Lute on `127.0.0.1` and has the Tailscale
+daemon proxy it, so it is reachable from your other devices and invisible
+to every network Lute is not on. One-time setup:
+
+```bash
+# open once and click enable
+https://login.tailscale.com/f/serve?node=<your-node-id>
+```
+
+After that `lute-remote` configures the proxy itself and prints the
+address to open on the other machine.
+
+Anything already joined to your tailnet can reach it. Do not add devices
+you do not control.
+
 Tap any word for a definition, read and listen at the same time, and
 export the words you looked up straight to Anki. On first run set
 **L1 = your native language, L2 = English**.

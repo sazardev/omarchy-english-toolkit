@@ -1,0 +1,199 @@
+#!/usr/bin/env bash
+# lute-remote - reach Lute from your other devices over Tailscale.
+#
+#   lute-remote           start Lute and publish it to your tailnet
+#   lute-remote --status  what address to type on the other machine
+#   lute-remote --stop    stop it
+#   lute-remote --local   back to this machine only
+#
+# How it works, and why not the obvious way
+# ----------------------------------------
+# Lute has no --host flag. It either binds 127.0.0.1 (--local) or 0.0.0.0
+# (no flag). So "bind it to the Tailscale address" is not available.
+#
+# Running it on 0.0.0.0 would also expose it to the wifi of whatever cafe
+# or airport you are in, and Lute has NO authentication at all: anyone who
+# reaches it can read your texts and change your settings.
+#
+# So instead Lute stays on 127.0.0.1 and the Tailscale daemon proxies it.
+# Result: reachable from your other devices, invisible to every network
+# Lute is not on, and served over HTTPS.
+
+set -uo pipefail
+
+PORT="${LUTE_PORT:-5001}"
+LOG="${LUTE_LOG:-/tmp/lute-remote.log}"
+PIDFILE="${XDG_RUNTIME_DIR:-/tmp}/lute-remote.pid"
+
+B=$'\033[1m'; D=$'\033[2m'; G=$'\033[1;32m'; Y=$'\033[1;33m'
+R=$'\033[1;31m'; C=$'\033[1;36m'; O=$'\033[0m'
+
+ts_ip()   { tailscale ip -4 2>/dev/null | head -1; }
+ts_name() {
+  tailscale status --json 2>/dev/null |
+    python3 -c "import sys,json;print(json.load(sys.stdin)['Self']['DNSName'].rstrip('.'))" 2>/dev/null
+}
+ts_running() { tailscale status >/dev/null 2>&1; }
+
+# "No serve config" is non-empty output, so grepping for anything at all
+# always reports success. Ask for JSON and require a real config.
+serve_enabled() {
+  local json
+  json=$(tailscale serve status --json 2>/dev/null)
+  python3 -c '
+import json,sys
+try:
+    d = json.load(sys.stdin)
+except Exception:
+    sys.exit(1)
+sys.exit(0 if d and any(d.get(k) for k in ("TCP","Web","AllowFunnel")) else 1)
+' <<< "$json"
+}
+
+lute_running() { [[ -f $PIDFILE ]] && kill -0 "$(cat "$PIDFILE")" 2>/dev/null; }
+
+# True if something already answers on the port, whether we started it or
+# not. Without this, a second instance dies with "port already in use".
+port_answers() { curl -s -o /dev/null --max-time 4 "http://127.0.0.1:$PORT/"; }
+
+stop_lute() {
+  if lute_running; then
+    kill "$(cat "$PIDFILE")" 2>/dev/null
+    rm -f "$PIDFILE"
+    sleep 1
+  fi
+  # `pkill -f bin/lute` also matches any shell whose own command line
+  # mentions that string, so it happily kills the caller. Match on the
+  # interpreter path instead and never match ourselves.
+  local self=$$
+  pgrep -f "lute3/bin/lute" 2>/dev/null |
+    while read -r p; do
+      [[ $p == "$self" || $p == "$PPID" ]] && continue
+      kill "$p" 2>/dev/null
+    done
+  return 0
+}
+
+start_lute() {
+  if port_answers; then
+    # already up, from a previous run or started by hand
+    ss -tlnp 2>/dev/null |
+      grep -oE 'pid=[0-9]+' | head -1 | cut -d= -f2 > "$PIDFILE" 2>/dev/null
+    return 0
+  fi
+  stop_lute
+  # full detach: without </dev/null the child keeps stdin open and an
+  # interactive shell waits for the pipe to close.
+  setsid lute --local >"$LOG" 2>&1 </dev/null &
+  echo $! > "$PIDFILE"
+  sleep 5
+  port_answers
+}
+
+# Build the "enable Serve" link ourselves. Calling `tailscale serve` to get
+# it blocks waiting for the browser flow, which is useless in a script.
+enable_link() {
+  local node
+  node=$(tailscale status --json 2>/dev/null |
+    python3 -c "import sys,json;print(json.load(sys.stdin)['Self']['ID'])" 2>/dev/null)
+  [[ -n $node ]] || return 1
+  printf 'https://login.tailscale.com/f/serve?node=%s' "$node"
+}
+
+case "${1:-}" in
+  --stop)
+    stop_lute
+    tailscale serve --https=443 off >/dev/null 2>&1
+    printf '    %sstopped%s\n' "$D" "$O"
+    exit 0
+    ;;
+
+  --local)
+    if start_lute; then
+      printf '  %sLute on 127.0.0.1:%s%s  (this machine only)\n' "$G" "$PORT" "$O"
+    else
+      printf '  %serror:%s Lute did not start, see %s\n' "$R" "$O" "$LOG" >&2
+      exit 1
+    fi
+    exit 0
+    ;;
+
+  --status)
+    if ! lute_running; then
+      printf '  %sLute is not running%s   start: lute-remote\n' "$Y" "$O"
+    elif serve_enabled; then
+      name=$(ts_name)
+      printf '  %sLute is published to your tailnet%s\n\n' "$G" "$O"
+      printf '  on the other machine, open:\n'
+      printf '    %shttps://%s%s\n' "$B" "$name" "$O"
+      printf '  (it must be signed in to the same Tailscale account)\n\n'
+      printf '  on this machine: http://127.0.0.1:%s\n' "$PORT"
+    else
+      printf '  %sLute is running but not published%s\n' "$Y" "$O"
+      printf '  local only: http://127.0.0.1:%s\n' "$PORT"
+    fi
+    exit 0
+    ;;
+esac
+
+# ------------------------------------------------------------------ main
+command -v tailscale >/dev/null 2>&1 || {
+  echo "  ${R}error:${R} Tailscale is not installed." >&2; exit 1; }
+ts_running || {
+  echo "  ${R}error:${R} Tailscale is not running." >&2
+  echo "  start it: sudo systemctl enable --now tailscaled" >&2; exit 1; }
+command -v lute >/dev/null 2>&1 || {
+  echo "  ${R}error:${R} Lute is not installed." >&2
+  echo "  install it: uv tool install lute3" >&2; exit 1; }
+
+start_lute || {
+  printf '  %serror:%s Lute did not start. Last lines of %s:\n' "$R" "$O" "$LOG" >&2
+  tail -5 "$LOG" >&2; exit 1; }
+printf '  %sLute on 127.0.0.1:%s%s\n' "$D" "$PORT" "$O"
+
+if ! serve_enabled; then
+  # Serve may already be allowed on the tailnet while this node simply has
+  # no config yet. Try to create it before asking the user to click anything.
+  if tailscale serve --bg --https=443 "http://127.0.0.1:$PORT" >/dev/null 2>&1 \
+     && serve_enabled; then
+    name=$(ts_name)
+    printf '  %sLute is published to your tailnet%s\n\n' "$G" "$O"
+    printf '  on the other machine, open:  %shttps://%s%s\n' "$B" "$name" "$O"
+    printf '  on this machine:            http://127.0.0.1:%s\n\n' "$PORT"
+    printf '  %sstop: lute-remote --stop     status: lute-remote --status%s\n' "$D" "$O"
+    exit 0
+  fi
+  link=$(enable_link)
+  cat <<EOF
+
+  ${B}${Y}Tailscale Serve is not enabled on your tailnet yet.${O}
+  One click, once, and then it works forever:
+
+    ${C}${link:-run: tailscale serve --bg --https=443 http://127.0.0.1:5001}${O}
+
+  Open that link and enable it, or run the command above yourself.
+  Then run ${B}lute-remote${O} again and it will finish the setup.
+
+  ${D}Why bother, instead of just running 'lute' on 0.0.0.0?${O}
+  Lute has no password. On 0.0.0.0 it answers to anything on the network
+  you are on, so a cafe or hotel wifi could read and edit your material.
+  This way Lute never listens on anything but loopback.
+
+EOF
+  exit 2
+fi
+
+name=$(ts_name)
+cat <<EOF
+
+  ${G}${B}Lute is reachable from your other devices${O}
+
+    on the other machine open:   ${B}https://$name${O}
+    on this machine:             http://127.0.0.1:$PORT
+
+  ${D}The other machine must be signed in to the same Tailscale account.
+  Anything already on your tailnet can reach this: Lute has no
+  authentication of its own, so do not add devices you do not control.${O}
+
+  ${D}stop: lute-remote --stop    status: lute-remote --status${O}
+EOF
