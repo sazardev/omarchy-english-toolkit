@@ -42,7 +42,7 @@ install_system_packages() {
   local PKGS=(
     languagetool vale          # grammar engine + prose linter
     aspell-en hunspell-en      # English spell dictionaries
-    dictd dict-gcide sdcv      # offline dictionary (server + TUI client)
+    dictd sdcv                 # DICT protocol server + console client
     gnome-dictionary          # dictionary GUI
     words ffmpeg              # word list + audio for shadowing
   )
@@ -56,11 +56,28 @@ install_system_packages() {
     fi
   done
 
-  # AUR extras, optional
+  # AUR dictionaries. Without these, `dictd` and `sdcv` are installed but
+  # empty. dict-gcide does not exist on Arch; these are the working ones.
+  #   eng-spa : English -> Spanish, for reading English
+  #   spa-eng : Spanish -> English, for checking your own translations
+  #   gcide   : GCIDE, a large English-only dictionary for definitions
   if command -v yay >/dev/null 2>&1; then
-    for p in hunspell-en-gb; do
-      yay -S --needed --noconfirm "$p" || warn "AUR install failed: $p"
+    local AUR=(
+      dict-freedict-eng-spa-bin
+      dict-freedict-spa-eng-bin
+      stardict-dictd_www.dict.org_gcide
+      hunspell-en-gb
+    )
+    for p in "${AUR[@]}"; do
+      if pacman -Qi "$p" >/dev/null 2>&1; then
+        ok "$p already installed"
+      else
+        printf '    installing AUR: %s\n' "$p"
+        yay -S --needed --noconfirm "$p" || warn "AUR install failed: $p"
+      fi
     done
+  else
+    warn "yay not found - skipping the dictionaries (dictd/sdcv will be empty)"
   fi
 
   log "Dictionary server"
@@ -70,6 +87,28 @@ install_system_packages() {
       || warn "could not enable dictd.socket"
   else
     warn "dictd not installed - skipping"
+  fi
+}
+
+# A dictionary that answers is the only thing that counts. `dictd` and
+# `sdcv` can both be installed and still be completely empty.
+verify_dictionary() {
+  log "Dictionary content"
+  if command -v dict >/dev/null 2>&1; then
+    local n
+    n=$(dict -h 2>/dev/null | sed -n 's/^ *\([0-9]*\) dictionaries defined.*/\1/p' | head -1)
+    if [[ -n ${n:-} && $n -gt 0 ]]; then
+      ok "dict: $n dictionaries available"
+    else
+      warn "dictd has no database. Install dict-freedict-eng-spa-bin"
+    fi
+  fi
+  if command -v sdcv >/dev/null 2>&1; then
+    if sdcv collocation 2>/dev/null | grep -qiE 'collocat|group|arrange'; then
+      ok "sdcv: lookup works"
+    else
+      warn "sdcv has no dictionaries. Install stardict-dictd_www.dict.org_gcide"
+    fi
   fi
 }
 
@@ -293,6 +332,8 @@ verify() {
     printf '%s==> Some user-level parts failed. Check the output above.%s\n' "$YELLOW" "$OFF"
   fi
 
+  verify_dictionary
+
   cat <<'EOF'
 
 ------------------------------------------------------------------------
@@ -351,6 +392,7 @@ main() {
     export HOME_ORIG="$HOME"
     [[ -z ${SUDO_USER:-} ]] || export HOME="/home/$SUDO_USER"
     install_system_packages
+    verify_dictionary
   else
     log "Skipping system packages (no root)"
     warn "run: sudo bash install.sh   to add languagetool, vale, sdcv, dictd"

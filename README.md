@@ -35,7 +35,9 @@ You can fly with the wifi off.
 | **Neovim / LazyVim** | checks your writing live as you type | no |
 | **LanguageTool** | desktop app and `--serve` server for Obsidian/browser/scripts | yes |
 | **Vale** | prose style linter (style, not grammar) | yes |
-| **dictd + sdcv + dict-gcide** | offline dictionary, terminal and via DICT protocol | yes |
+| **dictd + sdcv** | offline dictionary, terminal and via DICT protocol | yes |
+| **FreeDict eng-spa / spa-eng** | English-Spanish, both directions | yes |
+| **GCIDE (StarDict)** | large English-only dictionary for definitions | yes |
 | **aspell-en / hunspell-en** | English spell dictionaries | yes |
 | **GNOME Dictionary** | dictionary GUI | yes |
 
@@ -54,8 +56,15 @@ sudo bash install.sh         # everything, including system packages
 ### What it does
 
 1. **System packages** (only with root): `languagetool`, `vale`,
-   `aspell-en`, `hunspell-en`, `dictd`, `dict-gcide`, `sdcv`,
-   `gnome-dictionary`, `words`, `ffmpeg`, plus AUR `hunspell-en-gb`
+   `aspell-en`, `hunspell-en`, `dictd`, `sdcv`, `gnome-dictionary`,
+   `words`, `ffmpeg`, plus the AUR dictionaries `dict-freedict-eng-spa-bin`,
+   `dict-freedict-spa-eng-bin`, `stardict-dictd_www.dict.org_gcide` and
+   `hunspell-en-gb`
+
+   The AUR dictionaries matter. `dictd` and `sdcv` install fine without
+   them and then answer every lookup with "nothing similar to", which looks
+   like a broken tool rather than a missing database. The installer checks
+   that a lookup actually returns a result and tells you if it does not.
 2. **LTeX+** from the official GitHub release, with `ltex-ls` and
    `ltex` aliases
 3. **Configs** to `~/.config/ltex/` and `~/.config/vale/`
@@ -100,10 +109,14 @@ to `userDictionary` so LTeX+ stops flagging your technical terms.
 ### Dictionary
 
 ```bash
-sdcv look forward to            # StarDict console
-dict -d en_eng collocation      # Cambridge, via dictd
-alias d='sdcv'                  # optional shorthand
+sdcv look forward to              # GCIDE, console
+dict -d eng-spa collocation      # English -> Spanish
+dict -d spa-eng esperar          # Spanish -> English, to check your own
+alias d='sdcv'                    # optional shorthand
 ```
+
+To add a word, edit `/usr/share/dictd/local.dict` (a plain text file that
+dictd reads at every start) and restart with `sudo systemctl restart dictd`.
 
 ### Style
 
