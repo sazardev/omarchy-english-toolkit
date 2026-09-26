@@ -319,6 +319,12 @@ install_workspace() {
   [[ -f "$W/.state/history.log" ]] || printf '# date\tphase\tdetail\n' > "$W/.state/history.log"
   ok "$W"
 
+  # symlink, not a copy: three copies of the method would drift apart
+  if [[ -f "$W/WORKFLOW.md" ]]; then
+    ln -sfn "$W/WORKFLOW.md" "$HOME/ENGLISH-WORKFLOW.md"
+    ok "$HOME/ENGLISH-WORKFLOW.md"
+  fi
+
   log "Omarchy menu"
   local extdir="$HOME/.config/omarchy/extensions"
   if [[ -d $extdir ]]; then
