@@ -1,0 +1,23 @@
+{
+  "language": "en-GB",
+  "enabled": true,
+  "dictionary": "british",
+  "checkWhileTyping": true,
+  "diagnosticLevel": "hint",
+  "additionalRules": {
+    "EN_QUOTES": "\"",
+    "EN_A_VS_AN": "a",
+    "EN_G_B": "-",
+    "COMMA_PARENTHESIS_WHITESPACE": true,
+    "SENTENCE_WHITESPACE": true,
+    "UPPERCASE_SENTENCE_START": true,
+    "WHITESPACE_RULE": true
+  },
+  "ignoreRegExpList": ["CODE_$", "IMAGE$", "LINK$", "MATH$"],
+  "userSpecificRules": [
+    "UPPERCASE_SENTENCE_START",
+    "EN_NO_CONJUNCTIONS_START",
+    "EN_NO_DOUBLE_PUNCTUATION"
+  ],
+  "userDictionary": "collocations, look forward to, make a decision, put up with, regardless of, in spite of, on the other hand, as far as I know, would rather, used to"
+}

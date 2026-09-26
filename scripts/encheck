@@ -1,0 +1,81 @@
+#!/usr/bin/env bash
+# encheck - English spelling & grammar checker (LTeX+ / LanguageTool, fully offline)
+#
+# Usage:
+#   encheck                 read text from stdin
+#   encheck FILE            check a file (.txt, .md, .org, .tex, ...)
+#   encheck -p "text"       check an inline string
+#   encheck -q FILE         quick: only show line:col + message, no source line
+#
+# Config: ~/.config/ltex/ltex.json
+
+set -uo pipefail
+
+LTEX="$HOME/.local/opt/ltex/ltex-ls-plus-18.7.0/bin/ltex-cli-plus"
+CONFIG="$HOME/.config/ltex/ltex.json"
+QUIET=0
+INLINE=""
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -p|--text) INLINE="${2-}"; shift 2 ;;
+    -q|--quiet) QUIET=1; shift ;;
+    -h|--help) sed -n '2,10p' "$0"; exit 0 ;;
+    *) break ;;
+  esac
+done
+
+if [[ ! -x "$LTEX" ]]; then
+  echo "encheck: LTeX+ not found at $LTEX" >&2
+  exit 127
+fi
+
+tmp=""
+cleanup() { [[ -n "$tmp" && -f "$tmp" ]] && rm -f "$tmp"; }
+trap cleanup EXIT
+
+if [[ -n "$INLINE" ]]; then
+  tmp="$(mktemp --suffix=.txt)"
+  printf '%s\n' "$INLINE" > "$tmp"
+  TARGET="$tmp"
+elif [[ $# -ge 1 ]]; then
+  TARGET="$1"
+elif [[ ! -t 0 ]]; then
+  tmp="$(mktemp --suffix=.txt)"
+  cat > "$tmp"
+  TARGET="$tmp"
+else
+  echo "encheck: give a file, use -p \"text\", or pipe text in." >&2
+  exit 2
+fi
+
+if [[ ! -f "$TARGET" ]]; then
+  echo "encheck: file not found: $TARGET" >&2
+  exit 1
+fi
+
+# LTeX+ writes Java/lsp4j noise to stderr; keep only the diagnostics on stdout.
+out="$("$LTEX" --client-configuration "$CONFIG" "$TARGET" 2>/dev/null)"
+status=$?
+
+if [[ -z "$out" ]]; then
+  if [[ $status -eq 0 ]]; then
+    echo "OK - no spelling or grammar issues found."
+  else
+    echo "encheck: could not analyse '$TARGET'." >&2
+  fi
+  exit $status
+fi
+
+count="$(printf '%s\n' "$out" | grep -cE '^[^ ].*:[0-9]+:[0-9]+: ')"
+
+if [[ $QUIET -eq 1 ]]; then
+  printf '%s\n' "$out" | grep -E '^[^ ].*:[0-9]+:[0-9]+: ' |
+    sed -E 's/^([^:]+):([0-9]+):([0-9]+): [a-z]+: /\1:\2:\3  /'
+else
+  printf '%s\n' "$out"
+fi
+
+echo
+echo "--- $count issue(s) found in $(basename "$TARGET") ---"
+exit $(( count > 0 ? 1 : 0 ))

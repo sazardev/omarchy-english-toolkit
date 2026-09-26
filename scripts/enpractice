@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+# enpractice - English conversation & writing practice with a local LLM (Ollama)
+# Fully offline. English only.
+
+set -uo pipefail
+
+# Ollama emits ANSI spinner/CR sequences on a TTY; strip them.
+strip() { sed -r 's/\x1B\[[0-9;?]*[a-zA-Z]//g; s/\r//g'; }
+
+MODEL="${EN_MODEL:-qwen2.5:7b}"
+LEVEL="${EN_LEVEL:-B2}"
+TOPIC="${1:-everyday conversation}"
+
+if ! command -v ollama >/dev/null 2>&1; then
+  echo "enpractice: ollama is not installed." >&2
+  exit 127
+fi
+if ! ollama list 2>/dev/null | awk 'NR>1{print $1}' | grep -qx "$MODEL"; then
+  echo "enpractice: model '$MODEL' not found. Run:  ollama pull $MODEL" >&2
+  exit 1
+fi
+
+cat <<EOF
+============================================================
+ English practice  -  level: $LEVEL  -  topic: $TOPIC
+ model: $MODEL  (local, no internet)
+============================================================
+
+Write your answer in English. When you are done, type:
+
+    /check
+
+on its own line to get it corrected. Type /quit to exit.
+
+------------------------------------------------------------
+EOF
+
+while true; do
+  printf '\n[you] > '
+  if ! IFS= read -r line; then
+    echo; break
+  fi
+
+  case "$line" in
+    /quit|/exit|/q) echo "bye."; break ;;
+    /check)
+      printf '\n[examiner]\n\n'
+      printf '%s' "$line" | ollama run "$MODEL" "You are a strict English examiner and a ${LEVEL} level teacher.
+I am a Spanish speaker. Below is the English I wrote.
+
+Do exactly this:
+1. List every error as a numbered list: 'what I wrote' -> 'correct version' -> short reason in English.
+2. Group them: GRAMMAR / ARTICLES / PREPOSITIONS / VERB FORM / WORD CHOICE / PUNCTUATION.
+3. If a line is correct, say so briefly.
+4. Then give me a B2 alternative that sounds more natural.
+5. End with 2 sentences of encouragement, in English.
+
+Never use Spanish. Never rewrite the whole text for me: correct, do not replace.
+
+MY WRITING:
+$line
+" 2>/dev/null | strip
+      ;;
+    "")
+      ;;
+    *)
+      printf '\n[tutor]\n\n'
+      ollama run "$MODEL" "You are a friendly ${LEVEL} English conversation partner.
+Reply to what I say in 2 to 4 sentences of natural English.
+Then add: '---' and one short 'Note:' with a grammar or vocabulary point
+that my message could use. Keep it under 90 words total.
+Never use Spanish. Do not lecture me." 2>/dev/null <<< "$line" | strip
+      ;;
+  esac
+done

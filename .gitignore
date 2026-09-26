@@ -1,0 +1,29 @@
+# python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# generated decks (the published one is committed on purpose, untracked ones are not)
+anki/*.apkg
+!anki/Ingles-Grammar-B1C2-EN.apkg
+anki/deck.apkg
+
+# build output
+*.html
+dist/
+build/
+
+# editors / OS
+.DS_Store
+*.swp
+.idea/
+.vscode/
+
+# never commit local or secret material
+*.env
+.env
+secrets/
+*.key
+*.pem
