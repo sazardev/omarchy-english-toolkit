@@ -65,6 +65,15 @@ sudo bash install.sh         # everything, including system packages
    them and then answer every lookup with "nothing similar to", which looks
    like a broken tool rather than a missing database. The installer checks
    that a lookup actually returns a result and tells you if it does not.
+
+   On Arch the unit is `dictd.service`, not `dictd.socket`:
+
+   ```bash
+   sudo systemctl enable --now dictd.service
+   ```
+
+   `sdcv` needs no server at all, it reads the StarDict files directly,
+   so it is usable immediately after `install.sh` with no root at all.
 2. **LTeX+** from the official GitHub release, with `ltex-ls` and
    `ltex` aliases
 3. **Configs** to `~/.config/ltex/` and `~/.config/vale/`

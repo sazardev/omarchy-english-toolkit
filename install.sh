@@ -81,10 +81,17 @@ install_system_packages() {
   fi
 
   log "Dictionary server"
-  if command -v dictd >/dev/null 2>&1; then
-    systemctl enable --now dictd.socket 2>/dev/null \
-      && ok "dictd.socket enabled" \
-      || warn "could not enable dictd.socket"
+  # Arch ships dictd.service, not dictd.socket. Starting a unit that does
+  # not exist fails with "could not be found", which looks like a broken
+  # install rather than a wrong unit name.
+  if systemctl list-unit-files dictd.service >/dev/null 2>&1; then
+    systemctl enable --now dictd.service 2>/dev/null \
+      && ok "dictd.service enabled" \
+      || warn "could not enable dictd.service"
+  elif [[ -f /usr/lib/systemd/system/dictd.service ]]; then
+    systemctl enable --now dictd.service 2>/dev/null \
+      && ok "dictd.service enabled" \
+      || warn "could not enable dictd.service"
   else
     warn "dictd not installed - skipping"
   fi
