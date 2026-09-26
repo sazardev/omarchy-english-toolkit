@@ -188,9 +188,14 @@ EOF
 install_shell_rc() {
   log "Shell integration"
 
-  local rc line
+  local rc
   for rc in "$HOME/.bashrc" "$HOME/.zshrc"; do
-    [[ -f $rc ]] || continue
+    # only .bashrc is created on demand: a missing .zshrc usually means zsh
+    # is not the login shell and creating it would be noise.
+    if [[ ! -f $rc ]]; then
+      [[ $rc == */.bashrc ]] || continue
+      touch "$rc"
+    fi
     if grep -q 'ltex-ls-plus' "$rc" 2>/dev/null; then
       continue
     fi
