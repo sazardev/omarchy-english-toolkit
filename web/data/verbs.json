@@ -1,0 +1,5124 @@
+{
+ "source": {
+  "forms": "Wiktionary: Appendix:English irregular verbs",
+  "meanings": "Princeton WordNet via NLTK",
+  "scenarios": "hand-written"
+ },
+ "count": 415,
+ "rules": [
+  {
+   "id": "R1",
+   "name": "Add -ed",
+   "test": "anything not covered by R2 to R6",
+   "how": "work / worked / worked / working",
+   "note": "The default. If nothing else applies, just add -ed.",
+   "examples": [
+    {
+     "base": "call",
+     "third": "calls",
+     "past": "called",
+     "participle": "called",
+     "ing": "calling"
+    },
+    {
+     "base": "open",
+     "third": "opens",
+     "past": "opened",
+     "participle": "opened",
+     "ing": "opening"
+    },
+    {
+     "base": "help",
+     "third": "helps",
+     "past": "helped",
+     "participle": "helped",
+     "ing": "helping"
+    },
+    {
+     "base": "visit",
+     "third": "visits",
+     "past": "visited",
+     "participle": "visited",
+     "ing": "visiting"
+    },
+    {
+     "base": "need",
+     "third": "needs",
+     "past": "needed",
+     "participle": "needed",
+     "ing": "needing"
+    }
+   ]
+  },
+  {
+   "id": "R2",
+   "name": "Drop the silent -e, then add -ed",
+   "test": "the verb ends in -e",
+   "how": "like / liked / liked / liking",
+   "note": "Only one -ed. 'likedd' is wrong.",
+   "examples": [
+    {
+     "base": "like",
+     "third": "likes",
+     "past": "liked",
+     "participle": "liked",
+     "ing": "liking"
+    },
+    {
+     "base": "live",
+     "third": "lives",
+     "past": "lived",
+     "participle": "lived",
+     "ing": "living"
+    },
+    {
+     "base": "move",
+     "third": "moves",
+     "past": "moved",
+     "participle": "moved",
+     "ing": "moving"
+    },
+    {
+     "base": "close",
+     "third": "closes",
+     "past": "closed",
+     "participle": "closed",
+     "ing": "closing"
+    },
+    {
+     "base": "believe",
+     "third": "believes",
+     "past": "believed",
+     "participle": "believed",
+     "ing": "believing"
+    }
+   ]
+  },
+  {
+   "id": "R3",
+   "name": "y becomes ied",
+   "test": "ends in consonant + y",
+   "how": "study / studied / studied / studying",
+   "note": "Never 'studyd'. The y turns into i before -ed.",
+   "examples": [
+    {
+     "base": "study",
+     "third": "studies",
+     "past": "studied",
+     "participle": "studied",
+     "ing": "studying"
+    },
+    {
+     "base": "try",
+     "third": "tries",
+     "past": "tried",
+     "participle": "tried",
+     "ing": "trying"
+    },
+    {
+     "base": "carry",
+     "third": "carries",
+     "past": "carried",
+     "participle": "carried",
+     "ing": "carrying"
+    },
+    {
+     "base": "worry",
+     "third": "worries",
+     "past": "worried",
+     "participle": "worried",
+     "ing": "worrying"
+    },
+    {
+     "base": "hurry",
+     "third": "hurries",
+     "past": "hurried",
+     "participle": "hurried",
+     "ing": "hurrying"
+    }
+   ]
+  },
+  {
+   "id": "R4",
+   "name": "Keep the y: add -ed",
+   "test": "ends in vowel + y",
+   "how": "play / played / played / playing",
+   "note": "'Playd' is wrong. The y stays.",
+   "examples": [
+    {
+     "base": "play",
+     "third": "plays",
+     "past": "played",
+     "participle": "played",
+     "ing": "playing"
+    },
+    {
+     "base": "enjoy",
+     "third": "enjoys",
+     "past": "enjoyed",
+     "participle": "enjoyed",
+     "ing": "enjoying"
+    },
+    {
+     "base": "stay",
+     "third": "stays",
+     "past": "stayed",
+     "participle": "stayed",
+     "ing": "staying"
+    },
+    {
+     "base": "day",
+     "third": "days",
+     "past": "dayed",
+     "participle": "dayed",
+     "ing": "daying"
+    }
+   ]
+  },
+  {
+   "id": "R5",
+   "name": "Double the consonant",
+   "test": "consonant-vowel-consonant, stress on the last syllable",
+   "how": "stop / stopped / stopped / stopping",
+   "note": "Travel doubles too: travelled, travelling. US accepts traveled.",
+   "examples": [
+    {
+     "base": "stop",
+     "third": "stops",
+     "past": "stopped",
+     "participle": "stopped",
+     "ing": "stopping"
+    },
+    {
+     "base": "plan",
+     "third": "plans",
+     "past": "planned",
+     "participle": "planned",
+     "ing": "planning"
+    },
+    {
+     "base": "travel",
+     "third": "travels",
+     "past": "travelled",
+     "participle": "travelled",
+     "ing": "travelling"
+    },
+    {
+     "base": "admit",
+     "third": "admits",
+     "past": "admitted",
+     "participle": "admitted",
+     "ing": "admitting"
+    },
+    {
+     "base": "prefer",
+     "third": "prefers",
+     "past": "preferred",
+     "participle": "preferred",
+     "ing": "preferring"
+    }
+   ]
+  },
+  {
+   "id": "R6",
+   "name": "Do NOT double before -ed after -e",
+   "test": "CVC shape, but the verb already ends in -e",
+   "how": "like / liked / liked / liking",
+   "note": "This is why like is liked and not likked.",
+   "examples": [
+    {
+     "base": "change",
+     "third": "changes",
+     "past": "changed",
+     "participle": "changed",
+     "ing": "changing"
+    },
+    {
+     "base": "use",
+     "third": "uses",
+     "past": "used",
+     "participle": "used",
+     "ing": "using"
+    },
+    {
+     "base": "dive",
+     "third": "dives",
+     "past": "dived",
+     "participle": "dived",
+     "ing": "diving"
+    },
+    {
+     "base": "sense",
+     "third": "senses",
+     "past": "sensed",
+     "participle": "sensed",
+     "ing": "sensing"
+    }
+   ]
+  }
+ ],
+ "decisions": [
+  {
+   "base": "work",
+   "rule": "R1",
+   "why": "plain"
+  },
+  {
+   "base": "want",
+   "rule": "R1",
+   "why": "plain"
+  },
+  {
+   "base": "open",
+   "rule": "R1",
+   "why": "plain"
+  },
+  {
+   "base": "watch",
+   "rule": "R1",
+   "why": "ends in ch, so the third person is watches"
+  },
+  {
+   "base": "live",
+   "rule": "R2",
+   "why": "ends in -e"
+  },
+  {
+   "base": "dance",
+   "rule": "R2",
+   "why": "ends in -e"
+  },
+  {
+   "base": "hate",
+   "rule": "R2",
+   "why": "ends in -e"
+  },
+  {
+   "base": "study",
+   "rule": "R3",
+   "why": "consonant + y"
+  },
+  {
+   "base": "cry",
+   "rule": "R3",
+   "why": "consonant + y"
+  },
+  {
+   "base": "apply",
+   "rule": "R3",
+   "why": "consonant + y"
+  },
+  {
+   "base": "enjoy",
+   "rule": "R4",
+   "why": "vowel + y, keep the y"
+  },
+  {
+   "base": "stay",
+   "rule": "R4",
+   "why": "vowel + y"
+  },
+  {
+   "base": "play",
+   "rule": "R4",
+   "why": "vowel + y"
+  },
+  {
+   "base": "stop",
+   "rule": "R5",
+   "why": "stressed CVC, double the p"
+  },
+  {
+   "base": "plan",
+   "rule": "R5",
+   "why": "stressed CVC, double the n"
+  },
+  {
+   "base": "admit",
+   "rule": "R5",
+   "why": "stressed CVC, double the t"
+  },
+  {
+   "base": "prefer",
+   "rule": "R5",
+   "why": "stressed CVC, double the r"
+  },
+  {
+   "base": "travel",
+   "rule": "R5",
+   "why": "stressed CVC, double the l"
+  },
+  {
+   "base": "like",
+   "rule": "R6",
+   "why": "CVC but ends in -e, no doubling"
+  },
+  {
+   "base": "change",
+   "rule": "R6",
+   "why": "CVC but ends in -e, no doubling"
+  },
+  {
+   "base": "use",
+   "rule": "R6",
+   "why": "ends in -e, no doubling"
+  },
+  {
+   "base": "dive",
+   "rule": "R6",
+   "why": "short vowel and -e, no doubling"
+  }
+ ],
+ "verbs": [
+  {
+   "base": "abide",
+   "third": "abides",
+   "past": "abided",
+   "participle": "abided",
+   "ing": "abiding",
+   "irregular": true,
+   "meaning": "dwell",
+   "alt": "put up with something or somebody unpleasant"
+  },
+  {
+   "base": "alight",
+   "third": "alights",
+   "past": "alit",
+   "participle": "alit",
+   "ing": "alighting",
+   "irregular": true,
+   "meaning": "to come to rest, settle",
+   "alt": "come down"
+  },
+  {
+   "base": "arise",
+   "third": "arises",
+   "past": "arose",
+   "participle": "arisen",
+   "ing": "arising",
+   "irregular": true,
+   "meaning": "come into existence; take on form or shape",
+   "alt": "originate or come into being"
+  },
+  {
+   "base": "awake",
+   "third": "awakes",
+   "past": "awoke",
+   "participle": "awoken",
+   "ing": "awaking",
+   "irregular": true,
+   "meaning": "stop sleeping"
+  },
+  {
+   "base": "babysit",
+   "third": "babysits",
+   "past": "babysat",
+   "participle": "babysat",
+   "ing": "babysitting",
+   "irregular": true
+  },
+  {
+   "base": "be",
+   "third": "bes",
+   "past": "was",
+   "participle": "been",
+   "ing": "being",
+   "irregular": true,
+   "meaning": "be",
+   "alt": "be identical to; be someone or something",
+   "note": "The most irregular verb there is. Learn the forms, not a rule."
+  },
+  {
+   "base": "bear",
+   "third": "bears",
+   "past": "bore",
+   "participle": "born",
+   "ing": "bearing",
+   "irregular": true,
+   "meaning": "have",
+   "alt": "cause to be born"
+  },
+  {
+   "base": "beat",
+   "third": "beats",
+   "past": "beat",
+   "participle": "beaten",
+   "ing": "beating",
+   "irregular": true,
+   "meaning": "come out better in a competition, race, or conflict",
+   "alt": "give a beating to; subject to a beating, either as a punishment or as an act of aggression"
+  },
+  {
+   "base": "become",
+   "third": "becomes",
+   "past": "became",
+   "participle": "become",
+   "ing": "becoming",
+   "irregular": true,
+   "meaning": "enter or assume a certain state or condition",
+   "alt": "undergo a change or development"
+  },
+  {
+   "base": "befall",
+   "third": "befalls",
+   "past": "befell",
+   "participle": "befallen",
+   "ing": "befalling",
+   "irregular": true,
+   "meaning": "become of; happen to",
+   "alt": "happen, occur, or be the case in the course of events or by chance; ;  (Santayana)"
+  },
+  {
+   "base": "beget",
+   "third": "begets",
+   "past": "begot",
+   "participle": "begotten",
+   "ing": "begetting",
+   "irregular": true,
+   "meaning": "make children"
+  },
+  {
+   "base": "begin",
+   "third": "begins",
+   "past": "began",
+   "participle": "begun",
+   "ing": "beginning",
+   "irregular": true,
+   "meaning": "take the first step or steps in carrying out an action",
+   "alt": "have a beginning, in a temporal, spatial, or evaluative sense"
+  },
+  {
+   "base": "behold",
+   "third": "beholds",
+   "past": "beheld",
+   "participle": "beheld",
+   "ing": "beholding",
+   "irregular": true,
+   "meaning": "see with attention"
+  },
+  {
+   "base": "bend",
+   "third": "bends",
+   "past": "bent",
+   "participle": "bent",
+   "ing": "bending",
+   "irregular": true,
+   "meaning": "form a curve",
+   "alt": "change direction"
+  },
+  {
+   "base": "benim",
+   "third": "benims",
+   "past": "benam",
+   "participle": "benomen",
+   "ing": "benimming",
+   "irregular": true
+  },
+  {
+   "base": "bereave",
+   "third": "bereaves",
+   "past": "bereaved",
+   "participle": "bereaved",
+   "ing": "bereaving",
+   "irregular": true,
+   "meaning": "deprive through death"
+  },
+  {
+   "base": "beseech",
+   "third": "beseeches",
+   "past": "besought",
+   "participle": "besought",
+   "ing": "beseeching",
+   "irregular": true,
+   "meaning": "ask for or request earnestly"
+  },
+  {
+   "base": "beset",
+   "third": "besets",
+   "past": "beset",
+   "participle": "beset",
+   "ing": "besetting",
+   "irregular": true,
+   "meaning": "annoy continually or chronically",
+   "alt": "assail or attack on all sides:"
+  },
+  {
+   "base": "bet",
+   "third": "bets",
+   "past": "bet",
+   "participle": "bet",
+   "ing": "betting",
+   "irregular": true,
+   "meaning": "maintain with or as if with a bet",
+   "alt": "stake on the outcome of an issue"
+  },
+  {
+   "base": "bewit",
+   "third": "bewits",
+   "past": "bewitted",
+   "participle": "bewitted",
+   "ing": "bewitting",
+   "irregular": true
+  },
+  {
+   "base": "bid",
+   "third": "bids",
+   "past": "in",
+   "participle": "cards",
+   "ing": "bidding",
+   "irregular": true,
+   "meaning": "propose a payment",
+   "alt": "invoke upon"
+  },
+  {
+   "base": "bide",
+   "third": "bides",
+   "past": "bided",
+   "participle": "bided",
+   "ing": "biding",
+   "irregular": true,
+   "meaning": "dwell"
+  },
+  {
+   "base": "bind",
+   "third": "binds",
+   "past": "bound",
+   "participle": "bound",
+   "ing": "binding",
+   "irregular": true,
+   "meaning": "stick to firmly",
+   "alt": "create social or emotional ties"
+  },
+  {
+   "base": "bite",
+   "third": "bites",
+   "past": "bit",
+   "participle": "bitten",
+   "ing": "biting",
+   "irregular": true,
+   "meaning": "to grip, cut off, or tear with or as if with the teeth or jaws",
+   "alt": "cause a sharp or stinging pain or discomfort"
+  },
+  {
+   "base": "bleed",
+   "third": "bleeds",
+   "past": "bled",
+   "participle": "bled",
+   "ing": "bleeding",
+   "irregular": true,
+   "meaning": "lose blood from one's body",
+   "alt": "draw blood"
+  },
+  {
+   "base": "bless",
+   "third": "blesses",
+   "past": "blessed",
+   "participle": "blessed",
+   "ing": "blessing",
+   "irregular": true,
+   "meaning": "give a benediction to",
+   "alt": "confer prosperity or happiness on"
+  },
+  {
+   "base": "blow",
+   "third": "blows",
+   "past": "blew",
+   "participle": "blown",
+   "ing": "blowing",
+   "irregular": true,
+   "meaning": "exhale hard",
+   "alt": "be blowing or storming"
+  },
+  {
+   "base": "break",
+   "third": "breaks",
+   "past": "broke",
+   "participle": "broken",
+   "ing": "breaking",
+   "irregular": true,
+   "meaning": "terminate",
+   "alt": "become separated into pieces or fragments"
+  },
+  {
+   "base": "breastfeed",
+   "third": "breastfeeds",
+   "past": "breastfed",
+   "participle": "breastfed",
+   "ing": "breastfeeding",
+   "irregular": true,
+   "meaning": "give suck to"
+  },
+  {
+   "base": "breed",
+   "third": "breeds",
+   "past": "bred",
+   "participle": "bred",
+   "ing": "breeding",
+   "irregular": true,
+   "meaning": "call forth",
+   "alt": "copulate with a female, used especially of horses"
+  },
+  {
+   "base": "bring",
+   "third": "brings",
+   "past": "brought",
+   "participle": "brought",
+   "ing": "bringing",
+   "irregular": true,
+   "meaning": "take something or somebody with oneself somewhere",
+   "alt": "cause to come into a particular state or condition"
+  },
+  {
+   "base": "broadcast",
+   "third": "broadcasts",
+   "past": "broadcast",
+   "participle": "broadcast",
+   "ing": "broadcasting",
+   "irregular": true,
+   "meaning": "broadcast over the airwaves, as in radio or television",
+   "alt": "sow over a wide area, especially by hand"
+  },
+  {
+   "base": "browbeat",
+   "third": "browbeats",
+   "past": "browbeat",
+   "participle": "browbeaten",
+   "ing": "browbeating",
+   "irregular": true,
+   "meaning": "be bossy towards",
+   "alt": "discourage or frighten with threats or a domineering manner; intimidate"
+  },
+  {
+   "base": "build",
+   "third": "builds",
+   "past": "built",
+   "participle": "built",
+   "ing": "building",
+   "irregular": true,
+   "meaning": "make by combining materials and parts",
+   "alt": "form or accumulate steadily"
+  },
+  {
+   "base": "burn",
+   "third": "burns",
+   "past": "burned",
+   "participle": "burnt",
+   "ing": "burning",
+   "irregular": true,
+   "meaning": "destroy by fire",
+   "alt": "shine intensely, as if with heat"
+  },
+  {
+   "base": "burst",
+   "third": "bursts",
+   "past": "burst",
+   "participle": "burst",
+   "ing": "bursting",
+   "irregular": true,
+   "meaning": "come open suddenly and violently, as if from internal pressure",
+   "alt": "force out or release suddenly and often violently something pent up"
+  },
+  {
+   "base": "bust",
+   "third": "busts",
+   "past": "bust",
+   "participle": "bust",
+   "ing": "busting",
+   "irregular": true,
+   "meaning": "ruin completely",
+   "alt": "search without warning, make a sudden surprise attack on"
+  },
+  {
+   "base": "buy",
+   "third": "buys",
+   "past": "bought",
+   "participle": "bought",
+   "ing": "buying",
+   "irregular": true,
+   "meaning": "obtain by purchase; acquire by means of a financial transaction",
+   "alt": "make illegal payments to in exchange for favors or influence"
+  },
+  {
+   "base": "cast",
+   "third": "casts",
+   "past": "cast",
+   "participle": "cast",
+   "ing": "casting",
+   "irregular": true,
+   "meaning": "put or send forth",
+   "alt": "deposit"
+  },
+  {
+   "base": "catch",
+   "third": "catches",
+   "past": "caught",
+   "participle": "caught",
+   "ing": "catching",
+   "irregular": true,
+   "meaning": "discover or come upon accidentally, suddenly, or unexpectedly; catch somebody doing something or in a certain state",
+   "alt": "perceive with the senses quickly, suddenly, or momentarily"
+  },
+  {
+   "base": "chide",
+   "third": "chides",
+   "past": "chid",
+   "participle": "chid",
+   "ing": "chiding",
+   "irregular": true,
+   "meaning": "censure severely or angrily"
+  },
+  {
+   "base": "choose",
+   "third": "chooses",
+   "past": "chose",
+   "participle": "chosen",
+   "ing": "choosing",
+   "irregular": true,
+   "meaning": "pick out, select, or choose from a number of alternatives",
+   "alt": "select as an alternative over another"
+  },
+  {
+   "base": "cleave",
+   "third": "cleaves",
+   "past": "split",
+   "participle": "apart",
+   "ing": "cleaving",
+   "irregular": true,
+   "meaning": "separate or cut with a tool, such as a sharp instrument",
+   "alt": "make by cutting into"
+  },
+  {
+   "base": "clepe",
+   "third": "clepes",
+   "past": "cleped",
+   "participle": "cleped",
+   "ing": "cleping",
+   "irregular": true
+  },
+  {
+   "base": "cling",
+   "third": "clings",
+   "past": "clung",
+   "participle": "clung",
+   "ing": "clinging",
+   "irregular": true,
+   "meaning": "come or be in close contact with; stick or hold together and resist separation",
+   "alt": "to remain emotionally or intellectually attached"
+  },
+  {
+   "base": "clothe",
+   "third": "clothes",
+   "past": "clothed",
+   "participle": "clothed",
+   "ing": "clothing",
+   "irregular": true,
+   "meaning": "provide with clothes or put clothes on",
+   "alt": "furnish with power or authority; of kings or emperors"
+  },
+  {
+   "base": "come",
+   "third": "comes",
+   "past": "came",
+   "participle": "come",
+   "ing": "coming",
+   "irregular": true,
+   "meaning": "move toward, travel toward something or somebody or approach something or somebody",
+   "alt": "reach a destination; arrive by movement or progress"
+  },
+  {
+   "base": "cost",
+   "third": "costs",
+   "past": "cost",
+   "participle": "cost",
+   "ing": "costing",
+   "irregular": true,
+   "meaning": "be priced at",
+   "alt": "require to lose, suffer, or sacrifice"
+  },
+  {
+   "base": "creep",
+   "third": "creeps",
+   "past": "crept",
+   "participle": "crept",
+   "ing": "creeping",
+   "irregular": true,
+   "meaning": "move slowly; in the case of people or animals with the body near the ground",
+   "alt": "to go stealthily or furtively"
+  },
+  {
+   "base": "crosscut",
+   "third": "crosscuts",
+   "past": "crosscut",
+   "participle": "crosscut",
+   "ing": "crosscutting",
+   "irregular": true,
+   "meaning": "cut using a diagonal line"
+  },
+  {
+   "base": "crow",
+   "third": "crows",
+   "past": "crew",
+   "participle": "crowed",
+   "ing": "crowing",
+   "irregular": true,
+   "meaning": "dwell on with satisfaction",
+   "alt": "express pleasure verbally"
+  },
+  {
+   "base": "cut",
+   "third": "cuts",
+   "past": "cut",
+   "participle": "cut",
+   "ing": "cutting",
+   "irregular": true,
+   "meaning": "separate with or as if with an instrument",
+   "alt": "cut down on; make a reduction in"
+  },
+  {
+   "base": "dare",
+   "third": "dares",
+   "past": "dared",
+   "participle": "dared",
+   "ing": "daring",
+   "irregular": true,
+   "meaning": "take upon oneself; act presumptuously, without permission",
+   "alt": "to be courageous enough to try or do something; ,"
+  },
+  {
+   "base": "deal",
+   "third": "deals",
+   "past": "dealt",
+   "participle": "dealt",
+   "ing": "dealing",
+   "irregular": true,
+   "meaning": "act on verbally or in some form of artistic expression",
+   "alt": "take into consideration for exemplifying purposes"
+  },
+  {
+   "base": "dig",
+   "third": "digs",
+   "past": "dug",
+   "participle": "dug",
+   "ing": "digging",
+   "irregular": true,
+   "meaning": "turn up, loosen, or remove earth",
+   "alt": "create by digging"
+  },
+  {
+   "base": "dive",
+   "third": "dives",
+   "past": "dived",
+   "participle": "dived",
+   "ing": "diving",
+   "irregular": true,
+   "meaning": "drop steeply",
+   "alt": "plunge into water"
+  },
+  {
+   "base": "do",
+   "third": "does",
+   "past": "did",
+   "participle": "done",
+   "ing": "doing",
+   "irregular": true,
+   "meaning": "perform, carry out a task",
+   "alt": "carry out or perform an action"
+  },
+  {
+   "base": "drag",
+   "third": "drags",
+   "past": "drug",
+   "participle": "drug",
+   "ing": "dragging",
+   "irregular": true,
+   "meaning": "pull, as against a resistance",
+   "alt": "draw slowly or heavily"
+  },
+  {
+   "base": "draw",
+   "third": "draws",
+   "past": "drew",
+   "participle": "drawn",
+   "ing": "drawing",
+   "irregular": true,
+   "meaning": "cause to move by pulling",
+   "alt": "get or derive"
+  },
+  {
+   "base": "dream",
+   "third": "dreams",
+   "past": "dreamed",
+   "participle": "dreamed",
+   "ing": "dreaming",
+   "irregular": true,
+   "meaning": "have a daydream; indulge in a fantasy",
+   "alt": "experience while sleeping"
+  },
+  {
+   "base": "dress",
+   "third": "dresses",
+   "past": "dressed",
+   "participle": "dressed",
+   "ing": "dressing",
+   "irregular": true,
+   "meaning": "put on clothes",
+   "alt": "provide with clothes or put clothes on"
+  },
+  {
+   "base": "drink",
+   "third": "drinks",
+   "past": "drank",
+   "participle": "drank",
+   "ing": "drinking",
+   "irregular": true,
+   "meaning": "take in liquids",
+   "alt": "consume alcohol"
+  },
+  {
+   "base": "drive",
+   "third": "drives",
+   "past": "drove",
+   "participle": "driven",
+   "ing": "driving",
+   "irregular": true,
+   "meaning": "operate or control a vehicle",
+   "alt": "travel or be transported in a vehicle"
+  },
+  {
+   "base": "dwell",
+   "third": "dwells",
+   "past": "dwelt",
+   "participle": "dwelt",
+   "ing": "dwelling",
+   "irregular": true,
+   "meaning": "think moodily or anxiously about something",
+   "alt": "originate (in)"
+  },
+  {
+   "base": "eat",
+   "third": "eats",
+   "past": "ate",
+   "participle": "eaten",
+   "ing": "eating",
+   "irregular": true,
+   "meaning": "take in solid food",
+   "alt": "eat a meal; take a meal"
+  },
+  {
+   "base": "fall",
+   "third": "falls",
+   "past": "fell",
+   "participle": "fallen",
+   "ing": "falling",
+   "irregular": true,
+   "meaning": "descend in free fall under the influence of gravity",
+   "alt": "move downward and lower, but not necessarily all the way"
+  },
+  {
+   "base": "feed",
+   "third": "feeds",
+   "past": "fed",
+   "participle": "fed",
+   "ing": "feeding",
+   "irregular": true,
+   "meaning": "provide as food",
+   "alt": "give food to"
+  },
+  {
+   "base": "feel",
+   "third": "feels",
+   "past": "felt",
+   "participle": "felt",
+   "ing": "feeling",
+   "irregular": true,
+   "meaning": "undergo an emotional sensation or be in a particular state of mind",
+   "alt": "come to believe on the basis of emotion, intuitions, or indefinite grounds"
+  },
+  {
+   "base": "fight",
+   "third": "fights",
+   "past": "fought",
+   "participle": "fought",
+   "ing": "fighting",
+   "irregular": true,
+   "meaning": "be engaged in a fight; carry on a fight",
+   "alt": "fight against or resist strongly"
+  },
+  {
+   "base": "find",
+   "third": "finds",
+   "past": "found",
+   "participle": "found",
+   "ing": "finding",
+   "irregular": true,
+   "meaning": "come upon, as if by accident; meet with",
+   "alt": "discover or determine the existence, presence, or fact of"
+  },
+  {
+   "base": "fit",
+   "third": "fits",
+   "past": "fit",
+   "participle": "fit",
+   "ing": "fitting",
+   "irregular": true,
+   "meaning": "be agreeable or acceptable to",
+   "alt": "be the right size or shape; fit correctly or as desired"
+  },
+  {
+   "base": "flee",
+   "third": "flees",
+   "past": "fled",
+   "participle": "fled",
+   "ing": "fleeing",
+   "irregular": true,
+   "meaning": "run away quickly"
+  },
+  {
+   "base": "fling",
+   "third": "flings",
+   "past": "flung",
+   "participle": "flung",
+   "ing": "flinging",
+   "irregular": true,
+   "meaning": "throw with force or recklessness",
+   "alt": "move in an abrupt or headlong manner"
+  },
+  {
+   "base": "fly",
+   "third": "flies",
+   "past": "flew",
+   "participle": "flown",
+   "ing": "flying",
+   "irregular": true,
+   "meaning": "travel through the air; be airborne",
+   "alt": "move quickly or suddenly"
+  },
+  {
+   "base": "forbear",
+   "third": "forbears",
+   "past": "forbore",
+   "participle": "forborne",
+   "ing": "forbearing",
+   "irregular": true,
+   "meaning": "refrain from doing",
+   "alt": "resist doing something"
+  },
+  {
+   "base": "forbid",
+   "third": "forbids",
+   "past": "forbad",
+   "participle": "forbid",
+   "ing": "forbidding",
+   "irregular": true,
+   "meaning": "command against",
+   "alt": "keep from happening or arising; make impossible"
+  },
+  {
+   "base": "forecast",
+   "third": "forecasts",
+   "past": "forecast",
+   "participle": "forecast",
+   "ing": "forecasting",
+   "irregular": true,
+   "meaning": "predict in advance",
+   "alt": "judge to be probable"
+  },
+  {
+   "base": "forego",
+   "third": "foregoes",
+   "past": "forewent",
+   "participle": "foregone",
+   "ing": "foregoing",
+   "irregular": true,
+   "meaning": "be earlier in time; go back further",
+   "alt": "do without or cease to hold or adhere to"
+  },
+  {
+   "base": "foreknow",
+   "third": "foreknows",
+   "past": "foreknew",
+   "participle": "foreknown",
+   "ing": "foreknowing",
+   "irregular": true,
+   "meaning": "realize beforehand"
+  },
+  {
+   "base": "forelay",
+   "third": "forelays",
+   "past": "forelaid",
+   "participle": "forelaid",
+   "ing": "forelaying",
+   "irregular": true
+  },
+  {
+   "base": "forelie",
+   "third": "forelies",
+   "past": "forlay",
+   "participle": "forlain",
+   "ing": "forelying",
+   "irregular": true
+  },
+  {
+   "base": "forerun",
+   "third": "foreruns",
+   "past": "foreran",
+   "participle": "forerun",
+   "ing": "forerunning",
+   "irregular": true
+  },
+  {
+   "base": "foresee",
+   "third": "foresees",
+   "past": "foresaw",
+   "participle": "foreseen",
+   "ing": "foreseing",
+   "irregular": true,
+   "meaning": "realize beforehand",
+   "alt": "picture to oneself; imagine possible"
+  },
+  {
+   "base": "foretell",
+   "third": "foretells",
+   "past": "foretold",
+   "participle": "foretold",
+   "ing": "foretelling",
+   "irregular": true,
+   "meaning": "foreshadow or presage",
+   "alt": "make a prediction about; tell in advance"
+  },
+  {
+   "base": "forget",
+   "third": "forgets",
+   "past": "forgot",
+   "participle": "forgotten",
+   "ing": "forgetting",
+   "irregular": true,
+   "meaning": "dismiss from the mind; stop remembering",
+   "alt": "be unable to remember"
+  },
+  {
+   "base": "forgive",
+   "third": "forgives",
+   "past": "forgave",
+   "participle": "forgiven",
+   "ing": "forgiving",
+   "irregular": true,
+   "meaning": "stop blaming or grant forgiveness",
+   "alt": "absolve from payment"
+  },
+  {
+   "base": "forgo",
+   "third": "forgoes",
+   "past": "forwent",
+   "participle": "forgone",
+   "ing": "forgoing",
+   "irregular": true,
+   "meaning": "do without or cease to hold or adhere to",
+   "alt": "be earlier in time; go back further"
+  },
+  {
+   "base": "forlay",
+   "third": "forlays",
+   "past": "forlaid",
+   "participle": "forlaid",
+   "ing": "forlaying",
+   "irregular": true
+  },
+  {
+   "base": "forleave",
+   "third": "forleaves",
+   "past": "forleft",
+   "participle": "forleft",
+   "ing": "forleaving",
+   "irregular": true
+  },
+  {
+   "base": "forlet",
+   "third": "forlets",
+   "past": "forlet",
+   "participle": "forlet",
+   "ing": "forletting",
+   "irregular": true
+  },
+  {
+   "base": "forsake",
+   "third": "forsakes",
+   "past": "forsook",
+   "participle": "forsaken",
+   "ing": "forsaking",
+   "irregular": true,
+   "meaning": "leave someone who needs or counts on you; leave in the lurch"
+  },
+  {
+   "base": "forswear",
+   "third": "forswears",
+   "past": "forswore",
+   "participle": "forsworn",
+   "ing": "forswearing",
+   "irregular": true,
+   "meaning": "formally reject or disavow a formerly held belief, usually under pressure"
+  },
+  {
+   "base": "freeze",
+   "third": "freezes",
+   "past": "froze",
+   "participle": "frozen",
+   "ing": "freezing",
+   "irregular": true,
+   "meaning": "stop moving or become immobilized",
+   "alt": "change to ice"
+  },
+  {
+   "base": "get",
+   "third": "gets",
+   "past": "got",
+   "participle": "gotten",
+   "ing": "getting",
+   "irregular": true,
+   "meaning": "come into the possession of something concrete or abstract",
+   "alt": "enter or assume a certain state or condition"
+  },
+  {
+   "base": "gild",
+   "third": "gilds",
+   "past": "gilt",
+   "participle": "gilt",
+   "ing": "gilding",
+   "irregular": true,
+   "meaning": "decorate with, or as if with, gold leaf or liquid gold"
+  },
+  {
+   "base": "gird",
+   "third": "girds",
+   "past": "girt",
+   "participle": "girt",
+   "ing": "girding",
+   "irregular": true,
+   "meaning": "prepare oneself for a military confrontation",
+   "alt": "put a girdle on or around"
+  },
+  {
+   "base": "give",
+   "third": "gives",
+   "past": "gave",
+   "participle": "given",
+   "ing": "giving",
+   "irregular": true,
+   "meaning": "cause to have, in the abstract sense or physical sense",
+   "alt": "be the cause or source of"
+  },
+  {
+   "base": "gnaw",
+   "third": "gnaws",
+   "past": "gnawed",
+   "participle": "gnawed",
+   "ing": "gnawing",
+   "irregular": true,
+   "meaning": "bite or chew on with the teeth",
+   "alt": "become ground down or deteriorate"
+  },
+  {
+   "base": "go",
+   "third": "goes",
+   "past": "went",
+   "participle": "gone",
+   "ing": "going",
+   "irregular": true,
+   "meaning": "move or travel to a place",
+   "alt": "follow a procedure or take a course",
+   "note": "Went, gone, going. 'I have gone' means I went and came back; 'I have been' means I went and stayed."
+  },
+  {
+   "base": "grave",
+   "third": "graves",
+   "past": "grove",
+   "participle": "graven",
+   "ing": "graving",
+   "irregular": true,
+   "meaning": "shape (a material like stone or wood) by whittling away at it",
+   "alt": "carve, cut, or etch into a material or surface"
+  },
+  {
+   "base": "grind",
+   "third": "grinds",
+   "past": "ground",
+   "participle": "ground",
+   "ing": "grinding",
+   "irregular": true,
+   "meaning": "press or grind with a crushing noise",
+   "alt": "make a grating or grinding sound by rubbing together"
+  },
+  {
+   "base": "grow",
+   "third": "grows",
+   "past": "grew",
+   "participle": "grown",
+   "ing": "growing",
+   "irregular": true,
+   "meaning": "pass into a condition gradually, take on a specific property or attribute; become",
+   "alt": "become larger, greater, or bigger; expand or gain"
+  },
+  {
+   "base": "hamstring",
+   "third": "hamstrings",
+   "past": "hamstrung",
+   "participle": "hamstrung",
+   "ing": "hamstringing",
+   "irregular": true,
+   "meaning": "make ineffective or powerless",
+   "alt": "cripple by cutting the hamstring"
+  },
+  {
+   "base": "hang",
+   "third": "hangs",
+   "past": "hung",
+   "participle": "hung",
+   "ing": "hanging",
+   "irregular": true,
+   "meaning": "be suspended or hanging",
+   "alt": "cause to be hanging or suspended"
+  },
+  {
+   "base": "have",
+   "third": "haves",
+   "past": "had",
+   "participle": "had",
+   "ing": "having",
+   "irregular": true,
+   "meaning": "have or possess, either in a concrete or an abstract sense",
+   "alt": "have as a feature"
+  },
+  {
+   "base": "hear",
+   "third": "hears",
+   "past": "heard",
+   "participle": "heard",
+   "ing": "hearing",
+   "irregular": true,
+   "meaning": "perceive (sound) via the auditory sense",
+   "alt": "get to know or become aware of, usually accidentally"
+  },
+  {
+   "base": "heave",
+   "third": "heaves",
+   "past": "heaved",
+   "participle": "heaved",
+   "ing": "heaving",
+   "irregular": true,
+   "meaning": "utter a sound, as with obvious effort",
+   "alt": "throw with great effort"
+  },
+  {
+   "base": "hew",
+   "third": "hews",
+   "past": "hew",
+   "participle": "hewn",
+   "ing": "hewing",
+   "irregular": true,
+   "meaning": "make or shape as with an axe",
+   "alt": "strike with an axe; cut down, strike"
+  },
+  {
+   "base": "hide",
+   "third": "hides",
+   "past": "hid",
+   "participle": "hid",
+   "ing": "hiding",
+   "irregular": true,
+   "meaning": "prevent from being seen or discovered",
+   "alt": "be or go into hiding; keep out of sight, as for protection and safety"
+  },
+  {
+   "base": "hit",
+   "third": "hits",
+   "past": "hit",
+   "participle": "hit",
+   "ing": "hitting",
+   "irregular": true,
+   "meaning": "cause to move by striking",
+   "alt": "hit against; come into sudden contact with"
+  },
+  {
+   "base": "hold",
+   "third": "holds",
+   "past": "held",
+   "participle": "held",
+   "ing": "holding",
+   "irregular": true,
+   "meaning": "keep in a certain state, position, or activity; e.g.,",
+   "alt": "have or hold in one's hands or grip"
+  },
+  {
+   "base": "hurt",
+   "third": "hurts",
+   "past": "hurt",
+   "participle": "hurt",
+   "ing": "hurting",
+   "irregular": true,
+   "meaning": "be the source of pain",
+   "alt": "give trouble or pain to"
+  },
+  {
+   "base": "inbreed",
+   "third": "inbreeds",
+   "past": "inbred",
+   "participle": "inbred",
+   "ing": "inbreeding",
+   "irregular": true
+  },
+  {
+   "base": "inlay",
+   "third": "inlays",
+   "past": "inlaid",
+   "participle": "inlaid",
+   "ing": "inlaying",
+   "irregular": true,
+   "meaning": "decorate the surface of by inserting wood, stone, and metal"
+  },
+  {
+   "base": "input",
+   "third": "inputs",
+   "past": "input",
+   "participle": "input",
+   "ing": "inputting",
+   "irregular": true,
+   "meaning": "enter (data or a program) into a computer"
+  },
+  {
+   "base": "inset",
+   "third": "insets",
+   "past": "inset",
+   "participle": "inset",
+   "ing": "insetting",
+   "irregular": true,
+   "meaning": "set or place in"
+  },
+  {
+   "base": "interbreed",
+   "third": "interbreeds",
+   "past": "interbred",
+   "participle": "interbred",
+   "ing": "interbreeding",
+   "irregular": true,
+   "meaning": "breed animals or plants using parents of different races and varieties"
+  },
+  {
+   "base": "intercut",
+   "third": "intercuts",
+   "past": "intercut",
+   "participle": "intercut",
+   "ing": "intercutting",
+   "irregular": true
+  },
+  {
+   "base": "interweave",
+   "third": "interweaves",
+   "past": "interwove",
+   "participle": "interwoven",
+   "ing": "interweaving",
+   "irregular": true,
+   "meaning": "interlace by or as if by weaving"
+  },
+  {
+   "base": "keep",
+   "third": "keeps",
+   "past": "kept",
+   "participle": "kept",
+   "ing": "keeping",
+   "irregular": true,
+   "meaning": "keep in a certain state, position, or activity; e.g.,",
+   "alt": "continue a certain state, condition, or activity"
+  },
+  {
+   "base": "ken",
+   "third": "kens",
+   "past": "kenned",
+   "participle": "kenned",
+   "ing": "kenning",
+   "irregular": true
+  },
+  {
+   "base": "kneel",
+   "third": "kneels",
+   "past": "knelt",
+   "participle": "knelt",
+   "ing": "kneeling",
+   "irregular": true,
+   "meaning": "rest one's weight on one's knees"
+  },
+  {
+   "base": "knit",
+   "third": "knits",
+   "past": "knit",
+   "participle": "knit",
+   "ing": "knitting",
+   "irregular": true,
+   "meaning": "make (textiles) by knitting",
+   "alt": "tie or link together"
+  },
+  {
+   "base": "know",
+   "third": "knows",
+   "past": "knew",
+   "participle": "known",
+   "ing": "knowing",
+   "irregular": true,
+   "meaning": "be cognizant or aware of a fact or a specific piece of information; possess knowledge or information about",
+   "alt": "know how to do or perform something"
+  },
+  {
+   "base": "lade",
+   "third": "lades",
+   "past": "laded",
+   "participle": "laden",
+   "ing": "lading",
+   "irregular": true,
+   "meaning": "remove with or as if with a ladle",
+   "alt": "fill or place a load on"
+  },
+  {
+   "base": "latch",
+   "third": "latches",
+   "past": "latched",
+   "participle": "latched",
+   "ing": "latching",
+   "irregular": true,
+   "meaning": "fasten with a latch"
+  },
+  {
+   "base": "lay",
+   "third": "lays",
+   "past": "laid",
+   "participle": "laid",
+   "ing": "laying",
+   "irregular": true,
+   "meaning": "put into a certain place or abstract location",
+   "alt": "put in a horizontal position"
+  },
+  {
+   "base": "lead",
+   "third": "leads",
+   "past": "led",
+   "participle": "led",
+   "ing": "leading",
+   "irregular": true,
+   "meaning": "take somebody somewhere",
+   "alt": "have as a result or residue"
+  },
+  {
+   "base": "lean",
+   "third": "leans",
+   "past": "leanedus",
+   "participle": "leanedus",
+   "ing": "leaning",
+   "irregular": true,
+   "meaning": "to incline or bend from a vertical position",
+   "alt": "cause to lean or incline"
+  },
+  {
+   "base": "leap",
+   "third": "leaps",
+   "past": "leaped",
+   "participle": "leaped",
+   "ing": "leaping",
+   "irregular": true,
+   "meaning": "move forward by leaps and bounds",
+   "alt": "pass abruptly from one state or topic to another"
+  },
+  {
+   "base": "learn",
+   "third": "learns",
+   "past": "learned",
+   "participle": "learned",
+   "ing": "learning",
+   "irregular": true,
+   "meaning": "gain knowledge or skills",
+   "alt": "get to know or become aware of, usually accidentally"
+  },
+  {
+   "base": "leave",
+   "third": "leaves",
+   "past": "left",
+   "participle": "left",
+   "ing": "leaving",
+   "irregular": true,
+   "meaning": "go away from a place",
+   "alt": "go and leave behind, either intentionally or by neglect or forgetfulness"
+  },
+  {
+   "base": "lend",
+   "third": "lends",
+   "past": "lent",
+   "participle": "lent",
+   "ing": "lending",
+   "irregular": true,
+   "meaning": "bestow a quality on",
+   "alt": "give temporarily; let have for a limited time"
+  },
+  {
+   "base": "let",
+   "third": "lets",
+   "past": "allow",
+   "participle": "let",
+   "ing": "letting",
+   "irregular": true,
+   "meaning": "make it possible through a specific action or lack of action for something to happen",
+   "alt": "actively cause something to happen"
+  },
+  {
+   "base": "lie",
+   "third": "lies",
+   "past": "but",
+   "participle": "not",
+   "ing": "lying",
+   "irregular": true,
+   "meaning": "be located or situated somewhere; occupy a certain position",
+   "alt": "be lying, be prostrate; be in a horizontal position"
+  },
+  {
+   "base": "light",
+   "third": "lights",
+   "past": "lit",
+   "participle": "lit",
+   "ing": "lighting",
+   "irregular": true,
+   "meaning": "make lighter or brighter",
+   "alt": "begin to smoke"
+  },
+  {
+   "base": "lipread",
+   "third": "lipreads",
+   "past": "lipread",
+   "participle": "lipread",
+   "ing": "lipreading",
+   "irregular": true,
+   "meaning": "interpret by lipreading; of deaf people"
+  },
+  {
+   "base": "lose",
+   "third": "loses",
+   "past": "lost",
+   "participle": "lost",
+   "ing": "losing",
+   "irregular": true,
+   "meaning": "fail to keep or to maintain; cease to have, either physically or in an abstract sense",
+   "alt": "fail to win"
+  },
+  {
+   "base": "make",
+   "third": "makes",
+   "past": "made",
+   "participle": "made",
+   "ing": "making",
+   "irregular": true,
+   "meaning": "engage in",
+   "alt": "give certain properties to something"
+  },
+  {
+   "base": "may",
+   "third": "mays",
+   "past": "might",
+   "participle": "might",
+   "ing": "maying",
+   "irregular": true
+  },
+  {
+   "base": "mean",
+   "third": "means",
+   "past": "meant",
+   "participle": "meant",
+   "ing": "meaning",
+   "irregular": true,
+   "meaning": "mean or intend to express or convey",
+   "alt": "have as a logical consequence"
+  },
+  {
+   "base": "meet",
+   "third": "meets",
+   "past": "met",
+   "participle": "met",
+   "ing": "meeting",
+   "irregular": true,
+   "meaning": "come together",
+   "alt": "get together socially or for a specific purpose"
+  },
+  {
+   "base": "melt",
+   "third": "melts",
+   "past": "melted",
+   "participle": "melted",
+   "ing": "melting",
+   "irregular": true,
+   "meaning": "reduce or cause to be reduced from a solid to a liquid state, usually by heating",
+   "alt": "become or cause to become soft or liquid"
+  },
+  {
+   "base": "misbecome",
+   "third": "misbecomes",
+   "past": "misbecame",
+   "participle": "misbecome",
+   "ing": "misbecoming",
+   "irregular": true
+  },
+  {
+   "base": "misbeget",
+   "third": "misbegets",
+   "past": "misbegot",
+   "participle": "misbegotten",
+   "ing": "misbegetting",
+   "irregular": true
+  },
+  {
+   "base": "miscast",
+   "third": "miscasts",
+   "past": "miscast",
+   "participle": "miscast",
+   "ing": "miscasting",
+   "irregular": true,
+   "meaning": "cast an actor, singer, or dancer in an unsuitable role"
+  },
+  {
+   "base": "mischoose",
+   "third": "mischooses",
+   "past": "mischose",
+   "participle": "mischosen",
+   "ing": "mischoosing",
+   "irregular": true
+  },
+  {
+   "base": "misdeal",
+   "third": "misdeals",
+   "past": "misdealt",
+   "participle": "misdealt",
+   "ing": "misdealing",
+   "irregular": true,
+   "meaning": "deal cards wrongly"
+  },
+  {
+   "base": "misdo",
+   "third": "misdoes",
+   "past": "misdid",
+   "participle": "misdone",
+   "ing": "misdoing",
+   "irregular": true,
+   "meaning": "do wrongly or improperly"
+  },
+  {
+   "base": "misfeed",
+   "third": "misfeeds",
+   "past": "misfed",
+   "participle": "misfed",
+   "ing": "misfeeding",
+   "irregular": true
+  },
+  {
+   "base": "misget",
+   "third": "misgets",
+   "past": "misgot",
+   "participle": "misgotten",
+   "ing": "misgetting",
+   "irregular": true
+  },
+  {
+   "base": "misgive",
+   "third": "misgives",
+   "past": "misgave",
+   "participle": "misgiven",
+   "ing": "misgiving",
+   "irregular": true,
+   "meaning": "suggest fear or doubt"
+  },
+  {
+   "base": "mishear",
+   "third": "mishears",
+   "past": "misheard",
+   "participle": "misheard",
+   "ing": "mishearing",
+   "irregular": true
+  },
+  {
+   "base": "mishit",
+   "third": "mishits",
+   "past": "mishit",
+   "participle": "mishit",
+   "ing": "mishitting",
+   "irregular": true
+  },
+  {
+   "base": "miskeep",
+   "third": "miskeeps",
+   "past": "miskept",
+   "participle": "miskept",
+   "ing": "miskeeping",
+   "irregular": true
+  },
+  {
+   "base": "misken",
+   "third": "miskens",
+   "past": "miskenned",
+   "participle": "miskenned",
+   "ing": "miskenning",
+   "irregular": true
+  },
+  {
+   "base": "misknow",
+   "third": "misknows",
+   "past": "misknew",
+   "participle": "misknown",
+   "ing": "misknowing",
+   "irregular": true
+  },
+  {
+   "base": "mislay",
+   "third": "mislays",
+   "past": "mislaid",
+   "participle": "mislaid",
+   "ing": "mislaying",
+   "irregular": true,
+   "meaning": "place (something) where one cannot find it again"
+  },
+  {
+   "base": "mislead",
+   "third": "misleads",
+   "past": "misled",
+   "participle": "misled",
+   "ing": "misleading",
+   "irregular": true,
+   "meaning": "lead someone in the wrong direction or give someone wrong directions",
+   "alt": "give false or misleading information to"
+  },
+  {
+   "base": "mislearn",
+   "third": "mislearns",
+   "past": "mislearned",
+   "participle": "mislearned",
+   "ing": "mislearning",
+   "irregular": true
+  },
+  {
+   "base": "misread",
+   "third": "misreads",
+   "past": "misread",
+   "participle": "misread",
+   "ing": "misreading",
+   "irregular": true,
+   "meaning": "read or interpret wrongly",
+   "alt": "interpret wrongly"
+  },
+  {
+   "base": "missay",
+   "third": "missays",
+   "past": "missaid",
+   "participle": "missaid",
+   "ing": "missaying",
+   "irregular": true
+  },
+  {
+   "base": "missend",
+   "third": "missends",
+   "past": "missent",
+   "participle": "missent",
+   "ing": "missending",
+   "irregular": true
+  },
+  {
+   "base": "misset",
+   "third": "missets",
+   "past": "misset",
+   "participle": "misset",
+   "ing": "missetting",
+   "irregular": true
+  },
+  {
+   "base": "misshape",
+   "third": "misshapes",
+   "past": "misshaped",
+   "participle": "misshapen",
+   "ing": "misshaping",
+   "irregular": true
+  },
+  {
+   "base": "misspeak",
+   "third": "misspeaks",
+   "past": "misspoke",
+   "participle": "misspoken",
+   "ing": "misspeaking",
+   "irregular": true,
+   "meaning": "pronounce a word incorrectly"
+  },
+  {
+   "base": "misspell",
+   "third": "misspells",
+   "past": "misspelled",
+   "participle": "misspelled",
+   "ing": "misspelling",
+   "irregular": true,
+   "meaning": "spell incorrectly"
+  },
+  {
+   "base": "misspend",
+   "third": "misspends",
+   "past": "misspent",
+   "participle": "misspent",
+   "ing": "misspending",
+   "irregular": true,
+   "meaning": "spend time badly or unwisely",
+   "alt": "spend (money or other resources) unwisely"
+  },
+  {
+   "base": "mistake",
+   "third": "mistakes",
+   "past": "mistook",
+   "participle": "mistaken",
+   "ing": "mistaking",
+   "irregular": true,
+   "meaning": "identify incorrectly",
+   "alt": "to make a mistake or be incorrect"
+  },
+  {
+   "base": "misunderstand",
+   "third": "misunderstands",
+   "past": "misunderstood",
+   "participle": "misunderstood",
+   "ing": "misunderstanding",
+   "irregular": true,
+   "meaning": "interpret in the wrong way"
+  },
+  {
+   "base": "miswrite",
+   "third": "miswrites",
+   "past": "miswrote",
+   "participle": "miswritten",
+   "ing": "miswriting",
+   "irregular": true
+  },
+  {
+   "base": "mote",
+   "third": "motes",
+   "past": "must",
+   "participle": "must",
+   "ing": "moting",
+   "irregular": true
+  },
+  {
+   "base": "mow",
+   "third": "mows",
+   "past": "mowed",
+   "participle": "mowed",
+   "ing": "mowing",
+   "irregular": true,
+   "meaning": "cut with a blade or mower",
+   "alt": "make a sad face and thrust out one's lower lip"
+  },
+  {
+   "base": "must",
+   "third": "musts",
+   "past": "must",
+   "participle": "none",
+   "ing": "musting",
+   "irregular": true
+  },
+  {
+   "base": "nim",
+   "third": "nims",
+   "past": "nam",
+   "participle": "nomen",
+   "ing": "nimming",
+   "irregular": true
+  },
+  {
+   "base": "offset",
+   "third": "offsets",
+   "past": "offset",
+   "participle": "offset",
+   "ing": "offsetting",
+   "irregular": true,
+   "meaning": "compensate for or counterbalance",
+   "alt": "make up for"
+  },
+  {
+   "base": "outbid",
+   "third": "outbids",
+   "past": "outbid",
+   "participle": "outbid",
+   "ing": "outbidding",
+   "irregular": true,
+   "meaning": "bid over an opponent's bid when one's partner has not bid or doubled",
+   "alt": "bid higher than others"
+  },
+  {
+   "base": "outdo",
+   "third": "outdoes",
+   "past": "outdid",
+   "participle": "outdone",
+   "ing": "outdoing",
+   "irregular": true,
+   "meaning": "be or do something to a greater degree",
+   "alt": "get the better of"
+  },
+  {
+   "base": "outgrow",
+   "third": "outgrows",
+   "past": "outgrew",
+   "participle": "outgrown",
+   "ing": "outgrowing",
+   "irregular": true,
+   "meaning": "grow too large or too mature for",
+   "alt": "grow faster than"
+  },
+  {
+   "base": "output",
+   "third": "outputs",
+   "past": "output",
+   "participle": "output",
+   "ing": "outputting",
+   "irregular": true,
+   "meaning": "to create or manufacture a specific amount"
+  },
+  {
+   "base": "outrun",
+   "third": "outruns",
+   "past": "outran",
+   "participle": "outrun",
+   "ing": "outrunning",
+   "irregular": true,
+   "meaning": "run faster than"
+  },
+  {
+   "base": "outsell",
+   "third": "outsells",
+   "past": "outsold",
+   "participle": "outsold",
+   "ing": "outselling",
+   "irregular": true,
+   "meaning": "be sold more often than other, similar products",
+   "alt": "sell more than others"
+  },
+  {
+   "base": "outshine",
+   "third": "outshines",
+   "past": "outshined",
+   "participle": "outshined",
+   "ing": "outshining",
+   "irregular": true,
+   "meaning": "shine brighter than",
+   "alt": "attract more attention and praise than others"
+  },
+  {
+   "base": "outsing",
+   "third": "outsings",
+   "past": "outsang",
+   "participle": "outsung",
+   "ing": "outsinging",
+   "irregular": true
+  },
+  {
+   "base": "outspend",
+   "third": "outspends",
+   "past": "outspent",
+   "participle": "outspent",
+   "ing": "outspending",
+   "irregular": true
+  },
+  {
+   "base": "outswear",
+   "third": "outswears",
+   "past": "outswore",
+   "participle": "outsworn",
+   "ing": "outswearing",
+   "irregular": true
+  },
+  {
+   "base": "outtell",
+   "third": "outtells",
+   "past": "outtold",
+   "participle": "outtold",
+   "ing": "outtelling",
+   "irregular": true
+  },
+  {
+   "base": "outthink",
+   "third": "outthinks",
+   "past": "outthought",
+   "participle": "outthought",
+   "ing": "outthinking",
+   "irregular": true
+  },
+  {
+   "base": "outthrow",
+   "third": "outthrows",
+   "past": "outthrew",
+   "participle": "outthrown",
+   "ing": "outthrowing",
+   "irregular": true
+  },
+  {
+   "base": "outthrust",
+   "third": "outthrusts",
+   "past": "outthrust",
+   "participle": "outthrust",
+   "ing": "outthrusting",
+   "irregular": true
+  },
+  {
+   "base": "overbear",
+   "third": "overbears",
+   "past": "overbore",
+   "participle": "overborne",
+   "ing": "overbearing",
+   "irregular": true,
+   "meaning": "overcome",
+   "alt": "bear too much"
+  },
+  {
+   "base": "overbend",
+   "third": "overbends",
+   "past": "overbent",
+   "participle": "overbent",
+   "ing": "overbending",
+   "irregular": true
+  },
+  {
+   "base": "overbid",
+   "third": "overbids",
+   "past": "overbid",
+   "participle": "overbid",
+   "ing": "overbidding",
+   "irregular": true,
+   "meaning": "to bid for more tricks than one can expect to win,",
+   "alt": "bid more than the object is worth"
+  },
+  {
+   "base": "overblow",
+   "third": "overblows",
+   "past": "overblew",
+   "participle": "overblown",
+   "ing": "overblowing",
+   "irregular": true
+  },
+  {
+   "base": "overbreed",
+   "third": "overbreeds",
+   "past": "overbred",
+   "participle": "overbred",
+   "ing": "overbreeding",
+   "irregular": true
+  },
+  {
+   "base": "overbuild",
+   "third": "overbuilds",
+   "past": "overbuilt",
+   "participle": "overbuilt",
+   "ing": "overbuilding",
+   "irregular": true
+  },
+  {
+   "base": "overbuy",
+   "third": "overbuys",
+   "past": "overbought",
+   "participle": "overbought",
+   "ing": "overbuying",
+   "irregular": true
+  },
+  {
+   "base": "overcast",
+   "third": "overcasts",
+   "past": "overcast",
+   "participle": "overcast",
+   "ing": "overcasting",
+   "irregular": true,
+   "meaning": "make overcast or cloudy",
+   "alt": "sew over the edge of with long slanting wide stitches"
+  },
+  {
+   "base": "overcome",
+   "third": "overcomes",
+   "past": "overcame",
+   "participle": "overcome",
+   "ing": "overcoming",
+   "irregular": true,
+   "meaning": "win a victory over",
+   "alt": "get on top of; deal with successfully"
+  },
+  {
+   "base": "overdo",
+   "third": "overdoes",
+   "past": "overdid",
+   "participle": "overdone",
+   "ing": "overdoing",
+   "irregular": true,
+   "meaning": "do something to an excessive degree"
+  },
+  {
+   "base": "overdraw",
+   "third": "overdraws",
+   "past": "overdrew",
+   "participle": "overdrawn",
+   "ing": "overdrawing",
+   "irregular": true,
+   "meaning": "draw more money from than is available",
+   "alt": "to enlarge beyond bounds or the truth"
+  },
+  {
+   "base": "overdress",
+   "third": "overdresses",
+   "past": "overdressed",
+   "participle": "overdressed",
+   "ing": "overdressing",
+   "irregular": true,
+   "meaning": "dress too warmly",
+   "alt": "put on special clothes to appear particularly appealing and attractive"
+  },
+  {
+   "base": "overdrink",
+   "third": "overdrinks",
+   "past": "overdrank",
+   "participle": "overdrunk",
+   "ing": "overdrinking",
+   "irregular": true
+  },
+  {
+   "base": "overdrive",
+   "third": "overdrives",
+   "past": "overdrove",
+   "participle": "overdriven",
+   "ing": "overdriving",
+   "irregular": true,
+   "meaning": "drive or work too hard",
+   "alt": "make use of too often or too extensively"
+  },
+  {
+   "base": "overeat",
+   "third": "overeats",
+   "past": "overate",
+   "participle": "overeaten",
+   "ing": "overeating",
+   "irregular": true,
+   "meaning": "overeat or eat immodestly; make a pig of oneself"
+  },
+  {
+   "base": "overfeed",
+   "third": "overfeeds",
+   "past": "overfed",
+   "participle": "overfed",
+   "ing": "overfeeding",
+   "irregular": true,
+   "meaning": "feed excessively"
+  },
+  {
+   "base": "overfly",
+   "third": "overflies",
+   "past": "overflew",
+   "participle": "overflown",
+   "ing": "overflying",
+   "irregular": true,
+   "meaning": "fly over"
+  },
+  {
+   "base": "overgrow",
+   "third": "overgrows",
+   "past": "overgrew",
+   "participle": "overgrown",
+   "ing": "overgrowing",
+   "irregular": true,
+   "meaning": "grow too large",
+   "alt": "become overgrown"
+  },
+  {
+   "base": "overhang",
+   "third": "overhangs",
+   "past": "overhung",
+   "participle": "overhung",
+   "ing": "overhanging",
+   "irregular": true,
+   "meaning": "project over",
+   "alt": "be suspended over or hang over"
+  },
+  {
+   "base": "overhear",
+   "third": "overhears",
+   "past": "overheard",
+   "participle": "overheard",
+   "ing": "overhearing",
+   "irregular": true,
+   "meaning": "hear, usually without the knowledge of the speakers"
+  },
+  {
+   "base": "overlay",
+   "third": "overlays",
+   "past": "overlaid",
+   "participle": "overlaid",
+   "ing": "overlaying",
+   "irregular": true,
+   "meaning": "put something on top of something else",
+   "alt": "kill by lying on"
+  },
+  {
+   "base": "overlie",
+   "third": "overlies",
+   "past": "overlay",
+   "participle": "overlain",
+   "ing": "overlying",
+   "irregular": true,
+   "meaning": "lie upon; lie on top of",
+   "alt": "kill by lying on"
+  },
+  {
+   "base": "overpay",
+   "third": "overpays",
+   "past": "overpaid",
+   "participle": "overpaid",
+   "ing": "overpaying",
+   "irregular": true,
+   "meaning": "pay too much"
+  },
+  {
+   "base": "override",
+   "third": "overrides",
+   "past": "overrode",
+   "participle": "overridden",
+   "ing": "overriding",
+   "irregular": true,
+   "meaning": "rule against",
+   "alt": "prevail over"
+  },
+  {
+   "base": "overrun",
+   "third": "overruns",
+   "past": "overran",
+   "participle": "overrun",
+   "ing": "overrunning",
+   "irregular": true,
+   "meaning": "invade in great numbers",
+   "alt": "occupy in large numbers or live on a host"
+  },
+  {
+   "base": "oversee",
+   "third": "oversees",
+   "past": "oversaw",
+   "participle": "overseen",
+   "ing": "overseing",
+   "irregular": true,
+   "meaning": "watch and direct"
+  },
+  {
+   "base": "oversell",
+   "third": "oversells",
+   "past": "oversold",
+   "participle": "oversold",
+   "ing": "overselling",
+   "irregular": true
+  },
+  {
+   "base": "overset",
+   "third": "oversets",
+   "past": "overset",
+   "participle": "overset",
+   "ing": "oversetting",
+   "irregular": true
+  },
+  {
+   "base": "oversew",
+   "third": "oversews",
+   "past": "oversewed",
+   "participle": "oversewed",
+   "ing": "oversewing",
+   "irregular": true,
+   "meaning": "sew (two edges) with close stitches that pass over them both"
+  },
+  {
+   "base": "overshake",
+   "third": "overshakes",
+   "past": "overshook",
+   "participle": "overshaken",
+   "ing": "overshaking",
+   "irregular": true
+  },
+  {
+   "base": "overshine",
+   "third": "overshines",
+   "past": "overshined",
+   "participle": "overshined",
+   "ing": "overshining",
+   "irregular": true
+  },
+  {
+   "base": "overshoot",
+   "third": "overshoots",
+   "past": "overshot",
+   "participle": "overshot",
+   "ing": "overshooting",
+   "irregular": true,
+   "meaning": "shoot beyond or over (a target)",
+   "alt": "aim too high"
+  },
+  {
+   "base": "oversleep",
+   "third": "oversleeps",
+   "past": "overslept",
+   "participle": "overslept",
+   "ing": "oversleeping",
+   "irregular": true,
+   "meaning": "sleep longer than intended"
+  },
+  {
+   "base": "overslide",
+   "third": "overslides",
+   "past": "overslid",
+   "participle": "overslid",
+   "ing": "oversliding",
+   "irregular": true
+  },
+  {
+   "base": "overslip",
+   "third": "overslips",
+   "past": "overslipped",
+   "participle": "overslipped",
+   "ing": "overslipping",
+   "irregular": true
+  },
+  {
+   "base": "overspend",
+   "third": "overspends",
+   "past": "overspent",
+   "participle": "overspent",
+   "ing": "overspending",
+   "irregular": true,
+   "meaning": "spend more than available of (a budget)",
+   "alt": "spend at a high rate"
+  },
+  {
+   "base": "overspill",
+   "third": "overspills",
+   "past": "overspilled",
+   "participle": "overspilled",
+   "ing": "overspilling",
+   "irregular": true
+  },
+  {
+   "base": "overspread",
+   "third": "overspreads",
+   "past": "overspread",
+   "participle": "overspread",
+   "ing": "overspreading",
+   "irregular": true,
+   "meaning": "spread across or over"
+  },
+  {
+   "base": "overstride",
+   "third": "overstrides",
+   "past": "overstrode",
+   "participle": "overstridden",
+   "ing": "overstriding",
+   "irregular": true
+  },
+  {
+   "base": "overswing",
+   "third": "overswings",
+   "past": "overswung",
+   "participle": "overswung",
+   "ing": "overswinging",
+   "irregular": true
+  },
+  {
+   "base": "overtake",
+   "third": "overtakes",
+   "past": "overtook",
+   "participle": "overtaken",
+   "ing": "overtaking",
+   "irregular": true,
+   "meaning": "catch up with and possibly overtake",
+   "alt": "travel past"
+  },
+  {
+   "base": "overthrow",
+   "third": "overthrows",
+   "past": "overthrew",
+   "participle": "overthrown",
+   "ing": "overthrowing",
+   "irregular": true,
+   "meaning": "cause the downfall of; of rulers",
+   "alt": "rule against"
+  },
+  {
+   "base": "overwork",
+   "third": "overworks",
+   "past": "overworked",
+   "participle": "overworked",
+   "ing": "overworking",
+   "irregular": true,
+   "meaning": "use too much",
+   "alt": "work excessively hard"
+  },
+  {
+   "base": "overwrite",
+   "third": "overwrites",
+   "past": "overwrote",
+   "participle": "overwritten",
+   "ing": "overwriting",
+   "irregular": true,
+   "meaning": "write new data on top of existing data and thus erase the previously existing data"
+  },
+  {
+   "base": "partake",
+   "third": "partakes",
+   "past": "partook",
+   "participle": "partaken",
+   "ing": "partaking",
+   "irregular": true,
+   "meaning": "have some of the qualities or attributes of something",
+   "alt": "have, give, or receive a share of"
+  },
+  {
+   "base": "pay",
+   "third": "pays",
+   "past": "paid",
+   "participle": "paid",
+   "ing": "paying",
+   "irregular": true,
+   "meaning": "give money, usually in exchange for goods or services",
+   "alt": "convey, as of a compliment, regards, attention, etc.; bestow"
+  },
+  {
+   "base": "pen",
+   "third": "pens",
+   "past": "penned",
+   "participle": "penned",
+   "ing": "penning",
+   "irregular": true,
+   "meaning": "produce a literary work"
+  },
+  {
+   "base": "pet",
+   "third": "pets",
+   "past": "pet",
+   "participle": "pet",
+   "ing": "petting",
+   "irregular": true,
+   "meaning": "stroke or caress gently",
+   "alt": "stroke or caress in an erotic manner, as during lovemaking"
+  },
+  {
+   "base": "plead",
+   "third": "pleads",
+   "past": "pleaded",
+   "participle": "pleaded",
+   "ing": "pleading",
+   "irregular": true,
+   "meaning": "appeal or request earnestly",
+   "alt": "offer as an excuse or plea"
+  },
+  {
+   "base": "podcast",
+   "third": "podcasts",
+   "past": "podcast",
+   "participle": "podcast",
+   "ing": "podcasting",
+   "irregular": true,
+   "meaning": "distribute (multimedia files) over the internet for playback on a mobile device or a personal computer"
+  },
+  {
+   "base": "prepay",
+   "third": "prepays",
+   "past": "prepaid",
+   "participle": "prepaid",
+   "ing": "prepaying",
+   "irregular": true,
+   "meaning": "pay for something before receiving it"
+  },
+  {
+   "base": "preset",
+   "third": "presets",
+   "past": "preset",
+   "participle": "preset",
+   "ing": "presetting",
+   "irregular": true
+  },
+  {
+   "base": "proofread",
+   "third": "proofreads",
+   "past": "proofread",
+   "participle": "proofread",
+   "ing": "proofreading",
+   "irregular": true,
+   "meaning": "read for errors"
+  },
+  {
+   "base": "prove",
+   "third": "proves",
+   "past": "proved",
+   "participle": "proved",
+   "ing": "proving",
+   "irregular": true,
+   "meaning": "be shown or be found to be",
+   "alt": "establish the validity of something, as by an example, explanation or experiment"
+  },
+  {
+   "base": "put",
+   "third": "puts",
+   "past": "put",
+   "participle": "put",
+   "ing": "putting",
+   "irregular": true,
+   "meaning": "put into a certain place or abstract location",
+   "alt": "cause to be in a certain state; cause to be in a certain relation"
+  },
+  {
+   "base": "quit",
+   "third": "quits",
+   "past": "quit",
+   "participle": "quit",
+   "ing": "quiting",
+   "irregular": true,
+   "meaning": "put an end to a state or an activity",
+   "alt": "give up or retire from a position"
+  },
+  {
+   "base": "read",
+   "third": "reads",
+   "past": "read",
+   "participle": "read",
+   "ing": "reading",
+   "irregular": true,
+   "meaning": "interpret something that is written or printed",
+   "alt": "have or contain a certain wording or form"
+  },
+  {
+   "base": "rebuild",
+   "third": "rebuilds",
+   "past": "rebuilt",
+   "participle": "rebuilt",
+   "ing": "rebuilding",
+   "irregular": true,
+   "meaning": "build again"
+  },
+  {
+   "base": "recast",
+   "third": "recasts",
+   "past": "recast",
+   "participle": "recast",
+   "ing": "recasting",
+   "irregular": true,
+   "meaning": "cast again, in a different role",
+   "alt": "cast again"
+  },
+  {
+   "base": "redo",
+   "third": "redoes",
+   "past": "redid",
+   "participle": "redone",
+   "ing": "redoing",
+   "irregular": true,
+   "meaning": "make new",
+   "alt": "do over, as of (part of) a house"
+  },
+  {
+   "base": "redraw",
+   "third": "redraws",
+   "past": "redrew",
+   "participle": "redrawn",
+   "ing": "redrawing",
+   "irregular": true
+  },
+  {
+   "base": "regrow",
+   "third": "regrows",
+   "past": "regrew",
+   "participle": "regrown",
+   "ing": "regrowing",
+   "irregular": true,
+   "meaning": "grow anew or continue growth after an injury or interruption"
+  },
+  {
+   "base": "relatch",
+   "third": "relatches",
+   "past": "relatched",
+   "participle": "relatched",
+   "ing": "relatching",
+   "irregular": true
+  },
+  {
+   "base": "relay",
+   "third": "relays",
+   "past": "relaid",
+   "participle": "relaid",
+   "ing": "relaying",
+   "irregular": true,
+   "meaning": "pass along",
+   "alt": "control or operate by relay"
+  },
+  {
+   "base": "remake",
+   "third": "remakes",
+   "past": "remade",
+   "participle": "remade",
+   "ing": "remaking",
+   "irregular": true,
+   "meaning": "make new"
+  },
+  {
+   "base": "rend",
+   "third": "rends",
+   "past": "rent",
+   "participle": "rent",
+   "ing": "rending",
+   "irregular": true,
+   "meaning": "tear or be torn violently"
+  },
+  {
+   "base": "repay",
+   "third": "repays",
+   "past": "repaid",
+   "participle": "repaid",
+   "ing": "repaying",
+   "irregular": true,
+   "meaning": "pay back",
+   "alt": "make repayment for or return something"
+  },
+  {
+   "base": "reread",
+   "third": "rereads",
+   "past": "reread",
+   "participle": "reread",
+   "ing": "rereading",
+   "irregular": true,
+   "meaning": "read anew; read again"
+  },
+  {
+   "base": "rerun",
+   "third": "reruns",
+   "past": "reran",
+   "participle": "rerun",
+   "ing": "rerunning",
+   "irregular": true,
+   "meaning": "broadcast again, as of a film",
+   "alt": "rerun a performance of a play, for example"
+  },
+  {
+   "base": "resell",
+   "third": "resells",
+   "past": "resold",
+   "participle": "resold",
+   "ing": "reselling",
+   "irregular": true,
+   "meaning": "sell (something) again after having bought it"
+  },
+  {
+   "base": "resend",
+   "third": "resends",
+   "past": "resent",
+   "participle": "resent",
+   "ing": "resending",
+   "irregular": true
+  },
+  {
+   "base": "reset",
+   "third": "resets",
+   "past": "reset",
+   "participle": "reset",
+   "ing": "resetting",
+   "irregular": true,
+   "meaning": "set anew",
+   "alt": "set to zero"
+  },
+  {
+   "base": "reshoot",
+   "third": "reshoots",
+   "past": "reshot",
+   "participle": "reshot",
+   "ing": "reshooting",
+   "irregular": true,
+   "meaning": "shoot again"
+  },
+  {
+   "base": "retake",
+   "third": "retakes",
+   "past": "retook",
+   "participle": "retaken",
+   "ing": "retaking",
+   "irregular": true,
+   "meaning": "take back by force, as after a battle",
+   "alt": "capture again"
+  },
+  {
+   "base": "retell",
+   "third": "retells",
+   "past": "retold",
+   "participle": "retold",
+   "ing": "retelling",
+   "irregular": true,
+   "meaning": "render verbally,",
+   "alt": "make into fiction"
+  },
+  {
+   "base": "rethink",
+   "third": "rethinks",
+   "past": "rethought",
+   "participle": "rethought",
+   "ing": "rethinking",
+   "irregular": true,
+   "meaning": "change one's mind"
+  },
+  {
+   "base": "retread",
+   "third": "retreads",
+   "past": "retrod",
+   "participle": "retrodden",
+   "ing": "retreading",
+   "irregular": true,
+   "meaning": "use again in altered form",
+   "alt": "give new treads to (a tire)"
+  },
+  {
+   "base": "rewind",
+   "third": "rewinds",
+   "past": "rewound",
+   "participle": "rewound",
+   "ing": "rewinding",
+   "irregular": true
+  },
+  {
+   "base": "rewrite",
+   "third": "rewrites",
+   "past": "rewrote",
+   "participle": "rewritten",
+   "ing": "rewriting",
+   "irregular": true,
+   "meaning": "write differently; alter the writing of",
+   "alt": "rewrite so as to make fit to suit a new or different purpose"
+  },
+  {
+   "base": "rid",
+   "third": "rids",
+   "past": "rid",
+   "participle": "rid",
+   "ing": "ridding",
+   "irregular": true,
+   "meaning": "relieve from"
+  },
+  {
+   "base": "ride",
+   "third": "rides",
+   "past": "rode",
+   "participle": "ridden",
+   "ing": "riding",
+   "irregular": true,
+   "meaning": "sit and travel on the back of animal, usually while controlling its motions",
+   "alt": "be carried or travel on or in a vehicle"
+  },
+  {
+   "base": "ring",
+   "third": "rings",
+   "past": "rang",
+   "participle": "rung",
+   "ing": "ringing",
+   "irregular": true,
+   "meaning": "sound loudly and sonorously",
+   "alt": "ring or echo with sound"
+  },
+  {
+   "base": "rise",
+   "third": "rises",
+   "past": "rose",
+   "participle": "risen",
+   "ing": "rising",
+   "irregular": true,
+   "meaning": "move upward",
+   "alt": "increase in value or to a higher point"
+  },
+  {
+   "base": "rive",
+   "third": "rives",
+   "past": "rived",
+   "participle": "rived",
+   "ing": "riving",
+   "irregular": true,
+   "meaning": "tear or be torn violently",
+   "alt": "separate or cut with a tool, such as a sharp instrument"
+  },
+  {
+   "base": "run",
+   "third": "runs",
+   "past": "ran",
+   "participle": "run",
+   "ing": "running",
+   "irregular": true,
+   "meaning": "move fast by using one's feet, with one foot off the ground at any given time",
+   "alt": "flee; take to one's heels; cut and run"
+  },
+  {
+   "base": "sake",
+   "third": "sakes",
+   "past": "sook",
+   "participle": "saken",
+   "ing": "saking",
+   "irregular": true
+  },
+  {
+   "base": "saw",
+   "third": "saws",
+   "past": "sawed",
+   "participle": "sawed",
+   "ing": "sawing",
+   "irregular": true,
+   "meaning": "cut with a saw",
+   "alt": "perceive by sight or have the power to perceive by sight"
+  },
+  {
+   "base": "say",
+   "third": "says",
+   "past": "said",
+   "participle": "said",
+   "ing": "saying",
+   "irregular": true,
+   "meaning": "express in words",
+   "alt": "report or maintain"
+  },
+  {
+   "base": "see",
+   "third": "sees",
+   "past": "saw",
+   "participle": "seen",
+   "ing": "seeing",
+   "irregular": true,
+   "meaning": "perceive with the eyes or the mind",
+   "alt": "perceive (an idea or situation) mentally",
+   "note": "Saw, seen. 'I have seen it' = at some point. 'I saw it' = a specific moment."
+  },
+  {
+   "base": "seek",
+   "third": "seeks",
+   "past": "sought",
+   "participle": "sought",
+   "ing": "seeking",
+   "irregular": true,
+   "meaning": "try to get or reach",
+   "alt": "try to locate or discover, or try to establish the existence of"
+  },
+  {
+   "base": "seethe",
+   "third": "seethes",
+   "past": "seethed",
+   "participle": "seethed",
+   "ing": "seething",
+   "irregular": true,
+   "meaning": "be noisy with activity",
+   "alt": "be in an agitated emotional state"
+  },
+  {
+   "base": "sell",
+   "third": "sells",
+   "past": "sold",
+   "participle": "sold",
+   "ing": "selling",
+   "irregular": true,
+   "meaning": "exchange or deliver for money or its equivalent",
+   "alt": "be sold at a certain price or in a certain way"
+  },
+  {
+   "base": "send",
+   "third": "sends",
+   "past": "sent",
+   "participle": "sent",
+   "ing": "sending",
+   "irregular": true,
+   "meaning": "cause to go somewhere",
+   "alt": "to cause or order to be taken, directed, or transmitted to another place"
+  },
+  {
+   "base": "set",
+   "third": "sets",
+   "past": "set",
+   "participle": "set",
+   "ing": "setting",
+   "irregular": true,
+   "meaning": "put into a certain place or abstract location",
+   "alt": "fix conclusively or authoritatively"
+  },
+  {
+   "base": "sew",
+   "third": "sews",
+   "past": "sewed",
+   "participle": "sewed",
+   "ing": "sewing",
+   "irregular": true,
+   "meaning": "fasten by sewing; do needlework",
+   "alt": "create (clothes) with cloth"
+  },
+  {
+   "base": "shake",
+   "third": "shakes",
+   "past": "shook",
+   "participle": "shaken",
+   "ing": "shaking",
+   "irregular": true,
+   "meaning": "move or cause to move back and forth",
+   "alt": "move with or as if with a tremor"
+  },
+  {
+   "base": "shall",
+   "third": "shalls",
+   "past": "should",
+   "participle": "none",
+   "ing": "shalling",
+   "irregular": true
+  },
+  {
+   "base": "shape",
+   "third": "shapes",
+   "past": "shaped",
+   "participle": "shapen",
+   "ing": "shaping",
+   "irregular": true,
+   "meaning": "shape or influence; give direction to",
+   "alt": "make something, usually for a specific function"
+  },
+  {
+   "base": "shave",
+   "third": "shaves",
+   "past": "shove",
+   "participle": "shaven",
+   "ing": "shaving",
+   "irregular": true,
+   "meaning": "remove body hair with a razor",
+   "alt": "cut closely"
+  },
+  {
+   "base": "shear",
+   "third": "shears",
+   "past": "shore",
+   "participle": "shorn",
+   "ing": "shearing",
+   "irregular": true,
+   "meaning": "cut with shears",
+   "alt": "shear the wool from"
+  },
+  {
+   "base": "shed",
+   "third": "sheds",
+   "past": "shed",
+   "participle": "shed",
+   "ing": "shedding",
+   "irregular": true,
+   "meaning": "get rid of",
+   "alt": "pour out in drops or small quantities or as if in drops or small quantities"
+  },
+  {
+   "base": "shine",
+   "third": "shines",
+   "past": "shined",
+   "participle": "shined",
+   "ing": "shining",
+   "irregular": true,
+   "meaning": "be bright by reflecting or casting light",
+   "alt": "emit light; be bright, as of the sun or a light"
+  },
+  {
+   "base": "shit",
+   "third": "shits",
+   "past": "shit",
+   "participle": "shit",
+   "ing": "shitting",
+   "irregular": true,
+   "meaning": "give away information about somebody",
+   "alt": "have a bowel movement"
+  },
+  {
+   "base": "shite",
+   "third": "shites",
+   "past": "shit",
+   "participle": "shit",
+   "ing": "shiting",
+   "irregular": true
+  },
+  {
+   "base": "shoe",
+   "third": "shoes",
+   "past": "shoed",
+   "participle": "shoed",
+   "ing": "shoing",
+   "irregular": true,
+   "meaning": "furnish with shoes"
+  },
+  {
+   "base": "shoot",
+   "third": "shoots",
+   "past": "shot",
+   "participle": "shot",
+   "ing": "shooting",
+   "irregular": true,
+   "meaning": "hit with a missile from a weapon",
+   "alt": "kill by firing a missile"
+  },
+  {
+   "base": "show",
+   "third": "shows",
+   "past": "showed",
+   "participle": "shown",
+   "ing": "showing",
+   "irregular": true,
+   "meaning": "give an exhibition of to an interested audience",
+   "alt": "establish the validity of something, as by an example, explanation or experiment"
+  },
+  {
+   "base": "shred",
+   "third": "shreds",
+   "past": "shredded",
+   "participle": "shredded",
+   "ing": "shredding",
+   "irregular": true,
+   "meaning": "tear into shreds"
+  },
+  {
+   "base": "shrink",
+   "third": "shrinks",
+   "past": "shrank",
+   "participle": "shrunk",
+   "ing": "shrinking",
+   "irregular": true,
+   "meaning": "wither, as with a loss of moisture",
+   "alt": "draw back, as with fear or pain"
+  },
+  {
+   "base": "shrive",
+   "third": "shrives",
+   "past": "shrove",
+   "participle": "shriven",
+   "ing": "shriving",
+   "irregular": true,
+   "meaning": "grant remission of a sin to"
+  },
+  {
+   "base": "shut",
+   "third": "shuts",
+   "past": "shut",
+   "participle": "shut",
+   "ing": "shutting",
+   "irregular": true,
+   "meaning": "move so that an opening or passage is obstructed; make shut",
+   "alt": "become closed"
+  },
+  {
+   "base": "sightsee",
+   "third": "sightsees",
+   "past": "sightsaw",
+   "participle": "sightseen",
+   "ing": "sightseing",
+   "irregular": true,
+   "meaning": "visit famous or interesting sights"
+  },
+  {
+   "base": "simulcast",
+   "third": "simulcasts",
+   "past": "simulcast",
+   "participle": "simulcast",
+   "ing": "simulcasting",
+   "irregular": true
+  },
+  {
+   "base": "sing",
+   "third": "sings",
+   "past": "sang",
+   "participle": "sung",
+   "ing": "singing",
+   "irregular": true,
+   "meaning": "deliver by singing",
+   "alt": "produce tones with the voice"
+  },
+  {
+   "base": "sink",
+   "third": "sinks",
+   "past": "sank",
+   "participle": "sunk",
+   "ing": "sinking",
+   "irregular": true,
+   "meaning": "fall or descend to a lower place or level",
+   "alt": "cause to sink"
+  },
+  {
+   "base": "sit",
+   "third": "sits",
+   "past": "sat",
+   "participle": "sat",
+   "ing": "sitting",
+   "irregular": true,
+   "meaning": "be seated",
+   "alt": "be around, often idly or without specific purpose"
+  },
+  {
+   "base": "slay",
+   "third": "slays",
+   "past": "slew",
+   "participle": "slain",
+   "ing": "slaying",
+   "irregular": true,
+   "meaning": "kill intentionally and with premeditation"
+  },
+  {
+   "base": "sleep",
+   "third": "sleeps",
+   "past": "slept",
+   "participle": "slept",
+   "ing": "sleeping",
+   "irregular": true,
+   "meaning": "be asleep",
+   "alt": "be able to accommodate for sleeping"
+  },
+  {
+   "base": "slide",
+   "third": "slides",
+   "past": "slid",
+   "participle": "slid",
+   "ing": "sliding",
+   "irregular": true,
+   "meaning": "move obliquely or sideways, usually in an uncontrolled manner",
+   "alt": "to pass or move unobtrusively or smoothly"
+  },
+  {
+   "base": "sling",
+   "third": "slings",
+   "past": "slang",
+   "participle": "slung",
+   "ing": "slinging",
+   "irregular": true,
+   "meaning": "hurl as if with a sling",
+   "alt": "hang loosely or freely; let swing"
+  },
+  {
+   "base": "slink",
+   "third": "slinks",
+   "past": "slunk",
+   "participle": "slunk",
+   "ing": "slinking",
+   "irregular": true,
+   "meaning": "walk stealthily"
+  },
+  {
+   "base": "slip",
+   "third": "slips",
+   "past": "slipped",
+   "participle": "slipped",
+   "ing": "slipping",
+   "irregular": true,
+   "meaning": "move stealthily",
+   "alt": "insert inconspicuously or quickly or quietly"
+  },
+  {
+   "base": "slit",
+   "third": "slits",
+   "past": "slit",
+   "participle": "slit",
+   "ing": "slitting",
+   "irregular": true,
+   "meaning": "make a clean cut through",
+   "alt": "cut a slit into"
+  },
+  {
+   "base": "smell",
+   "third": "smells",
+   "past": "smelled",
+   "participle": "smelled",
+   "ing": "smelling",
+   "irregular": true,
+   "meaning": "inhale the odor of; perceive by the olfactory sense",
+   "alt": "emit an odor"
+  },
+  {
+   "base": "smite",
+   "third": "smites",
+   "past": "smote",
+   "participle": "smitten",
+   "ing": "smiting",
+   "irregular": true,
+   "meaning": "inflict a heavy blow on, with the hand, a tool, or a weapon",
+   "alt": "affect suddenly with deep feeling"
+  },
+  {
+   "base": "sneak",
+   "third": "sneaks",
+   "past": "sneaked",
+   "participle": "sneaked",
+   "ing": "sneaking",
+   "irregular": true,
+   "meaning": "to go stealthily or furtively",
+   "alt": "put, bring, or take in a secretive or furtive manner"
+  },
+  {
+   "base": "sow",
+   "third": "sows",
+   "past": "sowed",
+   "participle": "sowed",
+   "ing": "sowing",
+   "irregular": true,
+   "meaning": "place (seeds) in or on the ground for future growth",
+   "alt": "introduce into an environment"
+  },
+  {
+   "base": "speak",
+   "third": "speaks",
+   "past": "spoke",
+   "participle": "spoken",
+   "ing": "speaking",
+   "irregular": true,
+   "meaning": "express in speech",
+   "alt": "exchange thoughts; talk with"
+  },
+  {
+   "base": "speed",
+   "third": "speeds",
+   "past": "sped",
+   "participle": "sped",
+   "ing": "speeding",
+   "irregular": true,
+   "meaning": "move fast",
+   "alt": "move faster"
+  },
+  {
+   "base": "spell",
+   "third": "spells",
+   "past": "spelled",
+   "participle": "spelled",
+   "ing": "spelling",
+   "irregular": true,
+   "meaning": "orally recite the letters of or give the spelling of",
+   "alt": "indicate or signify"
+  },
+  {
+   "base": "spend",
+   "third": "spends",
+   "past": "spent",
+   "participle": "spent",
+   "ing": "spending",
+   "irregular": true,
+   "meaning": "pass time in a specific way",
+   "alt": "pay out"
+  },
+  {
+   "base": "spill",
+   "third": "spills",
+   "past": "spilled",
+   "participle": "spilled",
+   "ing": "spilling",
+   "irregular": true,
+   "meaning": "cause or allow (a liquid substance) to run or flow from a container",
+   "alt": "flow, run or fall out and become lost"
+  },
+  {
+   "base": "spin",
+   "third": "spins",
+   "past": "span",
+   "participle": "spun",
+   "ing": "spinning",
+   "irregular": true,
+   "meaning": "revolve quickly and repeatedly around one's own axis",
+   "alt": "stream in jets, of liquids"
+  },
+  {
+   "base": "spit",
+   "third": "spits",
+   "past": "spit",
+   "participle": "spit",
+   "ing": "spitting",
+   "irregular": true,
+   "meaning": "expel or eject (saliva or phlegm or sputum) from the mouth",
+   "alt": "utter with anger or contempt"
+  },
+  {
+   "base": "split",
+   "third": "splits",
+   "past": "split",
+   "participle": "split",
+   "ing": "splitting",
+   "irregular": true,
+   "meaning": "separate into parts or portions",
+   "alt": "separate or cut with a tool, such as a sharp instrument"
+  },
+  {
+   "base": "spoil",
+   "third": "spoils",
+   "past": "spoiled",
+   "participle": "spoiled",
+   "ing": "spoiling",
+   "irregular": true,
+   "meaning": "make a mess of, destroy or ruin",
+   "alt": "become unfit for consumption or use"
+  },
+  {
+   "base": "spread",
+   "third": "spreads",
+   "past": "spread",
+   "participle": "spread",
+   "ing": "spreading",
+   "irregular": true,
+   "meaning": "distribute or disperse widely",
+   "alt": "become distributed or widespread"
+  },
+  {
+   "base": "spring",
+   "third": "springs",
+   "past": "sprang",
+   "participle": "sprung",
+   "ing": "springing",
+   "irregular": true,
+   "meaning": "move forward by leaps and bounds",
+   "alt": "develop into a distinctive entity"
+  },
+  {
+   "base": "stand",
+   "third": "stands",
+   "past": "stood",
+   "participle": "stood",
+   "ing": "standing",
+   "irregular": true,
+   "meaning": "be standing; be upright",
+   "alt": "be in some specified state or condition"
+  },
+  {
+   "base": "stave",
+   "third": "staves",
+   "past": "staved",
+   "participle": "staved",
+   "ing": "staving",
+   "irregular": true,
+   "meaning": "furnish with staves",
+   "alt": "burst or force (a hole) into something"
+  },
+  {
+   "base": "stay",
+   "third": "stays",
+   "past": "stayed",
+   "participle": "stayed",
+   "ing": "staying",
+   "irregular": true,
+   "meaning": "stay the same; remain in a certain state",
+   "alt": "stay put (in a certain place)"
+  },
+  {
+   "base": "steal",
+   "third": "steals",
+   "past": "stole",
+   "participle": "stolen",
+   "ing": "stealing",
+   "irregular": true,
+   "meaning": "take without the owner's consent",
+   "alt": "move stealthily"
+  },
+  {
+   "base": "stick",
+   "third": "sticks",
+   "past": "stuck",
+   "participle": "stuck",
+   "ing": "sticking",
+   "irregular": true,
+   "meaning": "put, fix, force, or implant",
+   "alt": "stay put (in a certain place)"
+  },
+  {
+   "base": "sting",
+   "third": "stings",
+   "past": "stung",
+   "participle": "stung",
+   "ing": "stinging",
+   "irregular": true,
+   "meaning": "cause a sharp or stinging pain or discomfort",
+   "alt": "deliver a sting to"
+  },
+  {
+   "base": "stink",
+   "third": "stinks",
+   "past": "stank",
+   "participle": "stunk",
+   "ing": "stinking",
+   "irregular": true,
+   "meaning": "be extremely bad in quality or in one's performance",
+   "alt": "smell badly and offensively"
+  },
+  {
+   "base": "strew",
+   "third": "strews",
+   "past": "strew",
+   "participle": "strewn",
+   "ing": "strewing",
+   "irregular": true,
+   "meaning": "spread by scattering ( is archaic)",
+   "alt": "cover; be dispersed over"
+  },
+  {
+   "base": "stride",
+   "third": "strides",
+   "past": "strode",
+   "participle": "stridden",
+   "ing": "striding",
+   "irregular": true,
+   "meaning": "walk with long steps",
+   "alt": "cover or traverse by taking long steps"
+  },
+  {
+   "base": "strike",
+   "third": "strikes",
+   "past": "struck",
+   "participle": "stricken",
+   "ing": "striking",
+   "irregular": true,
+   "meaning": "deliver a sharp blow, as with the hand, fist, or weapon",
+   "alt": "have an emotional or cognitive impact upon"
+  },
+  {
+   "base": "string",
+   "third": "strings",
+   "past": "strang",
+   "participle": "strung",
+   "ing": "stringing",
+   "irregular": true,
+   "meaning": "thread on or as if on a string",
+   "alt": "add as if on a string"
+  },
+  {
+   "base": "strive",
+   "third": "strives",
+   "past": "strove",
+   "participle": "striven",
+   "ing": "striving",
+   "irregular": true,
+   "meaning": "attempt by employing effort",
+   "alt": "to exert much effort or energy"
+  },
+  {
+   "base": "sublet",
+   "third": "sublets",
+   "past": "sublet",
+   "participle": "sublet",
+   "ing": "subletting",
+   "irregular": true,
+   "meaning": "lease or rent all or part of (a leased or rented property) to another person"
+  },
+  {
+   "base": "swear",
+   "third": "swears",
+   "past": "swore",
+   "participle": "sworn",
+   "ing": "swearing",
+   "irregular": true,
+   "meaning": "utter obscenities or profanities",
+   "alt": "to declare or affirm solemnly and formally as true"
+  },
+  {
+   "base": "sweat",
+   "third": "sweats",
+   "past": "sweat",
+   "participle": "sweat",
+   "ing": "sweating",
+   "irregular": true,
+   "meaning": "excrete perspiration through the pores in the skin"
+  },
+  {
+   "base": "sweep",
+   "third": "sweeps",
+   "past": "swept",
+   "participle": "swept",
+   "ing": "sweeping",
+   "irregular": true,
+   "meaning": "sweep across or over",
+   "alt": "move with sweeping, effortless, gliding motions"
+  },
+  {
+   "base": "swell",
+   "third": "swells",
+   "past": "swelled",
+   "participle": "swelled",
+   "ing": "swelling",
+   "irregular": true,
+   "meaning": "increase in size, magnitude, number, or intensity",
+   "alt": "become filled with pride, arrogance, or anger"
+  },
+  {
+   "base": "swelt",
+   "third": "swelts",
+   "past": "swolt",
+   "participle": "swolten",
+   "ing": "swelting",
+   "irregular": true
+  },
+  {
+   "base": "swim",
+   "third": "swims",
+   "past": "swam",
+   "participle": "swum",
+   "ing": "swimming",
+   "irregular": true,
+   "meaning": "travel through water",
+   "alt": "be afloat either on or below a liquid surface and not sink to the bottom"
+  },
+  {
+   "base": "swing",
+   "third": "swings",
+   "past": "swang",
+   "participle": "swung",
+   "ing": "swinging",
+   "irregular": true,
+   "meaning": "move in a curve or arc, usually with the intent of hitting",
+   "alt": "move or walk in a swinging or swaying manner"
+  },
+  {
+   "base": "take",
+   "third": "takes",
+   "past": "took",
+   "participle": "taken",
+   "ing": "taking",
+   "irregular": true,
+   "meaning": "carry out",
+   "alt": "require (time or space)"
+  },
+  {
+   "base": "teach",
+   "third": "teaches",
+   "past": "taught",
+   "participle": "taught",
+   "ing": "teaching",
+   "irregular": true,
+   "meaning": "impart skills or knowledge to",
+   "alt": "accustom gradually to some action or attitude"
+  },
+  {
+   "base": "tear",
+   "third": "tears",
+   "past": "tore",
+   "participle": "torn",
+   "ing": "tearing",
+   "irregular": true,
+   "meaning": "separate or cause to separate abruptly",
+   "alt": "to separate or be separated by force"
+  },
+  {
+   "base": "tell",
+   "third": "tells",
+   "past": "told",
+   "participle": "told",
+   "ing": "telling",
+   "irregular": true,
+   "meaning": "express in words",
+   "alt": "let something be known"
+  },
+  {
+   "base": "think",
+   "third": "thinks",
+   "past": "thought",
+   "participle": "thought",
+   "ing": "thinking",
+   "irregular": true,
+   "meaning": "judge or regard; look upon; judge",
+   "alt": "expect, believe, or suppose"
+  },
+  {
+   "base": "thrive",
+   "third": "thrives",
+   "past": "thrived",
+   "participle": "thrived",
+   "ing": "thriving",
+   "irregular": true,
+   "meaning": "grow vigorously",
+   "alt": "make steady progress; be at the high point in one's career or reach a high point in historical significance or importance"
+  },
+  {
+   "base": "throw",
+   "third": "throws",
+   "past": "threw",
+   "participle": "thrown",
+   "ing": "throwing",
+   "irregular": true,
+   "meaning": "propel through the air",
+   "alt": "move violently, energetically, or carelessly"
+  },
+  {
+   "base": "thrust",
+   "third": "thrusts",
+   "past": "thrust",
+   "participle": "thrust",
+   "ing": "thrusting",
+   "irregular": true,
+   "meaning": "push forcefully",
+   "alt": "press or force"
+  },
+  {
+   "base": "tread",
+   "third": "treads",
+   "past": "trod",
+   "participle": "trodden",
+   "ing": "treading",
+   "irregular": true,
+   "meaning": "put down or press the foot, place the foot",
+   "alt": "tread or stomp heavily or roughly"
+  },
+  {
+   "base": "unbend",
+   "third": "unbends",
+   "past": "unbent",
+   "participle": "unbent",
+   "ing": "unbending",
+   "irregular": true,
+   "meaning": "straighten up or out; make straight",
+   "alt": "unfasten, as a sail, from a spar or a stay"
+  },
+  {
+   "base": "unbind",
+   "third": "unbinds",
+   "past": "unbound",
+   "participle": "unbound",
+   "ing": "unbinding",
+   "irregular": true,
+   "meaning": "untie or unfasten"
+  },
+  {
+   "base": "unclothe",
+   "third": "unclothes",
+   "past": "unclothed",
+   "participle": "unclothed",
+   "ing": "unclothing",
+   "irregular": true,
+   "meaning": "strip",
+   "alt": "take the covers off"
+  },
+  {
+   "base": "underbear",
+   "third": "underbears",
+   "past": "underbore",
+   "participle": "underborne",
+   "ing": "underbearing",
+   "irregular": true
+  },
+  {
+   "base": "underbid",
+   "third": "underbids",
+   "past": "underbid",
+   "participle": "underbid",
+   "ing": "underbidding",
+   "irregular": true,
+   "meaning": "bid (a hand of cards) at less than the strength of the hand warrants",
+   "alt": "bid lower than a competing bidder"
+  },
+  {
+   "base": "underbind",
+   "third": "underbinds",
+   "past": "underbound",
+   "participle": "underbound",
+   "ing": "underbinding",
+   "irregular": true
+  },
+  {
+   "base": "underbuy",
+   "third": "underbuys",
+   "past": "underbought",
+   "participle": "underbought",
+   "ing": "underbuying",
+   "irregular": true
+  },
+  {
+   "base": "undercast",
+   "third": "undercasts",
+   "past": "undercast",
+   "participle": "undercast",
+   "ing": "undercasting",
+   "irregular": true
+  },
+  {
+   "base": "undercut",
+   "third": "undercuts",
+   "past": "undercut",
+   "participle": "undercut",
+   "ing": "undercutting",
+   "irregular": true,
+   "meaning": "sell cheaper than one's competition",
+   "alt": "cut away material from the underside of (an object) so as to leave an overhanging portion in relief"
+  },
+  {
+   "base": "underdig",
+   "third": "underdigs",
+   "past": "underdug",
+   "participle": "underdug",
+   "ing": "underdigging",
+   "irregular": true
+  },
+  {
+   "base": "underdo",
+   "third": "underdoes",
+   "past": "underdid",
+   "participle": "underdone",
+   "ing": "underdoing",
+   "irregular": true
+  },
+  {
+   "base": "underdraw",
+   "third": "underdraws",
+   "past": "underdrew",
+   "participle": "underdrawn",
+   "ing": "underdrawing",
+   "irregular": true
+  },
+  {
+   "base": "underdress",
+   "third": "underdresses",
+   "past": "underdressed",
+   "participle": "underdressed",
+   "ing": "underdressing",
+   "irregular": true,
+   "meaning": "dress without sufficient warmth",
+   "alt": "dress informally and casually"
+  },
+  {
+   "base": "underfeed",
+   "third": "underfeeds",
+   "past": "underfed",
+   "participle": "underfed",
+   "ing": "underfeeding",
+   "irregular": true
+  },
+  {
+   "base": "underget",
+   "third": "undergets",
+   "past": "undergot",
+   "participle": "undergotten",
+   "ing": "undergetting",
+   "irregular": true
+  },
+  {
+   "base": "undergird",
+   "third": "undergirds",
+   "past": "undergirt",
+   "participle": "undergirt",
+   "ing": "undergirding",
+   "irregular": true,
+   "meaning": "lend moral support to",
+   "alt": "make secure underneath"
+  },
+  {
+   "base": "undergo",
+   "third": "undergoes",
+   "past": "underwent",
+   "participle": "undergone",
+   "ing": "undergoing",
+   "irregular": true,
+   "meaning": "pass through"
+  },
+  {
+   "base": "undergrow",
+   "third": "undergrows",
+   "past": "undergrew",
+   "participle": "undergrown",
+   "ing": "undergrowing",
+   "irregular": true,
+   "meaning": "grow below something"
+  },
+  {
+   "base": "underhang",
+   "third": "underhangs",
+   "past": "underhung",
+   "participle": "underhung",
+   "ing": "underhanging",
+   "irregular": true
+  },
+  {
+   "base": "underhew",
+   "third": "underhews",
+   "past": "underhewed",
+   "participle": "underhewn",
+   "ing": "underhewing",
+   "irregular": true
+  },
+  {
+   "base": "underlay",
+   "third": "underlays",
+   "past": "underlaid",
+   "participle": "underlaid",
+   "ing": "underlaying",
+   "irregular": true,
+   "meaning": "raise or support (the level of printing) by inserting a piece of paper or cardboard under the type",
+   "alt": "put (something) under or beneath"
+  },
+  {
+   "base": "underlet",
+   "third": "underlets",
+   "past": "underlet",
+   "participle": "underlet",
+   "ing": "underletting",
+   "irregular": true
+  },
+  {
+   "base": "underlie",
+   "third": "underlies",
+   "past": "underlay",
+   "participle": "underlain",
+   "ing": "underlying",
+   "irregular": true,
+   "meaning": "be or form the base for",
+   "alt": "lie underneath"
+  },
+  {
+   "base": "underpay",
+   "third": "underpays",
+   "past": "underpaid",
+   "participle": "underpaid",
+   "ing": "underpaying",
+   "irregular": true,
+   "meaning": "pay too little"
+  },
+  {
+   "base": "underrun",
+   "third": "underruns",
+   "past": "underran",
+   "participle": "underrun",
+   "ing": "underrunning",
+   "irregular": true
+  },
+  {
+   "base": "undershoot",
+   "third": "undershoots",
+   "past": "undershot",
+   "participle": "undershot",
+   "ing": "undershooting",
+   "irregular": true,
+   "meaning": "fall short of (the runway) in a landing",
+   "alt": "shoot short of or below (a target)"
+  },
+  {
+   "base": "understand",
+   "third": "understands",
+   "past": "understood",
+   "participle": "understood",
+   "ing": "understanding",
+   "irregular": true,
+   "meaning": "know and comprehend the nature or meaning of",
+   "alt": "perceive (an idea or situation) mentally"
+  },
+  {
+   "base": "undertake",
+   "third": "undertakes",
+   "past": "undertook",
+   "participle": "undertaken",
+   "ing": "undertaking",
+   "irregular": true,
+   "meaning": "enter upon an activity or enterprise",
+   "alt": "accept as a challenge"
+  },
+  {
+   "base": "underwrite",
+   "third": "underwrites",
+   "past": "underwrote",
+   "participle": "underwritten",
+   "ing": "underwriting",
+   "irregular": true,
+   "meaning": "guarantee financial support of",
+   "alt": "protect by insurance"
+  },
+  {
+   "base": "undo",
+   "third": "undoes",
+   "past": "undid",
+   "participle": "undone",
+   "ing": "undoing",
+   "irregular": true,
+   "meaning": "cancel, annul, or reverse an action or its effect",
+   "alt": "deprive of certain characteristics"
+  },
+  {
+   "base": "undress",
+   "third": "undresses",
+   "past": "undressed",
+   "participle": "undressed",
+   "ing": "undressing",
+   "irregular": true,
+   "meaning": "get undressed",
+   "alt": "remove (someone's or one's own) clothes"
+  },
+  {
+   "base": "unlatch",
+   "third": "unlatches",
+   "past": "unlatched",
+   "participle": "unlatched",
+   "ing": "unlatching",
+   "irregular": true
+  },
+  {
+   "base": "unwind",
+   "third": "unwinds",
+   "past": "unwound",
+   "participle": "unwound",
+   "ing": "unwinding",
+   "irregular": true,
+   "meaning": "reverse the winding or twisting of",
+   "alt": "separate the tangles of"
+  },
+  {
+   "base": "uphold",
+   "third": "upholds",
+   "past": "upheld",
+   "participle": "upheld",
+   "ing": "upholding",
+   "irregular": true,
+   "meaning": "keep or maintain in unaltered condition; cause to remain or last",
+   "alt": "stand up for; stick up for; of causes, principles, or ideals"
+  },
+  {
+   "base": "upset",
+   "third": "upsets",
+   "past": "upset",
+   "participle": "upset",
+   "ing": "upsetting",
+   "irregular": true,
+   "meaning": "disturb the balance or stability of",
+   "alt": "cause to lose one's composure"
+  },
+  {
+   "base": "wake",
+   "third": "wakes",
+   "past": "woke",
+   "participle": "woken",
+   "ing": "waking",
+   "irregular": true,
+   "meaning": "be awake, be alert, be there",
+   "alt": "stop sleeping"
+  },
+  {
+   "base": "wax",
+   "third": "waxes",
+   "past": "waxed",
+   "participle": "waxed",
+   "ing": "waxing",
+   "irregular": true,
+   "meaning": "cover with wax",
+   "alt": "go up or advance"
+  },
+  {
+   "base": "waylay",
+   "third": "waylays",
+   "past": "waylaid",
+   "participle": "waylaid",
+   "ing": "waylaying",
+   "irregular": true,
+   "meaning": "wait in hiding to attack"
+  },
+  {
+   "base": "wear",
+   "third": "wears",
+   "past": "wore",
+   "participle": "worn",
+   "ing": "wearing",
+   "irregular": true,
+   "meaning": "be dressed in",
+   "alt": "have on one's person"
+  },
+  {
+   "base": "weave",
+   "third": "weaves",
+   "past": "weaved",
+   "participle": "woven",
+   "ing": "weaving",
+   "irregular": true,
+   "meaning": "interlace by or as if by weaving",
+   "alt": "create a piece of cloth by interlacing strands of fabric, such as wool or cotton"
+  },
+  {
+   "base": "webcast",
+   "third": "webcasts",
+   "past": "webcast",
+   "participle": "webcast",
+   "ing": "webcasting",
+   "irregular": true
+  },
+  {
+   "base": "wed",
+   "third": "weds",
+   "past": "wed",
+   "participle": "wed",
+   "ing": "wedding",
+   "irregular": true,
+   "meaning": "take in marriage",
+   "alt": "perform a marriage ceremony"
+  },
+  {
+   "base": "weep",
+   "third": "weeps",
+   "past": "wept",
+   "participle": "wept",
+   "ing": "weeping",
+   "irregular": true,
+   "meaning": "shed tears because of sadness, rage, or pain"
+  },
+  {
+   "base": "wend",
+   "third": "wends",
+   "past": "wended",
+   "participle": "wended",
+   "ing": "wending",
+   "irregular": true,
+   "meaning": "direct one's course or way"
+  },
+  {
+   "base": "wet",
+   "third": "wets",
+   "past": "wet",
+   "participle": "wet",
+   "ing": "wetting",
+   "irregular": true,
+   "meaning": "cause to become wet",
+   "alt": "make one's bed or clothes wet by urinating"
+  },
+  {
+   "base": "whet",
+   "third": "whets",
+   "past": "whet",
+   "participle": "whet",
+   "ing": "whetting",
+   "irregular": true,
+   "meaning": "make keen or more acute",
+   "alt": "sharpen by rubbing, as on a whetstone"
+  },
+  {
+   "base": "will",
+   "third": "wills",
+   "past": "would",
+   "participle": "none",
+   "ing": "willing",
+   "irregular": true,
+   "meaning": "decree or ordain",
+   "alt": "determine by choice"
+  },
+  {
+   "base": "win",
+   "third": "wins",
+   "past": "won",
+   "participle": "won",
+   "ing": "winning",
+   "irregular": true,
+   "meaning": "be the winner in a contest or competition; be victorious",
+   "alt": "win something through one's efforts"
+  },
+  {
+   "base": "wind",
+   "third": "winds",
+   "past": "wound",
+   "participle": "wound",
+   "ing": "winding",
+   "irregular": true,
+   "meaning": "to move or cause to move in a sinuous, spiral, or circular course",
+   "alt": "extend in curves and turns"
+  },
+  {
+   "base": "wit",
+   "third": "wits",
+   "past": "wist",
+   "participle": "wist",
+   "ing": "witting",
+   "irregular": true
+  },
+  {
+   "base": "withdraw",
+   "third": "withdraws",
+   "past": "withdrew",
+   "participle": "withdrawn",
+   "ing": "withdrawing",
+   "irregular": true,
+   "meaning": "pull back or move away or backward",
+   "alt": "withdraw from active participation"
+  },
+  {
+   "base": "withhold",
+   "third": "withholds",
+   "past": "withheld",
+   "participle": "withheld",
+   "ing": "withholding",
+   "irregular": true,
+   "meaning": "hold back; refuse to hand over or share",
+   "alt": "retain and refrain from disbursing; of payments"
+  },
+  {
+   "base": "withstand",
+   "third": "withstands",
+   "past": "withstood",
+   "participle": "withstood",
+   "ing": "withstanding",
+   "irregular": true,
+   "meaning": "resist or confront with resistance",
+   "alt": "stand up or offer resistance to somebody or something"
+  },
+  {
+   "base": "work",
+   "third": "works",
+   "past": "worked",
+   "participle": "worked",
+   "ing": "working",
+   "irregular": true,
+   "meaning": "exert oneself by doing mental or physical work for a purpose or out of necessity",
+   "alt": "be employed"
+  },
+  {
+   "base": "wreak",
+   "third": "wreaks",
+   "past": "wreaked",
+   "participle": "wreaked",
+   "ing": "wreaking",
+   "irregular": true,
+   "meaning": "cause to happen or to occur as a consequence"
+  },
+  {
+   "base": "wring",
+   "third": "wrings",
+   "past": "wrang",
+   "participle": "wrung",
+   "ing": "wringing",
+   "irregular": true,
+   "meaning": "twist and press out of shape",
+   "alt": "twist and compress, as if in pain or anguish"
+  },
+  {
+   "base": "write",
+   "third": "writes",
+   "past": "wrote",
+   "participle": "written",
+   "ing": "writing",
+   "irregular": true,
+   "meaning": "produce a literary work",
+   "alt": "communicate or express by writing"
+  },
+  {
+   "base": "writhe",
+   "third": "writhes",
+   "past": "writhed",
+   "participle": "writhed",
+   "ing": "writhing",
+   "irregular": true,
+   "meaning": "to move in a twisting or contorted motion, (especially when struggling)"
+  }
+ ],
+ "scenarios": [
+  {
+   "id": "decision",
+   "title": "Making a decision",
+   "why": "A decision taken at the moment of speaking. Not a plan made earlier.",
+   "form": "present simple",
+   "frame": "I will {v} it.",
+   "verbs": [
+    "decide",
+    "choose",
+    "pick",
+    "take",
+    "go with",
+    "settle on",
+    "go for"
+   ],
+   "examples": [
+    "I'll take the bus.",
+    "We've decided to stay at home.",
+    "I always go for the cheapest option."
+   ]
+  },
+  {
+   "id": "plan",
+   "title": "An intention made in advance",
+   "why": "A prior arrangement, not a live decision. Using the present simple here is one of the classic B1 mistakes.",
+   "form": "going to / present continuous",
+   "frame": "I am going to {v}.",
+   "verbs": [
+    "meet",
+    "travel",
+    "see",
+    "call",
+    "have lunch",
+    "visit",
+    "move",
+    "get married"
+   ],
+   "examples": [
+    "I'm meeting Ana at seven.",
+    "We're going to travel in August.",
+    "She is seeing her sister tomorrow."
+   ]
+  },
+  {
+   "id": "arrangement",
+   "title": "A fixed arrangement with someone else",
+   "why": "The other person already agreed. Both the plan and the arrangement use the same two forms.",
+   "form": "present continuous",
+   "frame": "I'm {v}ing with them.",
+   "verbs": [
+    "meet",
+    "have lunch",
+    "see",
+    "stay",
+    "work",
+    "travel",
+    "study",
+    "play"
+   ],
+   "examples": [
+    "I'm having lunch with Marco.",
+    "We're staying at a hotel.",
+    "They're playing tennis on Sunday."
+   ]
+  },
+  {
+   "id": "habit",
+   "title": "Something that happens regularly",
+   "why": "A repeated or usual thing, not a one-off.",
+   "form": "present simple",
+   "frame": "I {v} every day.",
+   "verbs": [
+    "work",
+    "study",
+    "live",
+    "get up",
+    "have breakfast",
+    "commute",
+    "train",
+    "read"
+   ],
+   "examples": [
+    "I study English every morning.",
+    "She works from home on Fridays.",
+    "We train three times a week."
+   ]
+  },
+  {
+   "id": "routine",
+   "title": "Routines, especially with the present continuous",
+   "why": "Repeated actions can take the continuous: it sounds more like a routine and less like a fact.",
+   "form": "present continuous",
+   "frame": "I'm usually {v}ing at this time.",
+   "verbs": [
+    "work",
+    "travel",
+    "commute",
+    "have lunch",
+    "drive",
+    "fly"
+   ],
+   "examples": [
+    "I'm usually driving at this hour.",
+    "I'm having lunch at one."
+   ]
+  },
+  {
+   "id": "past",
+   "title": "A finished action at a definite time",
+   "why": "The time is stated or understood. Past simple, not present perfect.",
+   "form": "past simple",
+   "frame": "Yesterday I {v} it.",
+   "verbs": [
+    "finish",
+    "call",
+    "meet",
+    "send",
+    "buy",
+    "leave",
+    "arrive",
+    "see"
+   ],
+   "examples": [
+    "I finished the report yesterday.",
+    "We met at the airport.",
+    "She sent the email this morning."
+   ]
+  },
+  {
+   "id": "finishedrecent",
+   "title": "A finished action, time not stated",
+   "why": "Past actions with present relevance. The definite time is missing, which is exactly the condition for the perfect.",
+   "form": "present perfect",
+   "frame": "I have already {v} it.",
+   "verbs": [
+    "finish",
+    "read",
+    "write",
+    "see",
+    "do",
+    "buy",
+    "lose",
+    "find",
+    "break"
+   ],
+   "examples": [
+    "I have already finished it.",
+    "Have you ever been to Japan?",
+    "She has lost her keys."
+   ]
+  },
+  {
+   "id": "paststate",
+   "title": "A past situation that is still true now",
+   "why": "Not an action. A state, an ownership, a job, a home. Present perfect, never past simple with 'for' or 'since'.",
+   "form": "present perfect",
+   "frame": "I have {v} here for three years.",
+   "verbs": [
+    "live",
+    "work",
+    "study",
+    "teach",
+    "own",
+    "know",
+    "use",
+    "belong"
+   ],
+   "examples": [
+    "I have lived here for ten years.",
+    "She has worked here since 2019.",
+    "We have known each other for years."
+   ]
+  },
+  {
+   "id": "inprogress",
+   "title": "An action started in the past and still running",
+   "why": "Not finished. For or since + a point in time.",
+   "form": "present perfect continuous",
+   "frame": "I have been {v}ing all morning.",
+   "verbs": [
+    "work",
+    "study",
+    "read",
+    "wait",
+    "live",
+    "drive",
+    "learn",
+    "use"
+   ],
+   "examples": [
+    "I have been working here for five years.",
+    "She has been studying all morning.",
+    "We have been waiting for an hour."
+   ]
+  },
+  {
+   "id": "futureplan",
+   "title": "A plan with a time set",
+   "why": "With a specific time, use the present simple. Without one, use will or going to.",
+   "form": "will / going to",
+   "frame": "I will {v} it tomorrow.",
+   "verbs": [
+    "call",
+    "see",
+    "finish",
+    "start",
+    "bring",
+    "send",
+    "meet"
+   ],
+   "examples": [
+    "I will call you tomorrow.",
+    "We're going to start at nine."
+   ]
+  },
+  {
+   "id": "futureguess",
+   "title": "A prediction about the present",
+   "why": "No time reference. Speaking about now, not about a plan.",
+   "form": "will",
+   "frame": "He will {v} it now, I think.",
+   "verbs": [
+    "be",
+    "use",
+    "have",
+    "need",
+    "seem",
+    "look"
+   ],
+   "examples": [
+    "He will be at home now.",
+    "That won't take long."
+   ]
+  },
+  {
+   "id": "spontaneous",
+   "title": "A decision made while speaking",
+   "why": "Something decided on the spot. Going to would be wrong: no plan existed before you opened your mouth.",
+   "form": "will",
+   "frame": "I'll have the soup, please.",
+   "verbs": [
+    "have",
+    "get",
+    "take",
+    "do",
+    "send",
+    "help",
+    "ask"
+   ],
+   "examples": [
+    "I'll have the soup.",
+    "I'll help with that.",
+    "I'll ask him tomorrow."
+   ]
+  },
+  {
+   "id": "offer",
+   "title": "An offer or a request",
+   "why": "The same structure as spontaneous decisions, used to help or to ask for something.",
+   "form": "will",
+   "frame": "Will you {v} it?",
+   "verbs": [
+    "help",
+    "carry",
+    "open",
+    "check",
+    "wait",
+    "come",
+    "pass",
+    "mind"
+   ],
+   "examples": [
+    "Will you help me?",
+    "Will you pass the salt?",
+    "Would you mind waiting?"
+   ]
+  },
+  {
+   "id": "request",
+   "title": "A polite request",
+   "why": "Present is softer than the past, which reads as a statement about what already happened.",
+   "form": "present simple",
+   "frame": "Could you {v} it, please?",
+   "verbs": [
+    "close",
+    "turn off",
+    "move",
+    "hold",
+    "send",
+    "sign",
+    "repeat"
+   ],
+   "examples": [
+    "Could you close the window?",
+    "Could you repeat that, please?"
+   ]
+  },
+  {
+   "id": "must",
+   "title": "An obligation",
+   "why": "An external rule, from a person or an institution. Not your own feeling.",
+   "form": "must / have to",
+   "frame": "I have to {v} it by Friday.",
+   "verbs": [
+    "submit",
+    "pay",
+    "arrive",
+    "finish",
+    "renew",
+    "attend",
+    "return",
+    "register"
+   ],
+   "examples": [
+    "I have to submit it by Friday.",
+    "You must wear a helmet here."
+   ]
+  },
+  {
+   "id": "advice",
+   "title": "A recommendation, someone's opinion",
+   "why": "A judgement, from a person. If it is your own advice, 'should' works too.",
+   "form": "should / ought to",
+   "frame": "You should {v} it.",
+   "verbs": [
+    "see",
+    "ask",
+    "check",
+    "leave",
+    "take",
+    "call",
+    "find",
+    "rest"
+   ],
+   "examples": [
+    "You should see a doctor.",
+    "You ought to leave earlier."
+   ]
+  },
+  {
+   "id": "suggestion",
+   "title": "Suggesting an option",
+   "why": "Presenting a possibility, not giving an instruction.",
+   "form": "could / should / how about",
+   "frame": "Why don't you {v} it?",
+   "verbs": [
+    "try",
+    "call",
+    "ask",
+    "use",
+    "wait",
+    "check",
+    "ask for"
+   ],
+   "examples": [
+    "Why don't you try again?",
+    "You could ask for a refund."
+   ]
+  },
+  {
+   "id": "permission",
+   "title": "Asking or giving permission",
+   "why": "'Can' is the informal one. 'May' is more formal.",
+   "form": "can / may / could",
+   "frame": "Can I {v} it?",
+   "verbs": [
+    "open",
+    "use",
+    "sit",
+    "borrow",
+    "take",
+    "leave",
+    "park",
+    "enter"
+   ],
+   "examples": [
+    "Can I open the window?",
+    "May I use your pen?"
+   ]
+  },
+  {
+   "id": "possibility",
+   "title": "What is possible",
+   "why": "A chance, not a plan. The context tells you which.",
+   "form": "may / might / could",
+   "frame": "It might {v} later.",
+   "verbs": [
+    "rain",
+    "happen",
+    "change",
+    "cost",
+    "take",
+    "last",
+    "work"
+   ],
+   "examples": [
+    "It might rain later.",
+    "He could be right."
+   ]
+  },
+  {
+   "id": "pastduty",
+   "title": "Something you did not do",
+   "why": "Blame or regret, in the past. The perfect is the only option.",
+   "form": "should have + past participle",
+   "frame": "I should have {v} it.",
+   "verbs": [
+    "tell",
+    "ask",
+    "check",
+    "book",
+    "call",
+    "read",
+    "buy",
+    "leave"
+   ],
+   "examples": [
+    "I should have told you.",
+    "You should have asked first."
+   ]
+  },
+  {
+   "id": "regret",
+   "title": "A mistake, or a missed opportunity",
+   "why": "A regret about a specific past action.",
+   "form": "could have / would have",
+   "frame": "I could have {v} it.",
+   "verbs": [
+    "been",
+    "gone",
+    "said",
+    "done",
+    "known",
+    "seen",
+    "helped",
+    "used"
+   ],
+   "examples": [
+    "I could have been there.",
+    "You would have known if you'd asked."
+   ]
+  },
+  {
+   "id": "conditionzero",
+   "title": "A condition that is always true",
+   "why": "Present on both sides. If this happens, that happens, always.",
+   "form": "present simple",
+   "frame": "If I {v}, I feel sick.",
+   "verbs": [
+    "eat",
+    "see",
+    "drink",
+    "smoke",
+    "hear",
+    "touch"
+   ],
+   "examples": [
+    "If I eat seafood, I feel sick.",
+    "If it rains, we stay in."
+   ]
+  },
+  {
+   "id": "condition1",
+   "title": "A real future possibility",
+   "why": "A real and likely condition. The result is more certain than the condition.",
+   "form": "present simple + will",
+   "frame": "If I {v} it, I will call you.",
+   "verbs": [
+    "finish",
+    "find",
+    "see",
+    "get",
+    "win",
+    "finish early",
+    "decide",
+    "remember"
+   ],
+   "examples": [
+    "If I finish early, I'll call you.",
+    "If you see her, tell her."
+   ]
+  },
+  {
+   "id": "condition2",
+   "title": "An unreal or unlikely present situation",
+   "why": "Imagined, or politely untrue. 'were' with every person, not 'was'.",
+   "form": "past simple + would",
+   "frame": "If I {v} more time, I would learn it.",
+   "verbs": [
+    "have",
+    "be",
+    "know",
+    "live",
+    "win",
+    "get",
+    "speak"
+   ],
+   "examples": [
+    "If I had more time, I would learn it.",
+    "If I were you, I would take the job."
+   ]
+  },
+  {
+   "id": "condition3",
+   "title": "An unreal past situation",
+   "why": "Talking about the past, and the result did not happen.",
+   "form": "had + past participle + would have",
+   "frame": "If I had {v} it, I would have passed.",
+   "verbs": [
+    "study",
+    "ask",
+    "leave",
+    "know",
+    "take",
+    "try",
+    "read"
+   ],
+   "examples": [
+    "If I had studied, I would have passed.",
+    "If she had asked, I would have helped."
+   ]
+  },
+  {
+   "id": "reported",
+   "title": "Reporting what someone said",
+   "why": "The reporting verb decides the tense back, plus the pronoun and the time expression all move.",
+   "form": "reported speech",
+   "frame": "He said (that) he {v}ed it.",
+   "verbs": [
+    "work",
+    "live",
+    "study",
+    "have",
+    "go",
+    "be",
+    "know",
+    "want"
+   ],
+   "examples": [
+    "He said he worked there.",
+    "She said she was leaving."
+   ]
+  },
+  {
+   "id": "passive",
+   "title": "Acting on an object, not naming the doer",
+   "why": "The subject is the thing acted on. Use it when the doer is unknown or obvious.",
+   "form": "passive",
+   "frame": "It was {v} yesterday.",
+   "verbs": [
+    "build",
+    "write",
+    "discover",
+    "break",
+    "repair",
+    "cancel",
+    "invite",
+    "award"
+   ],
+   "examples": [
+    "It was built in 1850.",
+    "The email was sent this morning."
+   ]
+  },
+  {
+   "id": "stative",
+   "title": "Stative verbs with no continuous form",
+   "why": "A state, not an action. The continuous is ungrammatical.",
+   "form": "present simple only",
+   "frame": "I {v} him.",
+   "verbs": [
+    "know",
+    "like",
+    "love",
+    "hate",
+    "belong",
+    "own",
+    "need",
+    "want",
+    "seem",
+    "contain",
+    "consist",
+    "matter",
+    "believe"
+   ],
+   "examples": [
+    "I know the answer.",
+    "She likes coffee.",
+    "This belongs to me."
+   ]
+  },
+  {
+   "id": "modalinperfect",
+   "title": "A deduction about the past",
+   "why": "A conclusion, not a fact. The perfect is required.",
+   "form": "must / might / can't have + past participle",
+   "frame": "He must have {v} it.",
+   "verbs": [
+    "forget",
+    "lose",
+    "leave",
+    "finish",
+    "buy",
+    "break",
+    "meet",
+    "see"
+   ],
+   "examples": [
+    "He must have forgotten.",
+    "They can't have left without us."
+   ]
+  },
+  {
+   "id": "futureperfect",
+   "title": "Looking back from a point in the future",
+   "why": "Finished before another future moment.",
+   "form": "will have + past participle",
+   "frame": "By then I will have {v} it.",
+   "verbs": [
+    "finish",
+    "read",
+    "write",
+    "complete",
+    "learn",
+    "move",
+    "graduate"
+   ],
+   "examples": [
+    "By June I will have finished it.",
+    "By then you will have moved."
+   ]
+  },
+  {
+   "id": "consecutive",
+   "title": "Two past actions in sequence",
+   "why": "The earlier one takes the past perfect, the later one the past simple.",
+   "form": "past perfect + past simple",
+   "frame": "When I {v} it, I called you.",
+   "verbs": [
+    "arrive",
+    "finish",
+    "leave",
+    "get",
+    "realise",
+    "understand",
+    "find"
+   ],
+   "examples": [
+    "When I arrived, she had left.",
+    "After I finished, I called you."
+   ]
+  },
+  {
+   "id": "phrasal",
+   "title": "A phrasal verb, not a preposition",
+   "why": "The particle is part of the verb. Some are separable, some are not.",
+   "form": "particle verb",
+   "frame": "I {v} it up.",
+   "verbs": [
+    "pick",
+    "turn",
+    "give",
+    "put",
+    "take",
+    "look",
+    "find",
+    "work",
+    "break",
+    "call"
+   ],
+   "examples": [
+    "Turn the lights off.",
+    "I look after my sister.",
+    "He gave up smoking."
+   ]
+  },
+  {
+   "id": "transitive",
+   "title": "An action needing an object",
+   "why": "Needs a direct object: I waited for her. Intransitive verbs cannot take one.",
+   "form": "transitive",
+   "frame": "I {v} the book.",
+   "verbs": [
+    "read",
+    "write",
+    "buy",
+    "open",
+    "close",
+    "want",
+    "need",
+    "watch",
+    "carry",
+    "lose",
+    "find",
+    "break"
+   ],
+   "examples": [
+    "I read the book.",
+    "She wants the blue one."
+   ]
+  },
+  {
+   "id": "intransitive",
+   "title": "An action with no object",
+   "why": "Complete on its own. Adding an object is a grammar error.",
+   "form": "intransitive",
+   "frame": "They {v}.",
+   "verbs": [
+    "arrive",
+    "go",
+    "come",
+    "sit",
+    "lie",
+    "fall",
+    "rise",
+    "run",
+    "sleep",
+    "arrive",
+    "happen",
+    "last",
+    "remain"
+   ],
+   "examples": [
+    "They arrived late.",
+    "The meeting lasted two hours."
+   ]
+  }
+ ],
+ "extra": {
+  "be": {
+   "meaning": "be",
+   "note": "The most irregular verb there is. Learn the forms, not a rule."
+  },
+  "do": {
+   "meaning": "perform, carry out a task"
+  },
+  "go": {
+   "meaning": "move or travel to a place",
+   "note": "Went, gone, going. 'I have gone' means I went and came back; 'I have been' means I went and stayed."
+  },
+  "see": {
+   "meaning": "perceive with the eyes or the mind",
+   "note": "Saw, seen. 'I have seen it' = at some point. 'I saw it' = a specific moment."
+  }
+ },
+ "traps": [
+  {
+   "wrong": "I look forward to see you.",
+   "right": "I look forward to seeing you.",
+   "rule": "look forward to + gerund, never to + infinitive",
+   "tag": "preposition"
+  },
+  {
+   "wrong": "I have been lived here.",
+   "right": "I have lived here.",
+   "rule": "no passive of the verb live: you cannot be lived",
+   "tag": "passive"
+  },
+  {
+   "wrong": "I am agree.",
+   "right": "I agree.",
+   "rule": "agree is a stative verb, so no continuous form",
+   "tag": "stative"
+  },
+  {
+   "wrong": "Its very good.",
+   "right": "It's very good.",
+   "rule": "its is possessive, it is short for it is",
+   "tag": "apostrophe"
+  },
+  {
+   "wrong": "We was tired.",
+   "right": "We were tired.",
+   "rule": "was goes with I, he, she, it; were with you, we, they",
+   "tag": "agreement"
+  },
+  {
+   "wrong": "I didn't went.",
+   "right": "I didn't go.",
+   "rule": "after did, use the base form",
+   "tag": "auxiliary"
+  },
+  {
+   "wrong": "She has wrote it.",
+   "right": "She has written it.",
+   "rule": "has takes the past participle, not the past simple",
+   "tag": "participle"
+  },
+  {
+   "wrong": "I go to home.",
+   "right": "I go home.",
+   "rule": "no preposition before home",
+   "tag": "preposition"
+  },
+  {
+   "wrong": "He is knowing the answer.",
+   "right": "He knows the answer.",
+   "rule": "know is stative, so no continuous",
+   "tag": "stative"
+  },
+  {
+   "wrong": "If I would have time, I would come.",
+   "right": "If I had time, I would come.",
+   "rule": "second conditional takes past, not would, in the if clause",
+   "tag": "conditional"
+  },
+  {
+   "wrong": "I have seen him yesterday.",
+   "right": "I saw him yesterday.",
+   "rule": "present perfect cannot take a finished time expression",
+   "tag": "tense"
+  },
+  {
+   "wrong": "We discussed about it.",
+   "right": "We discussed it.",
+   "rule": "discuss is transitive, it takes no preposition",
+   "tag": "verb"
+  },
+  {
+   "wrong": "I am boring in the class.",
+   "right": "I am bored in the class.",
+   "rule": "boring describes the thing, bored describes the person",
+   "tag": "adjective"
+  },
+  {
+   "wrong": "I want that you come.",
+   "right": "I want you to come.",
+   "rule": "want + object + to infinitive, never that",
+   "tag": "structure"
+  }
+ ]
+}
