@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>English Verbs — complete reference</title>
+<meta name="description" content="Every irregular English verb with all four forms, the six regular conjugation rules, and which verb fits which situation. Offline, with speech.">
+<meta name="color-scheme" content="light">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="top-in">
+    <div class="brand"><span class="mark">V</span> English Verbs</div>
+    <nav class="tabs" role="tablist">
+      <button role="tab" data-view="verbs" aria-selected="true">Verbs</button>
+      <button role="tab" data-view="rules" aria-selected="false">The 6 rules</button>
+      <button role="tab" data-view="scenarios" aria-selected="false">Scenarios</button>
+      <button role="tab" data-view="traps" aria-selected="false">Common traps</button>
+      <button role="tab" data-view="all" aria-selected="false">All tables</button>
+    </nav>
+  </div>
+  <div class="searchwrap">
+    <div class="searchbox">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+           stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input id="q" type="search" autocomplete="off" spellcheck="false"
+             placeholder="Search 415 verbs, meanings, rules, situations…">
+      <button id="clear" title="Clear" aria-label="Clear search">×</button>
+    </div>
+    <p class="hint">Click any speaker to hear it. Search by verb, past form, meaning or situation.</p>
+  </div>
+</header>
+
+<main>
+  <p class="count" id="count"></p>
+  <div id="out"></div>
+</main>
+
+<div class="speakbar" id="speakbar"><span class="dot"></span><span id="speaktext"></span></div>
+
+<footer>
+  Forms from <a href="https://en.wiktionary.org/wiki/Appendix:English_irregular_verbs">Wiktionary</a>,
+  meanings from <a href="https://wordnet.princeton.edu/">Princeton WordNet</a>,
+  everything local and offline. Built in
+  <a href="https://github.com/sazardev/omarchy-english-toolkit">omarchy-english-toolkit</a>.
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

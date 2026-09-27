@@ -11,7 +11,9 @@ anki/*.apkg
 anki/deck.apkg
 
 # build output
+# The site is the one thing that legitimately ships HTML.
 *.html
+!docs/index.html
 dist/
 build/
 
