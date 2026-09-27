@@ -151,6 +151,40 @@ lute-remote --status
 lute-remote --stop
 ```
 
+### Reading typography
+
+Lute loads CSS from Settings > `custom_styles`. `config/lute/reading.css`
+is a ready-made reading stylesheet:
+
+- **Geist** for the interface, from the Vercel release, installed to
+  `~/.local/share/fonts/`
+- **a serif for the reading column**, because a UI font is not a reading
+  font. Long-form serif with generous leading reduces re-reading of the
+  same line
+- a column of about 66 characters, which is where readability
+  measurements converge
+- quiet word-status colours, so a page full of unknown words is not a
+  wall of red
+- focus mode dimmed to 0.26, so known words fade instead of turning the
+  page into a grey smear
+
+```bash
+lute-theme                 # current values
+lute-theme size 22         # reading size in px
+lute-theme width 32        # column in em, 32em ~ 62 characters
+lute-theme sans            # Geist everywhere
+lute-theme serif           # serif body, the default
+lute-theme dark | light    # background
+lute-theme reset           # back to Lute's own styling
+```
+
+For the best result install a proper reading serif, it makes a real
+difference over the Noto fallback:
+
+```bash
+sudo pacman -S adobe-source-serif-fonts
+```
+
 Lute has **no `--host` flag**. It either binds `127.0.0.1` (`--local`) or
 `0.0.0.0` (no flag), so you cannot bind it to one interface. Running it on
 `0.0.0.0` would expose it to whatever wifi you are on, and since Lute has

@@ -1,0 +1,108 @@
+#!/usr/bin/env bash
+# lute-theme - reading typography for Lute, on top of the Geist setup.
+#
+#   lute-theme              show the current values
+#   lute-theme serif        Source Serif body, Geist interface  (default)
+#   lute-theme sans         Geist everywhere, tighter, more screen-like
+#   lute-theme size 22      set the reading size in px
+#   lute-theme width 32     set the column in em (32em ~ 62 characters)
+#   lute-theme light        warm paper, light text
+#   lute-theme dark         dark background
+#   lute-theme reset        back to Lute's own styling
+#
+# Lute loads Settings > custom_styles from /theme/custom_styles, so this
+# rewrites that setting. Lute must be stopped.
+
+set -uo pipefail
+
+CSS_DIR="$HOME/.local/share"
+CSS="$CSS_DIR/lute-reading.css"
+LUTEPY="$HOME/.local/share/uv/tools/lute3/bin/python"
+DB="$HOME/.local/share/Lute3/lute.db"
+
+B=$'\033[1m'; D=$'\033[2m'; G=$'\033[1;32m'; Y=$'\033[1;33m'; R=$'\033[1;31m'; O=$'\033[0m'
+
+have_db() { [[ -f $DB ]]; }
+running() { curl -s -o /dev/null --max-time 2 http://127.0.0.1:5001/ 2>/dev/null; }
+
+apply() {
+  have_db || { echo "  ${R}error:${O} no Lute database at $DB" >&2; exit 1; }
+  [[ -f $CSS ]] || { echo "  ${R}error:${O} stylesheet missing: $CSS" >&2; exit 1; }
+  if running; then
+    echo "  ${Y}note:${O} Lute is running. It reads this setting at page load,"
+    echo "        so just reload the browser. No need to stop it."
+  fi
+  python3 - "$DB" "$CSS" <<'PY'
+import sqlite3, sys, pathlib
+db, css = sys.argv[1], sys.argv[2]
+text = pathlib.Path(css).read_text()
+c = sqlite3.connect(db)
+c.execute("UPDATE settings SET StValue=? WHERE StKey='custom_styles'", (text,))
+if c.total_changes == 0:
+    c.execute("INSERT INTO settings (StKey, StValue) VALUES ('custom_styles', ?)", (text,))
+c.commit()
+n = c.execute("SELECT length(StValue) FROM settings WHERE StKey='custom_styles'").fetchone()[0]
+print(f"  {len(text)} bytes applied")
+PY
+}
+
+current() {
+  have_db || { echo "  no Lute database yet"; return; }
+  python3 - "$DB" <<'PY'
+import sqlite3, sys, re
+c = sqlite3.connect(f"file:{sys.argv[1]}?mode=ro", uri=True)
+row = c.execute("SELECT StValue FROM settings WHERE StKey='custom_styles'").fetchone()
+if not row or not row[0].strip():
+    print("  no custom styles set (Lute default)")
+    raise SystemExit
+css = row[0]
+def val(name, default="?"):
+    m = re.search(rf"{name}:\s*([^;]+);", css)
+    return m.group(1).strip() if m else default
+print(f"  body font   {val('--read-font')}")
+print(f"  ui font     {val('--ui-font')}")
+print(f"  size        {val('--read-size')}")
+print(f"  leading     {val('--read-leading')}")
+print(f"  column      {val('--read-measure')}")
+print(f"  ink         {val('--read-ink')}")
+print(f"  paper       {val('--read-paper')}")
+PY
+}
+
+case "${1:-}" in
+  "") current ;;
+  size)  [[ "${2:-}" =~ ^[0-9]{1,2}$ ]] || { echo "  usage: lute-theme size 22"; exit 2; }
+          sed -i "s/--read-size: [^;]*/--read-size: ${2}px/" "$CSS"
+          apply ;;
+  width) [[ "${2:-}" =~ ^[0-9]{1,2}$ ]] || { echo "  usage: lute-theme width 32"; exit 2; }
+          sed -i "s/--read-measure: [^;]*/--read-measure: ${2}em/" "$CSS"
+          apply ;;
+  sans)
+    sed -i 's|--read-font: "Source Serif 4".*|--read-font: var(--ui-font);|' "$CSS"
+    apply ;;
+  serif)
+    sed -i 's|--read-font: var(--ui-font);|--read-font: "Source Serif 4", "Literata", "Noto Serif", Georgia, serif;|' "$CSS"
+    apply ;;
+  light|dark)
+    if [[ $2 == dark || $1 == dark ]]; then
+      sed -i -e 's|--read-paper: [^;]*|--read-paper: #16151a;|' \
+             -e 's|--read-ink: [^;]*|--read-ink: #e6e3dd;|' \
+             -e 's|--read-ink-soft: [^;]*|--read-ink-soft: #9a958d;|' "$CSS"
+    else
+      sed -i -e 's|--read-paper: [^;]*|--read-paper: #faf8f4;|' \
+             -e 's|--read-ink: [^;]*|--read-ink: #24211d;|' \
+             -e 's|--read-ink-soft: [^;]*|--read-ink-soft: #55504a;|' "$CSS"
+    fi
+    apply ;;
+  reset)
+    have_db || exit 1
+    python3 - "$DB" <<'PY'
+import sqlite3, sys
+c = sqlite3.connect(sys.argv[1])
+c.execute("UPDATE settings SET StValue='' WHERE StKey='custom_styles'")
+c.commit()
+print("  custom styles cleared, Lute default restored")
+PY
+    ;;
+  *) sed -n '2,18p' "$0" | sed 's/^# \{0,1\}//' ;;
+esac

@@ -1,0 +1,148 @@
+/* omarchy-english-toolkit :: Lute reading styles
+ *
+ * Applied through Lute's Settings > custom_styles.
+ * The interface uses Geist, the reading column uses a serif, because a
+ * UI font is not a reading font. Long-form serif text with generous
+ * leading measurably reduces re-reading of the same line.
+ *
+ * Sizing follows the ~66 characters per line that readability research
+ * converges on; at 20px that is about a 34em column.
+ */
+
+:root {
+  --read-font: "Source Serif 4", "Literata", "Noto Serif", Georgia, serif;
+  --ui-font: "Geist", "Inter", "Noto Sans", system-ui, sans-serif;
+
+  --read-size: 20px;
+  --read-leading: 1.75;
+  --read-measure: 38em;      /* ~66 characters per line */
+  --read-ink: #24211d;
+  --read-ink-soft: #55504a;
+  --read-paper: #faf8f4;
+  --read-accent: #b4552d;    /* rust, not blue: less harsh on long sittings */
+  --read-accent-soft: #f0e3d8;
+  --focus-dim: 0.26;        /* how much known text fades in focus mode */
+}
+
+/* ---------------------------------------------------------------- interface */
+body,
+input,
+button,
+select,
+textarea,
+.navbar,
+.footer,
+.dropdown-menu,
+#term_popup,
+.term_popup {
+  font-family: var(--ui-font) !important;
+  letter-spacing: -0.006em;
+}
+
+.navbar { font-weight: 500; }
+
+/* ------------------------------------------------------------------ reading */
+#thetext {
+  font-family: var(--read-font);
+  font-size: var(--read-size);
+  line-height: var(--read-leading);
+  color: var(--read-ink);
+  max-width: var(--read-measure);
+  margin: 2.5rem auto;
+  padding: 0 1.5rem;
+  font-variant-numeric: oldstyle-nums proportional-nums;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  hyphens: auto;
+}
+
+/* Old-style figures and a slightly looser paragraph rhythm. Justified
+ * text in a narrow column without hyphenation produces rivers. */
+#thetext p {
+  margin: 0 0 1.15em;
+  text-align: left;
+  text-wrap: pretty;
+}
+
+#thetext p:first-of-type::first-letter {
+  /* no drop cap: it hurts screen-reader navigation and Lute numbers
+     sentences from the start of the page */
+  initial-letter: normal;
+}
+
+/* Chapter and part headings inside the text. */
+#thetext h1,
+#thetext h2,
+#thetext h3 {
+  font-family: var(--ui-font);
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--read-ink);
+  margin: 2.2em 0 0.8em;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+#headertexttitle,
+#thetexttitle {
+  font-family: var(--ui-font);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+/* ------------------------------------------------------------ word states */
+/* Lute marks every word: status 0 unknown, 1 learning, 2 known... The
+   defaults are loud; these are quiet enough to read past. */
+#thetext .textitem { border-radius: 3px; padding: 0 .06em; }
+
+#thetext .s0 { color: #8a2f1e; background: transparent; }  /* unknown */
+#thetext .s1 { color: #8a6d1e; background: transparent; }  /* learning */
+#thetext .s2 { color: var(--read-ink); }                    /* known */
+#thetext .s3,
+#thetext .s4,
+#thetext .s5 { color: var(--read-ink); }
+
+#thetext .textitem.known { color: var(--read-ink-soft); }
+
+/* Hover feedback when the pointer is over a word. */
+#thetext .textitem:hover {
+  background: var(--read-accent-soft);
+  cursor: pointer;
+}
+
+/* ------------------------------------------------------------ focus mode */
+/* Lute's focus mode dims everything you already know. Toning the dim
+   down a little keeps the page readable instead of a grey smear. */
+#thetext.focusmode .s2,
+#thetext.focusmode .s3,
+#thetext.focusmode .s4,
+#thetext.focusmode .s5 { opacity: var(--focus-dim); }
+
+#thetext.focusmode .s0,
+#thetext.focusmode .s1 { opacity: 1; }
+
+/* ------------------------------------------------------------ term popup */
+#term_popup {
+  font-family: var(--ui-font) !important;
+  border-radius: 12px;
+  box-shadow: 0 12px 40px -12px rgba(36, 33, 29, 0.28);
+  border: 1px solid rgba(36, 33, 29, 0.10);
+  max-width: 30rem;
+}
+
+#term_popup .term_definition,
+#term_popup .term_sentence {
+  font-family: var(--read-font);
+  line-height: 1.6;
+}
+
+/* ------------------------------------------------------------- page chrome */
+.texttitlecontainer,
+.reading_header_page {
+  font-family: var(--ui-font);
+  border-bottom: 1px solid rgba(36, 33, 29, 0.08);
+}
+
+#page_indicator { font-variant-numeric: tabular-nums; }
+
+body { background: var(--read-paper); }
