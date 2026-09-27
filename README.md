@@ -198,11 +198,14 @@ level and by form so you can filter the shelf.
 
 | Level | Count | | Form | Count |
 |---|---|---|---|---|
-| B1 | 16 | | novel | 41 |
-| B2 | 30 | | poetry | 11 |
-| C1 | 28 | | stories | 11 |
-| C2 | 6 | | essay | 10 |
+| B1 | 17 | | novel | 41 |
+| B2 | 37 | | **paper** | 15 |
+| C1 | 47 | | poetry | 11 |
+| C2 | 8 | | stories | 11 |
+| | | | essay | 10 |
+| | | | **science** | 9 |
 | | | | epic, tales, drama | 15 |
+| | | | **biography** | 5 |
 
 Poetry is deliberately in there and is worth using: it is the densest
 vocabulary per minute of reading, and a poem finishes in one sitting, so
@@ -214,7 +217,28 @@ Build or extend it:
 cd tools
 python3 lute-corpus.py all list.tsv ~/corpus    # download and clean
 python3 pgsearch.py author "doyle"              # look up IDs offline
+python3 arxiv-corpus.py arxiv-papers.tsv ~/papers   # CS papers
+python3 arxiv-search.py "Attention Is All You Need"  # look up arXiv IDs
 ```
+
+### Science and Computer Science
+
+Nine classic science texts (Darwin's *Origin* and *Beagle*, Huxley's
+*Evolution and Ethics*, Faraday's *Experimental Researches*) and six
+biographies (Darwin, Franklin, Helen Keller, Plutarch, Johnson).
+
+Plus **15 real CS papers** from arXiv: Attention Is All You Need, BERT,
+GPT-3, ResNet, AlexNet, Batch Normalization, word2vec, GCN, A3C, PPO,
+YOLO, CLIP, ViT and two more. All free on arxiv.org.
+
+Reading the papers is how the vocabulary of the field gets learned.
+*Attention*, *embedding*, *overfitting*, *baseline* and *inference* are
+words you cannot learn from a definition.
+
+Both pipelines verify the title of every download. That is not
+ceremony: of twenty arXiv IDs written from memory, **nine were
+different papers entirely**, one on spin-resolved electron waiting times
+and another on radiation damage in CMOS sensors.
 
 `lute-remote` therefore keeps Lute on `127.0.0.1` and has the Tailscale
 daemon proxy it, so it is reachable from your other devices and invisible
