@@ -10,7 +10,7 @@ Scenarios are hand-written, because which verb fits a situation is a
 judgement, not a fact anyone has tabulated. They are the part a
 dictionary cannot give you.
 
-usage: verb-data.py --irregular anki/content/irregular.json --out web/data/verbs.json
+usage: verb-data.py --irregular anki/content/irregular.json --out docs/data/verbs.json
 """
 import argparse
 import json

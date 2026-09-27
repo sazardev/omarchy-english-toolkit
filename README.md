@@ -329,6 +329,46 @@ python3 -m venv .venv && .venv/bin/pip install genanki
 
 Edit the chapter modules in `anki/content/` to add or change material.
 
+## The verb reference site
+
+**[sazardev.github.io/omarchy-english-toolkit](https://sazardev.github.io/omarchy-english-toolkit/)**
+
+A static page, no framework, no build step, works offline.
+
+- **415 irregular verbs**, all four forms, with meanings from Princeton
+  WordNet
+- **The six regular rules** and a table of which rule fires for which verb
+- **34 situations**: which tense, which frame, which verbs fit, with
+  examples. This is the part a dictionary cannot give you, because which
+  verb fits a context is judgement, not a fact anyone has tabulated
+- **14 common mistakes** as wrong / right / why
+- **Speech on every form**, via the Web Speech API rather than audio
+  files. 415 verbs times four forms would be hundreds of megabytes to
+  host, and generated audio sounds worse than the system's own voices.
+- Geist served locally, 169 KB, so the page renders correctly on a cold
+  cache and with no network
+- `service worker`, so it opens offline
+
+The same data backs the terminal tool, so the site and the CLI can never
+disagree:
+
+```bash
+verbdef write       # one verb, all four forms
+verbdef -l          # list every base form
+verbdef -r          # the six regular-verb rules
+verbdef -s          # which verb fits which situation
+verbdef -t          # the common mistakes
+```
+
+Rebuild the dataset after changing `tools/verb-extra.json`:
+
+```bash
+uvx --from nltk --with pyyaml python tools/verb-data.py \
+  --irregular anki/content/irregular.json \
+  --extra tools/verb-extra.json \
+  --out docs/data/verbs.json
+```
+
 ## Layout
 
 ```
@@ -343,6 +383,11 @@ config/
 scripts/
   encheck                  grammar CLI wrapper
   enpractice               conversation practice with a local model
+docs/                        GitHub Pages site, served from here
+  index.html  style.css  app.js  sw.js
+  data/verbs.json              the master dataset
+  assets/geist.ttf
+
 anki/
   Ingles-Grammar-B1C2-EN.apkg   the deck
   build.py                 rebuild the deck

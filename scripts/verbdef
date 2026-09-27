@@ -20,9 +20,9 @@ find_json() {
   here="$(dirname "$(readlink -f "$0")")"
   for c in \
     "${VERBDEF_JSON:-}" \
-    "$here/../web/data/verbs.json" \
-    "$here/../../web/data/verbs.json" \
-    "$HOME/Work/omarchy-english-toolkit/web/data/verbs.json" \
+    "$here/../docs/data/verbs.json" \
+    "$here/../../docs/data/verbs.json" \
+    "$HOME/Work/omarchy-english-toolkit/docs/data/verbs.json" \
     "$HOME/.local/share/verbdef/verbs.json"
   do
     [[ -n "$c" && -f "$c" ]] && { printf '%s' "$c"; return 0; }
