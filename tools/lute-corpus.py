@@ -12,6 +12,7 @@ usage: lute-corpus.py fetch   <list.tsv> <raw-dir>
 """
 import re
 import sys
+import time
 import unicodedata
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
@@ -28,10 +29,12 @@ def read_list(path: Path):
     for line in path.read_text().splitlines():
         if not line.strip() or line.startswith("#"):
             continue
-        parts = line.split("\t")
-        if len(parts) >= 3:
-            rows.append((parts[0].strip(), parts[1].strip(), parts[2].strip(),
-                         parts[3].strip() if len(parts) > 3 else ""))
+        # id, level, kind, title, author - this order must match list.tsv
+        parts = [x.strip() for x in line.split("\t")]
+        if len(parts) >= 4:
+            gid, level, kind, title = parts[0], parts[1], parts[2], parts[3]
+            author = parts[4] if len(parts) > 4 else ""
+            rows.append((gid, level, kind, title, author))
     return rows
 
 
@@ -60,10 +63,11 @@ def titles_agree(actual: str, expected: str) -> bool:
     return hits >= max(1, min(len(a), len(e)) * 0.4)
 
 
-def fetch(gid: str, level: str, title: str, rawdir: Path):
+def fetch(gid: str, level: str, kind: str, title: str, author: str, rawdir: Path):
     dst = rawdir / f"{gid}.txt"
     if dst.exists() and dst.stat().st_size > 10000:
-        return gid, level, title, "cached", gutenberg_title(dst.read_text(errors="replace"))
+        return dict(id=gid, level=level, title=title, author=author, kind=kind,
+                    status="cached", actual=gutenberg_title(dst.read_text(errors="replace")))
     try:
         req = urllib.request.Request(PG.format(i=gid), headers=UA)
         with urllib.request.urlopen(req, timeout=90) as r:
@@ -172,21 +176,23 @@ def cmd_fetch(listfile, rawdir):
     rows = read_list(listfile)
     print(f"{B}Fetching {len(rows)} books from Project Gutenberg{O}\n")
     with ThreadPoolExecutor(max_workers=6) as ex:
-        results = list(ex.map(lambda r: fetch(r[0], r[1], r[2], rawdir), rows))
+        results = list(ex.map(lambda r: fetch(*r, rawdir), rows))
 
     good, bad = [], []
-    for gid, level, title, status, actual in results:
-        if status.startswith("fail"):
-            print(f"  {R}FAIL{O} {gid:>6}  {title}")
-            bad.append((gid, title, actual, "download failed"))
+    for r in results:
+        gid, title, actual = r["id"], r["title"], r["actual"]
+        if r["status"].startswith("fail"):
+            print(f"  {R}FAIL{O}     {gid:>6}  {title}  ({r['status']})")
+            bad.append((gid, title, actual, r["status"]))
             continue
         if not titles_agree(actual, title):
-            print(f"  {R}MISMATCH{O} {gid:>6}  asked '{title}' but the file is '{actual}'")
+            print(f"  {R}MISMATCH{O} {gid:>6}  wanted '{title}' but the file is '{actual}'")
             bad.append((gid, title, actual, "title mismatch"))
             continue
-        words = len(extract_body(rawdir.joinpath(f'{gid}.txt').read_text(errors='replace')).split())
-        print(f"  {G}OK{O}     {gid:>6}  [{level}] {title:44} {words:>7,} words")
-        good.append((gid, level, title, actual))
+        words = len(extract_body(rawdir.joinpath(f"{gid}.txt")
+                                 .read_text(errors="replace")).split())
+        print(f"  {G}OK{O}       {gid:>6}  [{r['level']} {r['kind']:10}] {title:38} {words:>7,}")
+        good.append(r)
     return good, bad
 
 
@@ -194,7 +200,7 @@ def cmd_clean(listfile, rawdir, outdir):
     outdir.mkdir(parents=True, exist_ok=True)
     print(f"{B}Cleaning into {outdir}{O}\n")
     ok = 0
-    for gid, level, title, author in read_list(listfile):
+    for gid, level, title, author, kind in read_list(listfile):
         src = rawdir / f"{gid}.txt"
         if not src.exists():
             print(f"  {R}MISS{O} {gid} {title}")
@@ -205,8 +211,9 @@ def cmd_clean(listfile, rawdir, outdir):
             print(f"  {Y}THIN{O} {gid} {title} ({words} words)")
             continue
         safe = re.sub(r"[^A-Za-z0-9]+", "-", title).strip("-")
-        (outdir / f"{level} - {safe}.txt").write_text(body, encoding="utf-8")
-        print(f"  {G}OK{O} [{level}] {title:44} {words:>7,} words")
+        prefix = f"{level} {kind}".strip()
+        (outdir / f"{prefix} - {safe}.txt").write_text(body, encoding="utf-8")
+        print(f"  {G}OK{O} [{prefix:14}] {title:38} {words:>7,} words")
         ok += 1
     print(f"\n{ok} books in {outdir}")
     return 0
@@ -223,7 +230,8 @@ def cmd_all(listfile, workdir):
     # clean only the verified set
     verified = workdir / "verified.tsv"
     verified.write_text("".join(
-        f"{gid}\t{lvl}\t{actual}\t\n" for gid, lvl, _t, actual in good))
+        f"{r['id']}\t{r['level']}\t{r['actual']}\t{r['author']}\t{r['kind']}\n"
+        for r in good))
     cmd_clean(verified, raw, out)
     return 0
 

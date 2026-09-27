@@ -191,6 +191,31 @@ Lute has **no `--host` flag**. It either binds `127.0.0.1` (`--local`) or
 no authentication, anyone on that network could read and edit your
 material.
 
+### The corpus
+
+80 public-domain English works are imported into Lute, tagged by reading
+level and by form so you can filter the shelf.
+
+| Level | Count | | Form | Count |
+|---|---|---|---|---|
+| B1 | 16 | | novel | 41 |
+| B2 | 30 | | poetry | 11 |
+| C1 | 28 | | stories | 11 |
+| C2 | 6 | | essay | 10 |
+| | | | epic, tales, drama | 15 |
+
+Poetry is deliberately in there and is worth using: it is the densest
+vocabulary per minute of reading, and a poem finishes in one sitting, so
+it is the easiest habit to keep.
+
+Build or extend it:
+
+```bash
+cd tools
+python3 lute-corpus.py all list.tsv ~/corpus    # download and clean
+python3 pgsearch.py author "doyle"              # look up IDs offline
+```
+
 `lute-remote` therefore keeps Lute on `127.0.0.1` and has the Tailscale
 daemon proxy it, so it is reachable from your other devices and invisible
 to every network Lute is not on. One-time setup:

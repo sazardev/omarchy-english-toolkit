@@ -1,30 +1,103 @@
-# gutenberg_id<TAB>level<TAB>title<TAB>author
-113	B1	The Secret Garden	Frances Hodgson Burnett
-11339	B1	Aesop's Fables	Aesop
-1450	B1	Pollyanna	Eleanor H. Porter
-55	B1	The Wonderful Wizard of Oz	L. Frank Baum
-289	B1	The Wind in the Willows	Kenneth Grahame
-16	B1	Peter Pan	J. M. Barrie
-215	B1	The Call of the Wild	Jack London
-45	B1	Anne of Green Gables	L. M. Montgomery
-1250	B2	Anthem	Ayn Rand
-74	B2	The Adventures of Tom Sawyer	Mark Twain
-120	B2	Treasure Island	Robert Louis Stevenson
-11	B2	Alice's Adventures in Wonderland	Lewis Carroll
-35	B2	The Time Machine	H. G. Wells
-103	B2	Around the World in Eighty Days	Jules Verne
-1661	B2	The Adventures of Sherlock Holmes	Arthur Conan Doyle
-1342	B2	Pride and Prejudice	Jane Austen
-43	B2	The Strange Case of Dr. Jekyll and Mr. Hyde	Robert Louis Stevenson
-2591	B2	Grimms' Fairy Tales	Jacob and Wilhelm Grimm
-1400	B2	Great Expectations	Charles Dickens
-98	B2	A Tale of Two Cities	Charles Dickens
-19942	B2	Candide	Voltaire
-1260	C1	Jane Eyre	Charlotte Bronte
-84	C1	Frankenstein	Mary Wollstonecraft Shelley
-345	C1	Dracula	Bram Stoker
-2542	C1	A Doll's House	Henrik Ibsen
-5230	C1	The Invisible Man	H. G. Wells
-5200	C1	Metamorphosis	Franz Kafka
-1080	C1	A Modest Proposal	Jonathan Swift
-5827	C1	The Problems of Philosophy	Ludwig Wittgenstein
+# gutenberg_id	level	kind	title	author
+#
+# Level is a reading-difficulty judgement, not a rating. Kind becomes a
+# Lute tag so the shelf filters by form as well as by level.
+#
+# Every download is verified against the Title: header inside the file by
+# lute-corpus.py, and anything that does not match is rejected rather
+# than imported under the wrong name. Getting an ID wrong is easy, as
+# 164 (Twenty Thousand Leagues, not Aesop) and 2701 (Moby Dick, not
+# Dracula) show, so the check is not optional.
+#
+# Add a book: look the ID up in the catalog first, then run
+#   python3 lute-corpus.py fetch list.tsv <dir>/raw
+# and let the verification tell you if you got it right.
+
+# ---------------------------------------------------------------- B1 fiction
+113	B1	novel	The Secret Garden	Frances Hodgson Burnett
+11339	B1	fables	Aesop's Fables	Aesop
+1450	B1	novel	Pollyanna	Eleanor H. Porter
+55	B1	novel	The Wonderful Wizard of Oz	L. Frank Baum
+289	B1	novel	The Wind in the Willows	Kenneth Grahame
+16	B1	novel	Peter Pan	J. M. Barrie
+215	B1	novel	The Call of the Wild	Jack London
+45	B1	novel	Anne of Green Gables	L. M. Montgomery
+236	B1	novel	The Jungle Book	Rudyard Kipling
+# ---------------------------------------------------------------- B1 tales
+7439	B1	tales	English Fairy Tales	Joseph Jacobs
+1597	B1	tales	Andersen's Fairy Tales	H. C. Andersen
+582	B1	tales	A Collection of Beatrix Potter Stories	Beatrix Potter
+1872	B1	childrens	The Red House Mystery	A. A. Milne
+2781	B1	childrens	Just So Stories	Rudyard Kipling
+12	B1	childrens	Through the Looking-Glass	Lewis Carroll
+# ---------------------------------------------------------------- B2 fiction
+1250	B2	novel	Anthem	Ayn Rand
+74	B2	novel	The Adventures of Tom Sawyer	Mark Twain
+120	B2	novel	Treasure Island	Robert Louis Stevenson
+11	B2	novel	Alice's Adventures in Wonderland	Lewis Carroll
+35	B2	novel	The Time Machine	H. G. Wells
+103	B2	novel	Around the World in Eighty Days	Jules Verne
+1342	B2	novel	Pride and Prejudice	Jane Austen
+43	B2	novel	The Strange Case of Dr. Jekyll and Mr. Hyde	Robert Louis Stevenson
+2591	B2	tales	Grimms' Fairy Tales	Jacob and Wilhelm Grimm
+1400	B2	novel	Great Expectations	Charles Dickens
+98	B2	novel	A Tale of Two Cities	Charles Dickens
+19942	B2	novel	Candide	Voltaire
+514	B2	novel	Little Women	Luisa May Alcott
+76	B2	novel	Adventures of Huckleberry Finn	Mark Twain
+86	B2	novel	A Connecticut Yankee in King Arthur's Court	Mark Twain
+2852	B2	stories	The Hound of the Baskervilles	Arthur Conan Doyle
+1661	B2	stories	The Adventures of Sherlock Holmes	Arthur Conan Doyle
+108	B2	stories	The Return of Sherlock Holmes	Arthur Conan Doyle
+126	B2	novel	The Poison Belt	Arthur Conan Doyle
+139	B2	novel	The Lost World	Arthur Conan Doyle
+204	B2	stories	The Innocence of Father Brown	G. K. Chesterton
+1858	B2	stories	Plain Tales from the Hills	Rudyard Kipling
+556	B2	stories	Rewards and Fairies	Rudyard Kipling
+# ---------------------------------------------------------------- B2 essays
+70	B2	essays	What Is Man? and Other Essays	Mark Twain
+2397	B2	autobiography	The Story of My Life	Helen Keller
+61622	B2	speech	The Discovery of Radium	Marie Curie
+102	B2	novel	The Tragedy of Pudd'nhead Wilson	Mark Twain
+# -------------------------------------------------------------------- C1
+1260	C1	novel	Jane Eyre	Charlotte Bronte
+84	C1	novel	Frankenstein	Mary Wollstonecraft Shelley
+345	C1	novel	Dracula	Bram Stoker
+5230	C1	novel	The Invisible Man	H. G. Wells
+5200	C1	novel	Metamorphosis	Franz Kafka
+1080	C1	essay	A Modest Proposal	Jonathan Swift
+2542	C1	drama	A Doll's House	Henrik Ibsen
+228	C1	epic	The Aeneid	Virgil
+1727	C1	epic	The Odyssey	Homer
+6130	C1	epic	The Iliad	Homer
+16328	C1	epic	Beowulf	Unknown
+730	C1	novel	Oliver Twist	Charles Dickens
+1184	C1	novel	The Count of Monte Cristo	Alexandre Dumas
+2701	C1	novel	Moby Dick	Herman Melville
+2145	C1	novel	Ben-Hur	Lew Wallace
+130	C1	essay	Orthodoxy	G. K. Chesterton
+470	C1	essay	Heretics	G. K. Chesterton
+# ---------------------------------------------------------------- C1 thought
+5827	C1	essay	The Problems of Philosophy	Ludwig Wittgenstein
+3600	C1	essays	Essays of Michel de Montaigne	Michel de Montaigne
+2680	C1	essay	Meditations	Marcus Aurelius
+1998	C1	novel	Thus Spake Zarathustra	Friedrich Nietzsche
+205	C1	essay	Walden	Henry David Thoreau
+71	C1	essay	On the Duty of Civil Disobedience	Henry David Thoreau
+1022	C1	essay	Walking	Henry David Thoreau
+2944	C1	essays	Essays: First Series	Ralph Waldo Emerson
+# -------------------------------------------------------------------- poetry
+1041	B2	poetry	Shakespeare's Sonnets	William Shakespeare
+1105	B2	poetry	The Sonnets	William Shakespeare
+136	B1	poetry	A Child's Garden of Verses	Robert Louis Stevenson
+1934	B2	poetry	Songs of Innocence and of Experience	William Blake
+574	C1	poetry	Poems of William Blake	William Blake
+1322	C1	poetry	Leaves of Grass	Walt Whitman
+2678	C2	poetry	Poems by Emily Dickinson	Emily Dickinson
+2679	C2	poetry	Poems by Emily Dickinson, Series Two	Emily Dickinson
+2002	B2	poetry	Sonnets from the Portuguese	Elizabeth Barrett Browning
+323	C2	poetry	Verses 1889-1896	Rudyard Kipling
+1062	C1	poetry	Poems and Tales of Edgar Allan Poe	Edgar Allan Poe
+1063	C2	stories	The Cask of Amontillado	Edgar Allan Poe
+1064	C2	stories	The Masque of the Red Death	Edgar Allan Poe
+932	C2	stories	The Fall of the House of Usher	Edgar Allan Poe

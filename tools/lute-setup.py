@@ -15,6 +15,7 @@ subcommands
 """
 import csv
 import io
+import os
 import sys
 from pathlib import Path
 
@@ -42,9 +43,17 @@ def app_ctx():
 
 def importable():
     """Fail early with a clear message if Lute is running."""
-    import subprocess
-    if subprocess.run(["pgrep", "-f", "bin/lute"], capture_output=True).returncode == 0:
-        print(f"  {R}error:{O} Lute is running. Stop it:  lute-remote --stop", file=sys.stderr)
+    # pgrep is useless here: the `timeout …/bin/python lute-setup.py`
+    # wrapper this script runs under has the same substring in its command
+    # line, so pgrep always reports a false positive. Ask the port instead.
+    import socket
+    with socket.socket() as s_:
+        s_.settimeout(1.5)
+        listening = s_.connect_ex(("127.0.0.1", 5001)) == 0
+    if listening:
+        print(f"  {R}error:{O} Lute is running and holding the database.",
+              file=sys.stderr)
+        print(f"         Stop it with:  lute-remote --stop", file=sys.stderr)
         sys.exit(1)
 
 
@@ -128,14 +137,21 @@ def cmd_corpus(cleandir: Path) -> int:
                        lineterminator="\n")
     w.writeheader()
     for f in files:
-        level, _, title = f.stem.partition(" - ")
-        level = (level.strip().upper() or "B2")
+        # filenames are "LEVEL kind - Title", so the level and the form
+        # both survive into the tags
+        stem = f.stem
+        head, sep, title = stem.partition(" - ")
+        if not sep:
+            head, title = "", stem
+        bits = head.split() if head else []
+        level = next((b.upper() for b in bits if b.upper() in ("B1", "B2", "C1", "C2")), "B2")
+        kind = next((b for b in bits if b.upper() != level), "general")
         nice = " ".join(title.replace("-", " ").split())
         w.writerow({
             "title": nice,
             "text": f.read_text(encoding="utf-8", errors="replace"),
             "language": L2,
-            "tags": f"gutenberg,graded,{level}",
+            "tags": f"gutenberg,graded,{level},{kind}",
             "url": "https://www.gutenberg.org/",
         })
 
