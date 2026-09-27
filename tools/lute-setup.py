@@ -151,7 +151,8 @@ def cmd_corpus(cleandir: Path) -> int:
             "title": nice,
             "text": f.read_text(encoding="utf-8", errors="replace"),
             "language": L2,
-            "tags": f"gutenberg,graded,{level},{kind}",
+            "tags": (f"gutenberg," if kind != "verbs" else "")
+                    + f"graded,{level},{kind}",
             "url": "https://www.gutenberg.org/",
         })
 
