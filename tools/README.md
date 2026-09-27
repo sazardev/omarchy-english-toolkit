@@ -51,6 +51,50 @@ lute-remote
 It uses Lute's models and services rather than raw SQL, so the schema is
 never guessed at.
 
+## irregular-verbs.py
+
+Builds the complete irregular verb table from Wiktionary, into
+`anki/content/irregular.json`.
+
+```bash
+python3 irregular-verbs.py --out ../anki/content/irregular.json --categories
+```
+
+Two sources, because neither alone is enough:
+
+- **Appendix:English irregular verbs** gives the forms, including the
+  prefixed variants: *forbear / forbore / forborne*, *overbear*, and so
+  on, which are real English verbs.
+- **Category:English irregular verbs** and its four subcategories give the
+  curated list of *which* verbs are irregular, so typos and coinages do
+  not get in.
+
+Result: 415 verbs, all three forms each. Modals are deliberately not
+included; they follow their own patterns and are chapter 05 of the deck.
+
+The appendix is wikitext, so it is parsed with a small state machine
+rather than a regex. Two things that cost time and are worth knowing:
+
+- the italic marker opening a table cell is a **pair** of apostrophes, so
+  matching four finds nothing at all
+- the cell may contain a comment, and comments contain apostrophes, so
+  comments have to be stripped *before* matching
+
+## Why the -ing form needs its own function
+
+Deriving `-ing` is not one rule, it is four, tested in this order:
+
+1. ends in `ie` -> `ying` (lie -> lying)
+2. ends in consonant + `y` -> `ying` (study -> studying)
+3. ends in `e` -> drop the `e` (abide -> abiding, come -> coming)
+4. consonant-vowel-consonant -> double (stop -> stopping)
+
+Order matters: testing the doubling rule before the `-e` rule turns
+*like* into *liking* and *come* into *comming*. And the doubling rule
+only fires when the last syllable is stressed, which is why *open* needs
+an exception rather than the rule: it looks like CVC but the stress is on
+the first syllable.
+
 ## Why csv.field_size_limit is raised
 
 Lute's CSV importer uses the stdlib `csv` module, whose default field

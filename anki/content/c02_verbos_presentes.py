@@ -257,9 +257,10 @@ tabla(DS, ["Base", "3rd person (-s)", "Past", "Past participle", "-ing", "Meanin
       ["wear", "wears", "wore", "worn", "wearing", "wear"],
       ["win", "wins", "won", "won", "winning", "win"],
       ["write", "writes", "wrote", "written", "writing", "write"]],
-     titulo="The 50 irregular verbs you must memorise",
+     titulo="The 50 irregular verbs you must memorise first",
      nivel="B1",
-     nota=ul("Regular verbs only need <b>-ed</b>. Irregular ones need full "
+     nota=ul("These 50 come first. The <b>complete list</b> of 415 irregular verbs, with all three forms, is in <b>16 Irregular Verbs</b>, and regular verbs are produced by six rules in <b>24 Regular Verbs</b>.",
+     "Regular verbs only need <b>-ed</b>. Irregular ones need full "
              "memorising, but the <b>-ed</b> and <b>-ing</b> follow the "
              "pattern: <i>stop → stopped → stopping</i>.",
              "The 3rd person <b>-s</b> is always regular: "

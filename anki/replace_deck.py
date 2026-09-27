@@ -1,10 +1,10 @@
 """Reemplaza el mazo de Ingles en tu perfil de Anki por la version 100% ingles.
 
- borra los mazos antiguos (los que empiezan por 01..23 o 'Ingles') y
+ borra los mazos antiguos (los que empiezan por 01..25 o 'Ingles') y
 importa el .apkg nuevo.  Deja intacto el resto (p.ej. 'Algebra Lab').
 
 USA ESTO solo con Anki CERRADO.
-Uso:  .venv/bin/python replace_deck.py
+Uso:  .venv/bin/python replace_deck.py [ruta.apkg]
 """
 
 import os
@@ -15,10 +15,13 @@ import time
 
 PROFILE = os.path.expanduser("~/.local/share/Anki2/User 1")
 COLLECTION = os.path.join(PROFILE, "collection.anki2")
-APKG = os.path.expanduser("~/Work/anki-english/Ingles-Grammar-B1C2-EN.apkg")
+APKG = (sys.argv[1] if len(sys.argv) > 1
+        else os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                         "Ingles-Grammar-B1C2-EN.apkg"))
 
 # prefijos de los mazos antiguos (en espanol) que hay que eliminar
-OLD_PREFIXES = tuple(f"{i:02d} " for i in range(1, 24)) + ("Ingles",)
+# the deck now runs to chapter 25
+OLD_PREFIXES = tuple(f"{i:02d} " for i in range(1, 26)) + ("Ingles",)
 
 
 def anki_running():

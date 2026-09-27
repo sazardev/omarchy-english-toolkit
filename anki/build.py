@@ -41,6 +41,8 @@ MODULES = [
     "c21_conjugacion",
     "c22_reported_speech",
     "c23_trampas",
+    "c24_regulares",
+    "c25_referencia",
 ]
 
 
